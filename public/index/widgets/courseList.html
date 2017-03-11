@@ -1,0 +1,82 @@
+<template>
+    <div class="course-item-header row-divider hidden-sm hidden-xs">
+        <div class="row">
+            <div class="col-title col-md-4 col-sm-6"><strong>课程名称</strong></div>
+            <div class="col-meta col-md-8 col-sm-6">
+                <div class="row">
+                    <div class="col-lecturer col-md-3"><strong>课程讲师</strong></div>
+                    <div class="col-amount col-md-3"><strong>课程数量</strong></div>
+                    <div class="col-duration col-md-3"><strong>课程时长</strong></div>
+                    <div class="col-level col-md-3"><strong>难度</strong></div>
+                </div>
+            </div><!--//col-meta-->
+        </div><!---//row-->
+    </div><!--//course-item-header-->
+    <article class="course-item row-divider change-course">
+        <div class="details row">
+            <div class="col-title col-md-4 col-sm-6">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-meta col-md-8 col-sm-6">
+                <div class="row">
+                    <div class="col-lecturer col-md-3"><input type="text" class="form-control"></div>
+                    <div class="col-amount col-md-3"><input type="text" class="form-control"></div>
+                    <div class="col-duration col-md-3"><input type="text" class="form-control"></div>
+                    <div class="col-level col-md-3">
+                        <select class="form-control">
+                            <option>初级</option>
+                            <option>中级</option>
+                            <option>高级</option>
+                        </select>
+                    </div>
+                </div>
+            </div><!--//col-meta-->
+        </div><!--//details-->
+    </article><!--//course-item-->
+</template>
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑课程列表");
+                var btn = $('<button type="button" class="btn btn-theme btn-custom">新增课程</button>');
+                btn.on('click',function(ev){
+                    var row = $(el).find('article:last').clone();
+                    $(row).find('input').val('');
+                    $(el).append(row);
+                });
+                btn.prependTo($(el).parents('.modal').find('.modal-footer'));
+                $(el).parents('.modal').one('hide.bs.modal',function(ev){
+                    //$(el).find('input').off('change',changeInput);
+                    // $(btn)[0].parentNode.removeChild($(btn)[0]);
+                    $(btn).remove();
+                });
+            },
+            save:function(){
+//                var cName = $(el).siblings(".modal-header").attr("data-cname");
+//                console.log(cName);
+                //alert(this.init);
+
+                var list = [];
+                $(el).find('article').each(function(){
+                    console.log($(this).find("option:selected").html());
+                    list.push({coursetit:$(this).find('.col-title input').val(),courselect:$(this).find('.col-lecturer input').val(),courseamount:$(this).find(".col-amount input").val(),courseduration:$(this).find(".col-duration input").val(),courselevel:$(this).find("option:selected").html()});
+                });
+                console.log(list);
+                params['data']['courseList'] = list;
+                Widget.renderFile('index/blocks/courseList.ejs', params, $('[blockid=courseList]'));
+//                $.ajax({
+//                    method:'put',
+//                    url:'/data/course/courseList',
+//                    data:JSON.stringify(list),
+//                    contentType:'application/json',
+//                    success:function(resp){
+//                        //alert(resp);
+//                        $(el).parents('.modal').modal('hide');
+//                    }
+//                });
+            }
+        }
+    }
+</script>

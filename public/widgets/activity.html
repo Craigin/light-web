@@ -1,0 +1,46 @@
+<template id="hello">
+    <%data.activity.forEach(function(item){%>
+    <div class="activity-item">
+            <div class="row">
+                <p>公告1</p>
+                <label class="col-sm-3"><input  value="<%=item.title%>"></label>
+                <div class="col-sm-8">
+                    <input class="form-control" value="<%=item.time%>" type="text">
+                </div>
+            </div>
+    </div>
+    <%})%>
+</template>
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                var btn = $('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>');
+                btn.on('click',function(ev){
+                    var row = $(el).find('.activity-item:last').clone();
+                    $(row).find('input').val('');
+                    $(row).appendTo($(el).find('.activity-item:last')[0].parentNode);
+                });
+                btn.appendTo($(el).parents('.modal').find('.modal-footer'));
+            },
+            save:function(){
+                var list = [];
+                $(el).find('.row').each(function(i,n){
+                    list.push({title:$(n).find('input:first').val(),time:$(n).find('input:last').val()});
+                });
+                params['data']['activity'] =  list;
+                Widget.renderFile('/blocks/activity.ejs', params, $('[blockid=activity]'));
+                $.ajax({
+                    method:'put',
+                    url:'/data/index/activity',
+                    data:JSON.stringify(list),
+                    contentType:'application/json',
+                    success:function(resp){
+                        alert(resp);
+                    }
+                });
+            }
+        }
+    }
+</script>

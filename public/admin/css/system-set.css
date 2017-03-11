@@ -1,0 +1,6 @@
+.handle-box button{    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #676a6c;}
+.del-user button:first-of-type,.reset-pw button:first-of-type{background: #6F7A9F;color: #fff}
+.del-user button:last-of-type,.reset-pw button:last-of-type{background:#fff;color:#6F7A9F}

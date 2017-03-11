@@ -1,0 +1,103 @@
+<template>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title" id="gridModalLabel">选择视频</h4>
+</div>
+<div class="modal-body page-wrapper" style="overflow: hidden;">
+    <aside class="page-sidebar col-md-2 col-sm-4 affix-top">
+        <section class="widget">
+            <ul class="nav">
+                <li class="active"><a href="#">所有视频</a></li>
+                <!--<li><a href="#">目录1</a></li>-->
+                <!--<li><a href="#">目录2</a></li>-->
+            </ul>
+        </section><!--//widget-->
+    </aside><!--//page-sidebar-->
+    <div  class="Warehouse-wrapper col-md-10 col-sm-8" id="">
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-1.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-2.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-3.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-4.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-5.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-3.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-4.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-1.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-2.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-5.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-4.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-5.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-1.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-2.jpg">
+            <span>视频标题</span>
+        </div>
+        <div class="Warehouse-item col-sm-3">
+            <img src="/images/news/news-thumb-3.jpg">
+            <span>视频标题</span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <form>
+        <div class="upload-btn btn btn-theme">
+                <span><i class="glyphicon glyphicon-upload"></i>上传视频
+                </span>
+            <input type="file">
+        </div>
+    </form>
+    <button type="button" class="btn btn-theme">确定</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</div>
+</template>
+<script>
+    module.exports = function(){
+        return {
+            init:function(el,params,callback){
+                //$(el).parents('.modal').find('.modal-title').html(params['title']);
+                $(el).on('click','.delete',function(ev){
+                    $(this).parents('article').remove();
+
+                });
+            }
+        }
+    }
+</script>

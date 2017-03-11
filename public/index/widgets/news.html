@@ -1,0 +1,84 @@
+
+
+<template>
+    <%data.news.forEach(function(item){%>
+    <article class="news-item page-row has-divider clearfix row">
+        <figure class="thumb col-md-2 col-sm-3 col-xs-4">
+            <img class="img-responsive newPic" src="<%=item.url%>" alt=""/>
+            <span class="remarks">点击图片更换<br/>图片尺寸：100*100</span>
+        </figure>
+        <div class="details col-md-8 col-sm-7 col-xs-6">
+            <input class="form-control newTitle" type="text" value="<%=item.title%>">
+            <textarea class="form-control newDes" rows="4"><%=item.description%></textarea>
+            <span class="remarks">字数限制：字数不超过30个中文字符，超出的部分将以“...”代替</span>
+        </div>
+
+    </article><!--//news-item-->
+    <%})%>
+    <!--
+    <%for(var i =0;i<5;i++){%>
+    <div class="activity-item">
+        <div class="row">
+            <p>公告1</p>
+            <label class="col-sm-3"><input  value=""></label>
+            <div class="col-sm-8">
+                <input class="form-control" value="" type="text">
+            </div>
+        </div>
+    </div>
+    <%}%>-->
+</template>
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑新闻列表");
+                //$(el).find('.modal-footer').append($('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>'));
+
+//                var btn = $('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>');
+//                btn.on('click',function(ev){
+//                    var row = $(el).find('.activity-item:last').clone();
+//                    $(row).find('input').val('');
+//
+//                });
+//                btn.appendTo($(el).parents('.modal').find('.modal-footer'));
+//                $(el).parents('.modal').one('hide.bs.modal',function(ev){
+//                    // $(btn)[0].parentNode.removeChild($(btn)[0]);
+//                    $(btn).remove();
+//                });
+            },
+            save:function(){
+                // alert(this.init);
+                var list = [];
+                $(el).find('article').each(function(){
+                    list.push({title:$(this).find('.newTitle').val(),description:$(this).find('.newDes').val(),url:$(this).find('.newPic').attr('src')});
+                });
+                console.log(list);
+                params['data']['news'] =  list;
+                if(window.location.href.indexOf('news')>-1){
+                    Widget.renderFile('index/blocks/news-news.ejs', params, $('[blockid=news]'),function(){
+                        $('#news-carousel').carousel({interval: false});
+                    });
+                }else{
+                    Widget.renderFile('index/blocks/news.ejs', params, $('[blockid=news]'),function(){
+                        $('#news-carousel').carousel({interval: false});
+                    });
+                }
+
+                $.ajax({
+                    method:'put',
+                    url:'/data/index/news',
+                    data:JSON.stringify(list),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+                        $(el).parents('.modal').modal('hide');
+                    }
+                });
+            }
+        }
+    }
+</script>
+
+

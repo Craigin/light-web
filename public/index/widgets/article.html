@@ -1,0 +1,228 @@
+
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                var me = this;
+                $(el).find(".block-btn").remove();
+                $(el).css("border", "2px dashed #666");
+                $(el).find(".content").summernote({
+                    airPopover: [
+                        ['color', ['color']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['para', ['ul', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture']]
+                    ]
+                });
+                $(el).append('<ul class="handle-box"><li class="btn-save"><i class="fa fa-save"></i>保存</li><li class="btn-del"><i class="fa fa-trash-o"></i>删除</li><li class="btn-close"><i class="fa fa-times"></i>取消</li></ul>');
+//                $(el).css("overflow","hidden");
+
+                $(el).find('.btn-save').one('click',function(ev){
+                     me.save();
+                });
+                $(el).find('.btn-close').one('click',function(ev){
+                     me.close(true);
+                });
+
+
+                if($(el).parents('.blocklist').length>0 && $(el).siblings('.block').length>=6){
+
+                    $(el).find('.handle-box .btn-del').show();
+                    $(el).find('.btn-del').one('click',function (ev) {
+                        me.close(true);
+
+                        var type = $(el).attr('article-type')||'article';
+                        var articleId = $(el).attr('articleid');
+                        
+                        $.ajax({
+                            url:'/'+type+'/'+articleId,
+                            method:'delete',
+                            success:function () {
+                                
+                            }
+                        });
+
+                        if($(el).siblings('.block').length==0){
+                            $(el).attr('articleid','0');
+                            $(el).css('visibility','hidden');
+                        }else $(el).remove();
+                    });
+                }
+                $(el).find('[field]').each(function(i,n){
+                    if($(n).find('img').length>0){
+                        $(n).data('origin',$(n).find('img').attr('src'));
+                        return;
+                    }
+                    if($(n).find('[data-url]').length>0){
+                        $(n).data('origin',$(n).find('#con1').attr('data-url'));
+                        return;
+                    }
+                    if($(n).is('[date-field]')){
+                        $(n).data('origin',$(n).attr('date-field'));
+                        $(n).on('click',function (ev) {
+                            if(!$(n).data('DateTimePicker')) {
+                                $(this).append('<input type="hidden" class="datepickerinput">');
+                                $(this).datetimepicker({widgetParent:$(this),locale:'zh-cn'});
+                            }
+
+                            $(n).data('DateTimePicker').show();
+
+                            setTimeout(function () {
+                                $('body').one('click',function () {
+                                    $(n).data('DateTimePicker').hide();
+                                    var date = $(n).data('DateTimePicker').date().format($(n).attr('date-format')||'YYYY-MM-DD HH:mm:ss');
+                                    $(n).attr('date-field',date);
+                                    $(n).data('DateTimePicker').destroy();
+                                    $(n).find('.datepickerinput').remove();
+                                    if($(n).find('*').length==0){
+                                        $(n).html(date);
+                                    }
+                                    $(n).trigger('field.update',date);
+                                });
+                            },10);
+
+                            /*
+                            if($(this).find('*').length==0){
+                                alert('empty');
+                            }else{
+                                alert('not empty');
+                            }*/
+                          // alert('date pick');
+                        });
+                        return;
+                    }
+
+                    var html = $(n).html();
+                    $(n).data('origin',html);
+                    $(n).attr('contenteditable','true');
+                    //$(n).html('<input  value="'+html+'">');
+                });
+
+//                $(el).find('[field] img').on('click',function(){
+//                    var me=this;
+//                    ImageSelector.open(function(ret){
+//                        $(me).attr('src',ret.url);
+//                    });
+//                });
+
+
+                $(el).on('image.click',function(ev,img){
+                    ImageSelector.open(function(ret){
+//                        console.log(ret.url);
+                        $(img).attr('src',ret.url);
+                        $(el).find('#con1').attr('data-url','');
+                        $(el).find('[field=imgUrl]').show();
+                        $(el).find('#promote-video').hide();
+                    });
+                });
+
+                //temprary remove href attribue prevent link click
+                $(el).find('a').each(function(i,n){
+                    $(n).data('href',$(n).attr('href'));
+                    $(n).removeAttr('href');
+                });
+
+            },
+            save:function(){
+                var data={};
+                $(el).find('[field]').each(function(i,n){
+                    if($(n).find('img').length>0){
+                        data[$(n).attr('field')] = $(n).find('img').attr('src');
+                        return;
+                    }
+                    if($(n).find('[data-url]').length>0){
+                        data[$(n).attr('field')] = $(n).find('#con1').attr('data-url');
+                        return;
+                    }
+                    if($(n).is('[date-field]')){
+                        data[$(n).attr('field')] = $(n).attr('date-field');
+                        return ;
+                    }
+                    var html = $(n).html();
+                    data[$(n).attr('field')] = html;
+                    if (data[$(n).attr('field')].length == 0){
+                        $(n).html("&nbsp;");
+                    }else{
+                        $(n).html(html);
+                    }
+
+                });
+                if($(el).find(".content").length>0)
+                  data['content'] = $(el).find(".content").summernote('code');
+
+
+
+
+                var type = $(el).attr('article-type')||'article';
+                var articleId = $(el).attr('articleid');
+                var ret = {};
+                $(el).trigger('article-change',[articleId,data,ret]);
+                if(!ret['cancel']) {
+                   $.ajax({
+                       method: 'put',
+                       url: '/' + type + '/' + articleId,
+                       data: JSON.stringify(data),
+                       contentType: 'application/json',
+                       success: function (resp) {
+                           // alert(resp);
+                           $(el).trigger('article-sync', [resp]);
+                       }
+                   });
+               }
+               this.close();
+            },
+            close:function(cancel){
+                $(el).find('.handle-box,.overlay').remove();
+                $(el).css("border", "2px dashed transparent");
+                $(el).removeClass('editing');
+                $(el).data('initblock',false);
+                $(el).find('a').each(function(i,n){
+                    $(el).removeAttr('contenteditable');
+                    $(n).attr('href',$(n).data('href'));
+                    $(n).removeData('href');
+                });
+                $(el).find('[field]').removeAttr('contenteditable');
+                $(el).find('[date-field]').off('click');
+                $(el).find('[date-field] .datepickerinput').remove();
+                if(cancel){
+                    $(el).find('[field]').each(function(i,n){
+                        if($(n).find('img').length>0){
+                            $(n).find('img').attr('src',$(n).data('origin'));
+                            if($(n).data('origin')){
+                                $(n).siblings('#promote-video').hide();
+                                $(n).show();
+                            }
+                            return;
+                        }
+                        if($(n).find('[data-url]').length>0){
+                            $(n).find('#con1').attr('data-url',$(n).data('origin'));
+                            if($(n).data('origin')){
+                                $(n).siblings('[field=imgUrl]').hide();
+                                $(n).show();
+                                $(n).find('.sewise-video').data('sewise-player').toPlay($(n).data('origin'));
+                            }
+                            return;
+                        }
+                        if($(n).is('[date-field]')){
+                            $(n).attr('date-field',$(n).data('origin'));
+                            $(n).trigger('field.update',$(n).data('origin'));
+                            return;
+                        }
+                        if($(n).is('a')){
+                            $(n).attr('href',$(n).data('href'));
+                        }
+                        $(n).html($(n).data('origin'));
+                        $(n).attr('contenteditable','false');
+                    });
+                    $(el).find(".content").summernote('reset');
+                }
+                $(el).find(".content").summernote('destroy');
+                Widget.destroy(this.widgetId,this.index);
+            }
+        }
+    }
+</script>
+
+

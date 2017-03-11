@@ -1,0 +1,62 @@
+.media-tabs li a{    padding: 5px 20px!important;height: 50px;  line-height: 40px;}
+.media-tabs li a .delete-cat{  display: none;position: absolute;top: 16px;right:8px;cursor: pointer;}
+.media-tabs li.active a .delete-cat{display: block}
+.import-btn{
+    margin-right: 10px;
+    width: 128px;
+    line-height: 28px;
+}
+.input-box{padding:10px 20px}
+/* 导入方式增加微录播的样式 */
+.input {
+    width:250px;
+    line-height: 25px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border:1px solid #ccc;
+}
+.w100 {
+    width:100%;
+}
+.icon80x45 {
+    width: 80px;
+    height: 45px;
+}
+.mb20 {
+    margin-bottom: 20px;
+}
+.ml150 {
+    margin-left: 150px;
+}
+.importType {
+    width:255px;
+    outline: none;
+    border: 1px solid #ccc;
+    height: 25px;
+}
+.left_content,
+.right_content {
+    display: inline-block;
+    width: 47%;
+    margin-bottom: 15px;
+}
+.right_content {
+    text-align: right;
+    padding-right: 15px;
+}
+.left_content {
+    padding-left: 15px;
+}
+.box-container{
+    width: 1000px;
+    border-left: solid 1px #b5bbc3;
+    border-right: solid 1px #b5bbc3;
+    overflow: hidden;
+    color:#414141;
+}
+.common-tbody-tr {
+    height: 39px;
+    border-bottom: solid 1px #e4e4e4;
+    line-height: 36px;
+    background-color: #fff;
+}

@@ -1,0 +1,58 @@
+<template>
+    <%data.slides.forEach(function(item,i){%>
+
+    <article class="news-item page-row has-divider clearfix row" dataindex="<%=i%>">
+        <div class="thumb col-md-10 col-sm-10 col-xs-10">
+            <img class="img-responsive img-btn" src="<%=item.url%>" alt="" />
+            <span class="remarks">点击图片更换,图片尺寸：1140*350</span>
+        </div>
+
+    </article>
+
+    <%})%>
+</template>
+
+
+<script>
+    var copy=null;
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑轮播图");
+
+                $(el).on('click','.news-item',function(ev){
+                    var img =  $(this).find('img')[0];
+                    copy = pageData.slides.slice(0);
+                    var me = this;
+                    ImageSelector.open(function(result){
+                        copy[$(me).attr('dataindex')]['url']=result.url;
+                        img.src = result.url;
+                    });
+
+                });
+            },
+            save:function(){
+                // alert(this.init);
+                params.data.slides = copy;
+                Widget.renderFile('index/blocks/slide.ejs',params.data , $('[blockid=slide]'),function(){
+                   $('#promo-slider').data('flexslider',null);
+                   $('#promo-slider').flexslider({
+                       animation: "fade"
+                   });
+              });
+
+                $.ajax({
+                    method:'put',
+                    url:'/slide/index',
+                    data:JSON.stringify({content:copy}),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+
+                    }
+                });
+                $(el).parents('.modal').modal('hide');
+            }
+        }
+    }
+</script>

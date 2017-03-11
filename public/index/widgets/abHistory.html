@@ -1,0 +1,83 @@
+<template>
+    <% data.abHistory.forEach(function(item){%>
+    <div class="col-sm-8">
+        <h3>历任校长</h3>
+        <%item.pre.forEach(function(pre){%>
+        <p class="col-sm-6 his-pre">
+            <input type="text" class="form-control pre-name" value="<%=pre.name%>">
+            <input type="text" class="form-control pre-time" value="<%=pre.time%>">
+        </p>
+        <%})%>
+
+    </div>
+    <div class="col-sm-4">
+        <h3>历任党委书记</h3>
+        <%item.sec.forEach(function(sec){%>
+        <p class="his-sec">
+            <input type="text" class="form-control sec-name" value="<%=sec.name%>">
+            <input type="text" class="form-control sec-time" value="<%=sec.time%>">
+        </p>
+        <%})%>
+    </div>
+    <%})%>
+</template>
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑历任领导");
+                var btn1 = $('<button type="button" class="btn btn-theme btn-custom">新增历任校长</button>');
+                var btn2 = $('<button type="button" class="btn btn-theme btn-custom">新增历任党委书记</button>');
+                btn1.on('click',function(ev){
+                    var row1 = $(el).find('.his-pre:last').clone();
+                    $(row1).find('input').val('');
+                    $(el).find(".col-sm-8").append(row1);
+
+                });
+                btn2.on('click',function(ev){
+                    var row2 = $(el).find('.his-sec:last').clone();
+                    $(row2).find('input').val('');
+                    $(el).find(".col-sm-4").append(row2);
+                });
+                btn2.prependTo($(el).parents('.modal').find('.modal-footer'));
+                btn1.prependTo($(el).parents('.modal').find('.modal-footer'));
+                $(el).parents('.modal').one('hide.bs.modal',function(ev){
+                    //$(el).find('input').off('change',changeInput);
+                    // $(btn)[0].parentNode.removeChild($(btn)[0]);
+                    $(btn1).remove();
+                    $(btn2).remove();
+                });
+            },
+            save:function(){
+//                var cName = $(el).siblings(".modal-header").attr("data-cname");
+//                console.log(cName);
+                //alert(this.init);
+                var list = [];
+                var precontent = [];
+                var seccontent = [];
+
+                $(el).find('.his-pre').each(function(){
+                    precontent.push({name:$(this).find('.pre-name').val(),time:$(this).find('.pre-time').val()});
+                });
+                $(el).find('.his-sec').each(function(){
+                    seccontent.push({name:$(this).find('.sec-name').val(),time:$(this).find('.sec-time').val()});
+                });
+                list.push({pre:precontent,sec:seccontent});
+                console.log(list);
+                params['data']['abHistory'] = list;
+                Widget.renderFile('index/blocks/abHistory.ejs', params, $('[blockid=abHistory]'));
+                $.ajax({
+                    method:'put',
+                    url:'/data/aboutSC/abHistory',
+                    data:JSON.stringify(list),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+                        $(el).parents('.modal').modal('hide');
+                    }
+                });
+            }
+        }
+    }
+</script>

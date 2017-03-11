@@ -1,0 +1,62 @@
+<template>
+    <%data.telEmail.forEach(function(item){%>
+
+    <div class="phone">
+        <label class="col-sm-3"><i class="fa fa-phone"></i></label>
+        <div class="col-sm-7">
+            <input class="form-control tel-input" type="text" value="<%=item.tel%>">
+        </div>
+    </div>
+    <div class="email">
+        <label class="col-sm-3"><i class="fa fa-envelope"></i></label>
+        <div class="col-sm-7">
+            <input class="form-control email-input" type="text" value="<%=item.email%>">
+        </div>
+    </div>
+
+    <%})%>
+</template>
+
+
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑电话和邮箱");
+                //$(el).find('.modal-footer').append($('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>'));
+
+//                var btn = $('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>');
+//                btn.on('click',function(ev){
+//                    var row = $(el).find('.activity-item:last').clone();
+//                    $(row).find('input').val('');
+//
+//                });
+//                btn.appendTo($(el).parents('.modal').find('.modal-footer'));
+//                $(el).parents('.modal').one('hide.bs.modal',function(ev){
+//                    // $(btn)[0].parentNode.removeChild($(btn)[0]);
+//                    $(btn).remove();
+//                });
+            },
+            save:function(){
+                // alert(this.init);
+                var list = [];
+                if($(this).find('.tel-input').val()&&$(this).find('.email-input').val())
+                    list.push({tel:$(this).find('.tel-input').val(),email:$(this).find('.email-input').val()});
+                console.log(list);
+                params['data']['telEmail'] =  list;
+                Widget.renderFile('index/blocks/telEmail.ejs', params, $('[blockid=telEmail]'));
+                $.ajax({
+                    method:'put',
+                    url:'/data/index/telEmail',
+                    data:JSON.stringify(list),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+                        $(el).parents('.modal').modal('hide');
+                    }
+                });
+            }
+        }
+    }
+</script>

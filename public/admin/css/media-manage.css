@@ -1,0 +1,16 @@
+/***********视频剪辑模态框**************/
+.cutbox .modal-body{padding: 0}
+.cutbox .modal-body-header{height: 80px; }
+.cutbox .modal-body-header .btn-box{ text-align: center;height: 80px;line-height: 80px;}
+.cutbox .modal-body-player-box{    padding: 25px;background: #eee;}
+
+.vedio-item{background-color:#fff;height:60px;line-height:60px;border: 1px solid #3cc3ff;position:relative;}
+.vedio-item-selected{position:absolute;float:left;width:598px;height:58px;z-index: 25;border-left:1px solid #3cc3ff;border-right:1px solid #3cc3ff;background-color: #ccefff;}
+.shaft{width:15px;height:58px;background-color:#0daaef;z-index: 26;position: absolute;cursor: e-resize!important}
+.vedio-item.current .shaft{display: block;}
+.start-shaft{left:0px}
+.end-shaft{left:583px}
+.show-time{margin-top:60px;background-color:#D4D4D4;float:left;width:65px;height: 18px;padding-top:0px!important;line-height:18px;padding-top:60px;position: absolute;}
+.show-time.show-start{left:-50px}
+.show-time.show-end{left:584px}
+/***********视频剪辑模态框**************/

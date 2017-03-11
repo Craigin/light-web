@@ -1,0 +1,66 @@
+<template id="main">
+<div class="modal fade bs-example-modal Warehouse" id="img-selector-dlg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="gridModalLabel">选择图片</h4>
+            </div>
+            <div class="modal-body page-wrapper" style="overflow: hidden;">
+                <aside class="page-sidebar col-md-2 col-sm-4 affix-top">
+                    <section class="widget">
+                        <ul class="nav">
+                            <li class="active"><a href="#">所有图片</a></li>
+                        </ul>
+                    </section><!--//widget-->
+                </aside><!--//page-sidebar-->
+                <div  class="Warehouse-wrapper col-md-10 col-sm-8" >
+                    <%%images.forEach(function(image){%>
+                    <div class="Warehouse-item col-sm-3">
+                        <img src="image.src">
+                    </div>
+                    <%%})%>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form>
+                    <div class="upload-btn btn btn-theme">
+                <span><i class="glyphicon glyphicon-upload"></i>上传图片
+                </span>
+                        <input type="file">
+                    </div>
+                </form>
+                <button type="button" class="btn btn-theme">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
+
+<template id="image">
+    <%images.forEach(function(image){%>
+    <div class="Warehouse-item col-sm-3">
+        <img src="/images/news/news-thumb-1.jpg">
+    </div>
+    <%})%>
+</template>
+<script>
+    var data=[];
+    var refres=function(){
+
+    }
+    module.exports = function(){
+        return {
+            init:function(el,params){
+                if($('#img-selector-dlg').length==0)    $(templates['main']).appendTo($(body));
+            },
+            show:function(){
+               $('#img-selector-dlg').modal('show');
+            },
+            hide:function(){
+                $('#img-selector-dlg').modal('hide');
+            }
+        }
+    }
+</script>

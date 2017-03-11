@@ -1,0 +1,83 @@
+<template>
+    <%data.links.forEach(function(item){%>
+    <div class="activity-item">
+        <div class="col-sm-10">
+            <div class="row">
+                <label class="col-sm-3">链接标题</label>
+                <div class="col-sm-8">
+                    <input class="form-control linkTitle" type="text"  value="<%=item.title%>">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">链接地址</label>
+                <div class="col-sm-8">
+                    <input class="form-control linkUrl" type="text"  value="<%=item.url%>">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <%})%>
+
+    <%for(var i =0;i<10-data.links.length;i++){%>
+    <div class="activity-item">
+        <div class="col-sm-10">
+            <div class="row">
+                <label class="col-sm-3">链接标题</label>
+                <div class="col-sm-8">
+                    <input class="form-control linkTitle" type="text"  >
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">链接地址</label>
+                <div class="col-sm-8">
+                    <input class="form-control linkUrl" type="text" >
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <%}%>
+</template>
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑链接");
+                //$(el).find('.modal-footer').append($('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>'));
+
+//                var btn = $('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>');
+//                btn.on('click',function(ev){
+//                    var row = $(el).find('.activity-item:last').clone();
+//                    $(row).find('input').val('');
+//                });
+//                btn.appendTo($(el).parents('.modal').find('.modal-footer'));
+//                $(el).parents('.modal').one('hide.bs.modal',function(ev){
+//                    // $(btn)[0].parentNode.removeChild($(btn)[0]);
+//                    $(btn).remove();
+//                });
+            },
+            save:function(){
+                // alert(this.init);
+                var list = [];
+                $(el).find('.activity-item').each(function(){
+                    if($(this).find('.linkTitle').val()&&$(this).find('.linkUrl').val())
+                        list.push({title:$(this).find('.linkTitle').val(),url:$(this).find('.linkUrl').val()});
+                });
+                params.links =  list;
+                Widget.renderFile('index/blocks/links.ejs', params, $('[blockid=links]'));
+                $.ajax({
+                    method:'put',
+                    url:'/slide/links',
+                    data:JSON.stringify({content:list}),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+                        $(el).parents('.modal').modal('hide');
+                    }
+                });
+            }
+        }
+    }
+</script>

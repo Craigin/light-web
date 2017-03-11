@@ -1,0 +1,75 @@
+
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                //alert("Bb");
+
+                $(el).find(".btn-setting").hide();
+                $(el).css("border-color","transparent");
+                $(el).find(".content").summernote({
+                    toolbar: [
+                        // [groupName, [list of button]]
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['fontsize', ['fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']]
+                    ]
+                });
+                $(el).unbind("mouseenter").unbind("mouseleave");
+                $(el).append('<button class="btn btn-default btn-add btn-close">取消</button><button class="btn btn-theme btn-add btn-save">保存</button>');
+                $(el).css("overflow","hidden");
+//                $('.note-editable').html('13213340');
+                $('.btn-save').one('click',function(ev){
+                    $(this).parents('.block').trigger('save.bs.modal');
+                });
+                $('.btn-close').one('click',function(ev){
+                    $(this).parents('.block').trigger('destroy.bs.modal');
+                });
+
+            },
+            save:function(){
+                $(el).hover(function() {
+                    $(el).css("border-color", "#AD62FF");
+                    $(el).find(".btn-setting").show();
+                },function(){
+                    $(el).css("border-color","transparent");
+                    $(el).find(".btn-setting").hide();
+                })
+//                console.log(params.articleid);
+//
+//
+//                //params['content']= list;
+//                console.log(list);
+//                console.log(params);
+//                console.log(JSON.parse(params));
+                $(el).find('.btn').remove();
+                var list = $(el).find(".content").summernote('code');
+
+
+                $.ajax({
+                    method:'put',
+                    url:'/data/'+params.articleid+'/data',
+                    data:JSON.stringify({content:list}),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+                        //$(el).parents('.modal').modal('hide');
+                    }
+                });
+                $(el).data('initblock',false);
+                console.log($(el));
+                console.log(this);
+                console.log(this.widgetId,this.index);
+                Widget.destroy(this.widgetId,this.index);
+               // alert($(el).find(".content").summernote);
+                $(el).find(".content").summernote('destroy');
+            }
+        }
+    }
+</script>
+
+

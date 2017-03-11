@@ -1,0 +1,105 @@
+<template>
+<%if($(".modal-header").attr("tag-id") == "out1" ){%>
+    <% data.teacherout1.forEach(function(item){%>
+    <div class="row page-row teacher-out">
+        <div class="hd"><input type="text" class="form-control" value="<%=item.hd %>"></div>
+        <ul>
+            <%item.name.forEach(function(name){%>
+            <li class="teacher-person">
+                <input type="text" class="form-control" value="<%=name%>">
+            </li>
+            <%})%>
+        </ul>
+    </div>
+    <%})%>
+<%}%>
+    <%if($(".modal-header").attr("tag-id") == "out2" ){%>
+    <% data.teacherout2.forEach(function(item){%>
+    <div class="row page-row teacher-out">
+        <div class="hd"><input type="text" class="form-control" value="<%=item.hd %>"></div>
+        <ul>
+            <%item.name.forEach(function(name){%>
+            <li class="teacher-person">
+                <input type="text" class="form-control" value="<%=name%>">
+            </li>
+            <%})%>
+        </ul>
+    </div>
+    <%})%>
+    <%}%>
+    <%if($(".modal-header").attr("tag-id") == "out3" ){%>
+    <% data.teacherout3.forEach(function(item){%>
+    <div class="row page-row teacher-out">
+        <div class="hd"><input type="text" class="form-control" value="<%=item.hd %>"></div>
+        <ul>
+            <%item.name.forEach(function(name){%>
+            <li class="teacher-person">
+                <input type="text" class="form-control" value="<%=name%>">
+            </li>
+            <%})%>
+        </ul>
+    </div>
+    <%})%>
+    <%}%>
+</template>
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑杰出人才");
+                var btn = $('<button type="button" class="btn btn-theme btn-custom">新增人数</button>');
+                btn.on('click',function(ev){
+                    var row = $(el).find('li:last').clone();
+                    $(row).find('input').val('');
+                    $(row).find('textarea').val('');
+                    $(el).find("ul").append(row);
+
+                });
+                btn.prependTo($(el).parents('.modal').find('.modal-footer'));
+                $(el).parents('.modal').one('hide.bs.modal',function(ev){
+                    //$(el).find('input').off('change',changeInput);
+                    // $(btn)[0].parentNode.removeChild($(btn)[0]);
+                    $(btn).remove();
+                });
+            },
+            save:function(){
+//                var cName = $(el).siblings(".modal-header").attr("data-cname");
+//                console.log(cName);
+                //alert(this.init);
+                var list = [];
+                var name = [];
+                var tag = $(el).siblings(".modal-header").attr("tag-id");
+                list.push({hd:$(el).find(".hd input").val(),name:name})
+                $(el).find('.teacher-person').each(function(){
+                    name.push($(this).find("input").val());
+                });
+                console.log(list);
+                params['data']['teacher'+tag] = list;
+                if(tag == "out1"){
+                    console.log(tag);
+                    Widget.renderFile('index/blocks/teacherout1.ejs', params, $('[tagid=out1]'));
+                }
+                if(tag == "out2"){
+                    console.log(tag);
+                    Widget.renderFile('index/blocks/teacherout2.ejs', params, $('[tagid=out2]'));
+                }
+                if(tag == "out3"){
+                    console.log(tag);
+                    Widget.renderFile('index/blocks/teacherout3.ejs', params, $('[tagid=out3]'));
+                }
+
+                $.ajax({
+                    method:'put',
+                    url:'/data/teacher/teacher'+tag,
+                    data:JSON.stringify(list),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+                        $(el).parents('.modal').modal('hide');
+                    }
+                });
+            }
+        }
+    }
+</script>

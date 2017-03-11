@@ -1,0 +1,85 @@
+<template>
+    <%data.notices.forEach(function(item){%>
+    <div class="activity-item">
+        <div class="col-sm-10">
+            <div class="row">
+
+                <label class="col-sm-3">公告标题</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" value="<%=item.title%>" time="<%=item.time%>">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <%})%>
+    <%for(var i =0;i<10-data.notices.length;i++){%>
+    <div class="activity-item">
+        <div class="col-sm-10">
+            <div class="row">
+                <label class="col-sm-3">公告标题</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</template>
+<script>
+
+    module.exports=function(){
+        return {
+            init:function(el,params){
+                $(el).parents('.modal').find('.modal-title').html("编辑通知公告");
+                var date = new Date();
+                var month=String(date.getMonth()+1).length<2?'0'+(date.getMonth()+1):date.getMonth()+1;       //获取当前月份(0-11,0代表1月)
+               // alert(month);
+                var day=date.getDate();
+                var time=month+'.'+day;
+                //$(el).find('.modal-footer').append($('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>'));
+                function changeInput(){
+                    if(!$(this).attr('mark')) {
+                        $(this).attr('mark', 'change');
+                        $(this).attr('time',time);
+                    }
+
+                }
+                $(el).find('input').on('change',changeInput);
+//                var btn = $('<button type="button" class="btn btn-theme btn-custom">自定义按钮</button>');
+//                btn.on('click',function(ev){
+//                    var row = $(el).find('.activity-item:last').clone();
+//                    $(row).find('input').val('');
+//
+//                });
+//                btn.appendTo($(el).parents('.modal').find('.modal-footer'));
+//                $(el).parents('.modal').one('hide.bs.modal',function(ev){
+//                    $(el).find('input').off('change',changeInput);
+//                   // $(btn)[0].parentNode.removeChild($(btn)[0]);
+//                    $(btn).remove();
+//                });
+            },
+            save:function(){
+                //alert(this.init);
+                var list = [];
+                $(el).find('.row').each(function(i,n){
+                    list.push({title:$(n).find('input').val(),time:$(n).find('input').attr('time')});
+                });
+                params['data']['notices'] =  list;
+                Widget.renderFile('index/blocks/notices.ejs', params, $('[blockid=notices]'));
+                $.ajax({
+                    method:'put',
+                    url:'/data/index/notices',
+                    data:JSON.stringify(list),
+                    contentType:'application/json',
+                    success:function(resp){
+                        //alert(resp);
+                        $(el).parents('.modal').modal('hide');
+                    }
+                });
+            }
+        }
+    }
+</script>

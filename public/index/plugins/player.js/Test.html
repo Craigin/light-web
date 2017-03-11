@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/jquery.min.js"></script>
+		<script src="sewise.player.min.js"></script>
+		<script>
+		     var m1="video/test.mp4";
+		     var m3="http://113.108.230.91:8080/data/userdata/vod/transcode/20485aee0fa8623c637c62c69c9505e2/20485aee0fa8623c637c62c69c9505e21/20485aee0fa8623c637c62c69c9505e22/20485aee0fa8623c637c62c69c9505e2.m3u8";
+			 var config={
+		    	elid:"con1",
+		    	autostart:true,
+		    	url:m1,
+		    	skin:"vodWhite"
+		    };
+		     $(document).ready(dowReady);
+		    
+		    var player;
+		    function dowReady(){
+		       player=new Sewise.SewisePlayer(config);
+		      
+			   player.startup();
+			   
+		    }
+		</script>
+	</head>
+	<body>
+    <div id="con1" style="width: 600px;height:300px;">
+      
+    </div>
+
+	</body>
+</html>
