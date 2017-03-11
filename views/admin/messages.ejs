@@ -1,0 +1,207 @@
+<% include header.ejs %>
+
+			<!-- 
+				MIDDLE 
+			-->
+			<section id="middle">
+
+
+			
+
+
+				<div id="content" class="padding-20">
+
+					<div class="page-profile">
+
+						<div class="row">
+
+
+							<!-- COL 2 -->
+							<div class="col-md-8 col-lg-6">
+
+								<div class="tabs white nomargin-top">
+									<ul class="nav nav-tabs tabs-primary">
+										<li class="active">
+											<a href="#overview" data-toggle="tab">站内信</a>
+										</li>
+										<li>
+											<a href="#edit" data-toggle="tab">给视智云写信</a>
+										</li>
+									</ul>
+
+									<div class="tab-content">
+
+										<!-- Overview -->
+										<div id="overview" class="tab-pane active">
+
+											<form class="well">
+												<textarea rows="2" class="form-control" placeholder="有什么想法"></textarea>
+
+												<div class="margin-top-10">
+													<button type="submit" class="btn btn-sm btn-primary pull-right">发表</button>
+													<a href="#" class="btn btn-link profile-btn-link" data-toggle="tooltip" data-placement="bottom" title="Add a Location"><i class="fa fa-map-marker"></i></a>
+													<a href="#" class="btn btn-link profile-btn-link" data-toggle="tooltip" data-placement="bottom" title="Add Photo"><i class="fa fa-camera"></i></a>
+													<a href="#" class="btn btn-link profile-btn-link" data-toggle="tooltip" data-placement="bottom" title="Add File"><i class="fa fa-file"></i></a>
+												</div>
+											</form>
+
+											<hr class="invisible half-margins" />
+
+											<!-- COMMENT -->
+											<ul class="comment list-unstyled">
+												<li class="comment">
+
+													<!-- avatar -->
+													<img class="avatar" src="/admin/images/demo/thumb/small3.jpg" width="50" height="50" alt="avatar" />
+
+													<!-- comment body -->
+													<div class="comment-body"> 
+														<a href="#" class="comment-author">
+															<small class="text-muted pull-right"> 12分钟以前 </small>
+															<span>丽萨</span>
+														</a>
+														<p>
+															Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
+															euismod tincidunt laoreet dolore magna aliquam tincidunt erat volutpat laoreet 
+															dolore magna aliquam tincidunt erat volutpat.  
+														</p>
+													</div><!-- /comment body -->
+
+													<!-- options -->
+													<ul class="list-inline size-11 margin-top-10">
+														<li>
+															<a href="#" class="text-info"><i class="fa fa-reply"></i> 回复</a>
+														</li>
+														<li>
+															<a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞</a>
+														</li>
+														<li>
+															<a href="#" class="text-muted">显示所有评论(36)</a>
+														</li>
+														<li class="pull-right">
+															<a href="#" class="text-danger">删除</a>
+														</li>
+														<li class="pull-right">
+															<a href="#" class="text-primary">编辑</a>
+														</li>
+													</ul>
+												</li><!-- /options -->
+
+												<li class="comment comment-reply">
+
+													<!-- avatar -->
+													<img class="avatar" src="/admin/images/demo/thumb/small1.jpg" width="35" height="35" alt="avatar" />
+
+													<!-- comment body -->
+													<div class="comment-body"> 
+														<a href="#" class="comment-author">
+															<small class="text-muted pull-right"> 4分钟前 </small>
+															<span>罗纳</span>
+														</a>
+														<p>
+															Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy! <i class="fa fa-smile-o green"></i> 
+														</p>
+													</div><!-- /comment body -->
+
+													<!-- options -->
+													<ul class="list-inline size-11">
+														<li>
+															<a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞</a>
+														</li>
+														<li class="pull-right">
+															<a href="#" class="text-danger">删除</a>
+														</li>
+														<li class="pull-right">
+															<a href="#" class="text-primary">编辑</a>
+														</li>
+													</ul><!-- /options -->
+
+												</li>
+
+												<li class="comment comment-reply">
+
+													<!-- avatar -->
+													<img class="avatar" src="/admin/images/demo/thumb/small2.jpg" width="35" height="35" alt="avatar" />
+
+													<!-- comment body -->
+													<div class="comment-body"> 
+														<a href="#" class="comment-author">
+															<small class="text-muted pull-right"> 刚刚 </small>
+															<span>斯密斯</span>
+														</a>
+														<p>
+															Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy! <i class="fa fa-smile-o green"></i> 
+														</p>
+													</div><!-- /comment body -->
+
+													<!-- options -->
+													<ul class="list-inline size-11">
+														<li>
+															<a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞</a>
+														</li>
+														<li class="pull-right">
+															<a href="#" class="text-danger">删除</a>
+														</li>
+														<li class="pull-right">
+															<a href="#" class="text-primary">编辑</a>
+														</li>
+													</ul><!-- /options -->
+
+												</li>
+												<li>
+													<div class="input-group">
+														<input id="btn-input" type="text" class="form-control" placeholder="输入您的消息...">
+														<span class="input-group-btn">
+															<button class="btn btn-primary" id="btn-chat">
+																<i class="fa fa-reply"></i> 发送回复
+															</button> 
+														</span>
+													</div>
+												</li>
+											</ul>
+											<!-- /COMMENT -->
+
+										
+										</div>
+
+										<!-- Edit -->
+										<div id="edit" class="tab-pane">
+
+											<form class="well">
+												<textarea rows="2" class="form-control" placeholder="欢迎提出您的意见和建议"></textarea>
+
+												<div class="margin-top-10">
+													<button type="submit" class="btn btn-sm btn-primary pull-right">发送</button>
+													<a href="#" class="btn btn-link profile-btn-link" data-toggle="tooltip" data-placement="bottom" title="Add a Location"><i class="fa fa-map-marker"></i></a>
+													<a href="#" class="btn btn-link profile-btn-link" data-toggle="tooltip" data-placement="bottom" title="Add Photo"><i class="fa fa-camera"></i></a>
+													<a href="#" class="btn btn-link profile-btn-link" data-toggle="tooltip" data-placement="bottom" title="Add File"><i class="fa fa-file"></i></a>
+												</div>
+											</form>
+
+										</div>
+									</div>
+								</div>
+
+							</div><!-- /COL 2 -->
+
+
+						</div>
+
+					</div>
+
+				</div>
+			</section>
+			<!-- /MIDDLE -->
+
+		</div>
+
+
+
+	
+		<!-- JAVASCRIPT FILES -->
+		<script type="text/javascript">var plugin_path = '/admin/plugins/';</script>
+		<script type="text/javascript" src="/admin/plugins/jquery/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/admin/js/app.js"></script>
+
+	</body>
+</html>

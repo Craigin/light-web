@@ -1,0 +1,126 @@
+<% include ../head.ejs %>
+
+</head>
+
+<body>
+<div class="wrapper">
+    <!-- ******HEADER****** -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <!-- <ul class="social-icons col-md-6 col-sm-6 col-xs-12 hidden-xs">
+                    <li><a href="#" ><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-youtube"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-google-plus"></i></a></li>
+                    <li class="row-end"><a href="#" ><i class="fa fa-rss"></i></a></li>
+                </ul> --><!--//social-icons-->
+                <!--<form class="pull-right search-form" role="search">-->
+                    <!--<div class="form-group">-->
+                        <!--<input type="text" class="form-control" placeholder="输入关键字搜索...">-->
+                    <!--</div>-->
+                    <!--<button type="submit" class="btn btn-theme">Go</button>-->
+                <!--</form>-->
+
+                <h4>&nbsp;</h4>
+
+
+            </div>
+        </div><!--//to-bar-->
+        <div class="header-main container">
+            <h1 class="logo col-md-4 col-sm-4 block" data-toggle="modal" data-target=".Warehouse">
+                <a href="/"><img id="logo" src="/index/images/logo.png" alt="Logo"></a>
+            </h1><!--//logo-->
+            <div class="info col-md-8 col-sm-8 block" blockid="telEmail">
+                <!--% include blocks/telEmail.ejs %-->
+
+            </div><!--//info-->
+        </div><!--//header-main-->
+    </header><!--//header-->
+
+    <!-- ******NAV****** -->
+    <nav class="main-nav" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button><!--//nav-toggle-->
+            </div><!--//navbar-header-->
+            <div class="navbar-collapse collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class=" nav-item"><a href="/">首页</a></li>
+                    <li class="nav-item"><a href="/news">校园新闻</a></li>
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">学校概况 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/aboutSC-president">校长致辞</a></li>
+                            <li><a href="/aboutSC-general ">学校沿革</a></li>
+                            <li><a href="/aboutSC-history ">历任领导</a></li>
+                            <li><a href="/aboutSC-current ">现任领导</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="/faculty-setting ">院系设置</a></li>
+                    <li class="nav-item"><a href="/teacher-team ">师资队伍</a></li>
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">教育教学 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/edu-regular ">本科教育</a></li>
+                            <li><a href="/edu-graduate ">研究生教育</a></li>
+                            <li><a href="/course ">精品课程</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">校园活动 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/xiaoyuanhuodong-jiangzuo ">讲座论坛</a></li>
+                            <li><a href="/xiaoyuanhuodong-shetuan ">社团活动</a></li>
+                            <li><a href="/xiaoyuanhuodong-wenyi ">文艺演出</a></li>
+                            <li><a href="/xiaoyuanhuodong-tiyu ">体育竞技</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">图说校园 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-submenu">
+                                <a class="trigger" tabindex="-1" href="#">学习<i class="fa fa-angle-right"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a tabindex="-1" href="/tushuoxiaoyuan-xuexi ">科研活动</a></li>
+                                    <li><a href="/tushuoxiaoyuan-xuexi ">国际交流</a></li>
+                                    <li><a href="/tushuoxiaoyuan-xuexi ">学习体验</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="trigger" tabindex="-1" href="#">生活<i class="fa fa-angle-right"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a tabindex="-1" href="/tushuoxiaoyuan-shenghuo ">学习场所</a></li>
+                                    <li><a href="/tushuoxiaoyuan-shenghuo ">食堂掠影</a></li>
+                                    <li><a href="/tushuoxiaoyuan-shenghuo ">住宿环境</a></li>
+                                    <li><a href="/tushuoxiaoyuan-shenghuo ">运动场馆</a></li>
+                                    <li><a href="/tushuoxiaoyuan-shenghuo ">文化设施</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="trigger" tabindex="-1" href="#">成长<i class="fa fa-angle-right"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a tabindex="-1" href="/tushuoxiaoyuan-chengzhang ">学生社团</a></li>
+                                    <li><a href="/tushuoxiaoyuan-chengzhang ">社会实践</a></li>
+                                    <li><a href="/tushuoxiaoyuan-chengzhang ">课外科技</a></li>
+                                    <li><a href="/tushuoxiaoyuan-chengzhang ">创新创业</a></li>
+                                    <li><a href="/tushuoxiaoyuan-chengzhang ">志愿公益</a></li>
+                                    <li><a href="/tushuoxiaoyuan-chengzhang ">文艺活动</a></li>
+                                    <li><a href="/tushuoxiaoyuan-chengzhang ">体育活动</a></li>
+                                    <li><a href="/tushuoxiaoyuan-chengzhang ">讲座论坛</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="/jobs ">人才招聘</a></li>
+                    <li class="nav-item"><a href="/maker ">创客学院</a></li>
+                </ul><!--//nav-->
+            </div><!--//navabr-collapse-->
+        </div><!--//container-->
+    </nav><!--//main-nav-->

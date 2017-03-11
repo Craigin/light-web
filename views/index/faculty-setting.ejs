@@ -1,0 +1,27 @@
+<% include ../head.ejs %>
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <header class="page-heading clearfix">
+                    <h1 class="heading-title pull-left">院系设置</h1>
+                    <div class="breadcrumbs pull-right">
+                        <ul class="breadcrumbs-list">
+                            <li class="breadcrumbs-label">您在这里:</li>
+                            <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                            <li class="current">院系设置</li>
+                        </ul>
+                    </div><!--//breadcrumbs-->
+                </header> 
+                <div class="page-content">
+                    <div class="row page-row">
+                        <div class="news-wrapper col-md-12 col-sm-12 block nopop article" blockid="article" articleid="faculty" style="text-align: center;">
+                            <div class="content"><%-article.content%></div>
+                            <div class="facultyimg" field="imgUrl"><img data-size="最小宽度640" src="<%=article.imgUrl%>" > </div>
+                        </div><!--//news-wrapper-->
+                        
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+
+<% include footer.ejs %>

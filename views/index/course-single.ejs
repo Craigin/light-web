@@ -1,0 +1,92 @@
+<% include ../head.ejs %>
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <header class="page-heading clearfix">
+                    <h1 class="heading-title pull-left"><%=course.title%></h1>
+                </header> 
+                <div class="page-content">
+                    <div class="row page-row">
+                        <div class="news-wrapper col-md-8 col-sm-7">                         
+                            <article class="news-item">
+                                <!--<p class="meta text-muted">由: <a href="#">Admin</a> | 发布于: 2014年1月26日</p>-->
+                                <div class="section-content block" id="promote-video">
+                                    <div id="con1" style="width: 745px;height:420px; margin:0 auto;"  class="sewise-video"  data-url="<%=course.videourl||'novideo'%>"></div>
+                                </div>
+                                <br/>
+                                <div class="page-row box box-border">
+                                    <ul class="list-unstyled no-margin-bottom">
+                                        <li><strong>课程讲师:</strong> <%=course.lecturer%></li>
+                                        <li><strong>课程时长:</strong> <%=course.duration%></li>
+                                        <li><strong>课程级别:</strong> <%=course.level%></li>
+                                        <li id="docs-download" class="btn-small block"><strong>课程附件:</strong> <a href="<%=course.docurl%>" target="_blank"><%=course.docname%></a></li>
+                                    </ul>
+                                </div><!--//page-row-->
+                                <div class="block nopop article" blockid="article" article-type="course" articleid="<%=course._id%>">
+                                    <div class="page-row article-content content">
+                                       <%-course.content%>
+                                    </div>
+                                </div>
+
+                               
+                            </article><!--//news-item-->
+                        </div><!--//news-wrapper-->
+                        <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">                    
+                            <section class="widget has-divider other-course">
+                                <h3 class="title">其他课程</h3>
+                                <%courses.forEach(function(item,i){%>
+                                <%if(courses.length==1 && item._id==0) var visibility="hidden";%>
+                                <article  style="visibility: <%=visibility||'visible'%>" class="news-item row">
+                                    <figure class="thumb col-md-5 col-sm-5 col-xs-5">
+                                        <img src="<%=item.imgUrl%>" alt="">
+                                    </figure>
+                                    <div class="details col-md-7 col-sm-7 col-xs-7">
+                                        <h4 class="title"><a href="/course/<%=item._id%>"><%=item.title%></a></h4>
+                                        <span>讲师:<span ><%=item.lecturer%></span></span>
+                                    </div>
+                                </article><!--//news-item-->
+                                <%})%>
+                            </section><!--//widget-->
+                        </aside>
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+
+<script>
+    $('#promote-video').on('block.setting',function (ev) {
+        var me = this;
+
+        ImageSelector.open(function (result) {
+            $(me).find('.sewise-video').data('sewise-player').toPlay(result.videoUrl);
+            $.ajax({
+                method: 'put',
+                url: '/course/'+'<%=course._id%>',
+                data: JSON.stringify({videourl:result.videoUrl}),
+                contentType: 'application/json',
+                success: function (resp) {
+
+                }
+            });
+        },{type:2})
+    });
+    $('#docs-download').on('block.setting',function (ev) {
+        var me = this;
+        ImageSelector.open(function (result) {
+            $(me).find('a').attr('href',result.docUrl);
+            $(me).find('a').html(result.name);
+            $.ajax({
+                method: 'put',
+                url: '/course/'+'<%=course._id%>',
+                data: JSON.stringify({docname:result.name,docurl:result.docUrl}),
+                contentType: 'application/json',
+                success: function (resp) {
+
+                }
+            });
+        },{type:3})
+    });
+
+</script>
+
+<% include footer.ejs %>

@@ -1,0 +1,74 @@
+<% include ../head.ejs %>
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <header class="page-heading clearfix">
+                    <h1 class="heading-title pull-left">人才招聘</h1>
+                    <div class="breadcrumbs pull-right">
+                        <ul class="breadcrumbs-list">
+                            <li class="breadcrumbs-label">您在这里:</li>
+                            <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                            <li class="current">人才招聘</li>
+                        </ul>
+                    </div><!--//breadcrumbs-->
+                </header> 
+                <div class="page-content">
+                    <div class="row page-row">
+                        <div class="jobs-wrapper col-md-8 col-sm-7 blocklist">
+                            <%jobs.forEach(function(item,i){%>
+                            <%if(jobs.length==1 && item._id==0) var visibility="hidden";%>
+                            <div style="visibility: <%=visibility||'visible'%>" class=" block nopop article" blockid="article" article-type="jobs" articleid="<%=item._id%>">
+                                <div class="panel panel-default page-row ">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><strong>招聘岗位：</strong><a href="/job-single" field="title"><%=item.title%></a> </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <strong>岗位工作：</strong><span field="intro"><%=item.intro%></span>
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><strong>单位:</strong> <span field="workunit"><%=item.workunit%></span></li>
+                                        <li class="list-group-item"><strong>所需专业:</strong> <span field="major"><%=item.major%></span></li>
+                                        <li class="list-group-item"><strong>招聘人数:</strong> <span field="num"><%=item.num%></span></li>
+                                        <li class="list-group-item"><strong>有效期:</strong> <span field="time"><%=item.time%></span></li>
+                                        <li class="list-group-item"><strong>联系方式:</strong> <span field="email"><%=item.email%></span></li>
+                                    </ul>
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
+                                                <li><a href="/jobs/<%=item._id%>">查看明细</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div><!--//panel-->
+                            </div>
+                            <%})%>
+
+                                                                 
+                        </div><!--//jobs-wrapper-->
+                        <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">     
+                            <section class="widget">
+                                <h3 class="title">联系我们</h3>
+                                <div class="row">
+                                    <p class="adr clearfix col-md-12 col-sm-4">
+                                        <i class="fa fa-map-marker pull-left"></i>
+                                        <span class="adr-group pull-left">
+                                            <span class="street-address" field="address"><%-site_config.address%></span><br>
+                                            <span class="country-name" field="name"><%-site_config.name%></span>
+                                        </span>
+                                    </p>
+                                    <p class="tel col-md-12 col-sm-4"><i class="fa fa-phone"></i><span field="phone"><%=site_config.phone%></span></p>
+                                    <p class="email col-md-12 col-sm-4"><i class="fa fa-envelope"></i><span field="email"><%=site_config.email%></span></p>
+                                </div>
+                            </section><!--//widget-->
+                        </aside>
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+<script>
+    $(".block").on('article-sync',function(ev,resp){
+        $('.block').find('a').attr('href','/jobs/'+resp.new[0]._id);
+    });
+</script>
+
+<% include footer.ejs %>

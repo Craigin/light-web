@@ -1,0 +1,120 @@
+<!--模态框-->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="gridModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-theme btn-save">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--资源库-->
+<div class="modal fade bs-example-modal Warehouse" id="img-selector-dlg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="z-index: 9999;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" >选择图片</h4>
+            </div>
+            <div class="modal-body page-wrapper">
+                <aside class="page-sidebar col-md-2 col-sm-4 affix-top">
+                    <section class="widget">
+                        <ul class="nav">
+                            <%%categorys.forEach(function(category,i){%>
+                            <li dataindex="<%%=i%>" _id="<%%=category.id%>" ><a  href="#<%%=category.id%>" field="name"><%%=category.name%></a></li>
+                            <%%})%>
+                        </ul>
+                    </section><!--//widget-->
+                </aside><!--//page-sidebar-->
+                <div  class="Warehouse-wrapper col-md-10 col-sm-8 image-list">
+                    <%%images.forEach(function(image,i){%>
+
+                    <div dataindex=" <%%=image.dataIndex%>" _id="<%%=image._id%>" class="Warehouse-item col-xs-6 col-sm-3">
+
+                        <%%if(image.url){%><div class="modal-img-box"><img src="<%%=image.url%>"></div><%%}%>
+                        <p><%%=image.size%></p>
+
+
+                    </div>
+                    <%%})%>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="upload-outer"><input type="file" class="nice-upload" upload-url="/upload1" name="pic" accept="image/*"/></div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-theme">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Javascript -->
+
+<script type="text/javascript" src="/index/plugins/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/index/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/index/plugins/bootstrap-hover-dropdown.min.js"></script>
+<script type="text/javascript" src="/index/plugins/back-to-top.js"></script>
+<script type="text/javascript" src="/index/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+<script type="text/javascript" src="/index/plugins/pretty-photo/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="/index/plugins/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="/index/plugins/jflickrfeed/jflickrfeed.min.js"></script>
+<script type="text/javascript" src="/index/js/main.js"></script>
+<%if(user.edit==true){%>
+<script type="text/javascript" src="/index/js/block.js"></script>
+<%}%>
+<script type="text/javascript" src="/index/js/widget.js"></script>
+<script type="text/javascript" src="/index/js/imgselector.js"></script>
+<script type="text/javascript" src="/player/sewise.player.min.js"></script>
+<!--
+<script type="text/javascript" src="/player/player.js"></script>
+-->
+<script type="text/javascript" src="/index/js/scroll.js"></script>
+<script type="text/javascript" src="/index/js/moment-with-locales.js"></script>
+<script type="text/javascript" src="/index/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/index/js/toastr.js"></script>
+
+
+<script>
+
+    $(function () {
+
+        if($(window).width()<=768){
+            $("#con1").css("width",$(window).width()-64).css("height",$(this).width()*9/16);
+        }
+        $('.sewise-video').each(function (i,n) {
+            var playurl = $(n).attr('data-url') || '#';
+            var config={
+                elid:$(n),
+                autostart:false,
+                url:playurl,
+                skin:"vodLight"
+            };
+            player = new Sewise.SewisePlayer(config);
+            player.startup();
+            $(n).data('sewise-player',player);
+
+        });
+    });
+
+
+</script>
+</body>
+</html>

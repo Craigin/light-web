@@ -1,0 +1,14 @@
+<% data.abHistory.forEach(function(item){%>
+<div class="col-sm-8">
+    <h3>历任校长</h3>
+    <%item.pre.forEach(function(pre){%>
+    <p class="col-sm-6"><%=pre.name%><%=pre.time%></p>
+    <%})%>
+</div>
+<div class="col-sm-4">
+    <h3>历任党委书记</h3>
+    <%item.sec.forEach(function(sec){%>
+    <p><%=sec.name%><%=sec.time%></p>
+    <%})%>
+</div>
+<%})%>

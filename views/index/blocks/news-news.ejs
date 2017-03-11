@@ -1,0 +1,47 @@
+
+<%news.forEach(function(item,i){%>
+<%if(news.length==1 && item._id==0) var visibility="hidden";%>
+
+    <article style="visibility:<%=visibility||'visible'%>" class="news-item page-row has-divider clearfix row block nopop article" blockid="article" article-type="news" articleid="<%=item._id%>">
+        <figure class="thumb col-md-2 col-sm-3 col-xs-4 img" field="url">
+            <img class="img-responsive" data-size="100 * 100" src="<%=item.url%>" alt=""  />
+        </figure>
+        <div class="details col-md-10 col-sm-9 col-xs-8">
+            <h3 class="title" field="title"><%-item.title%></h3>
+            <span class="time"><%-item.time%></span>
+            <div field="description" style="margin-bottom:10px;min-height:40px;line-height: 20px;"><%-item.description%></div>
+            <a class="btn btn-theme read-more" href="/news/<%=item._id%>">更多<i class="fa fa-chevron-right"></i></a>
+        </div>
+    </article><!--//news-item-->
+
+<%})%>
+
+<script>
+//    $('.block').on('click','.block-btn li',function(){
+//        console.log($(this));
+//        $(this).parents(".block").find('span.time').hide();
+//    })
+//    $('.block').on('click','.handle-box li',function(){
+//        console.log($(this));
+//        $(this).parents().find('span.time').show();
+//    })
+
+    $(".block").on('article-sync',function(ev,resp){
+        $('.block').find('a').attr('href','/news/'+resp.new[0]._id);
+    });
+    $('.block').on('article-change',function(evt,id,data){
+        var date = new Date();
+        var year = date.getFullYear();
+        var month=String(date.getMonth()+1).length<2?'0'+(date.getMonth()+1):date.getMonth()+1;       //获取当前月份(0-11,0代表1月)
+        // alert(month);
+        var day=String(date.getDate()).length<2?'0'+(date.getDate()):date.getDate();
+        var hours = String(date.getHours()).length<2?'0'+(date.getHours()):date.getHours();
+        var minutes = String(date.getMinutes()).length<2?'0'+(date.getMinutes()):date.getMinutes();
+        var seconds = String(date.getSeconds()).length<2?'0'+(date.getSeconds()):date.getSeconds();
+        var time=year+'-'+month+'-'+day+' '+hours+':'+minutes+':'+seconds;
+        console.log(time);
+        //alert($(".type-nav").find("li.active").attr("typeid"));
+        data['time']=time;
+        $(this).find('span.time').html(time);
+    });
+</script>

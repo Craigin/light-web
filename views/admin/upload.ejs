@@ -1,0 +1,65 @@
+<%include header.ejs%>
+<section id="middle">
+    <form>
+        <div id="queue"></div>
+        <input id="file_upload" name="file_upload" type="file" multiple="true">
+        <a style="position: relative; top: 8px;" href="javascript:$('#file_upload').uploadifive('upload')">Upload Files</a>
+    </form>
+</section>
+</div>
+
+<!-- JAVASCRIPT FILES -->
+<script type="text/javascript">var plugin_path = '/admin/plugins/';</script>
+<script type="text/javascript" src="/admin/plugins/jquery/jquery-2.1.4.min.js"></script>
+<% include ../upload.ejs %>
+<script>
+    $(function() {
+        var time=new Date();
+        $('#file_upload').uploadifive({
+
+            'formData'     : {
+                'timestamp' :time,
+                'token'     : $.md5('unique_salt'+time),
+                //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+            },
+            'auto':true,
+            'queueID' : 'queue',
+            'successTimeout':99999,
+            'uploadScript': '/admin/testupload',
+            'onUploadComplete' : function(file, data) {
+                // alert('The file ' + file.name + ' was successfully uploaded with a response of:' + data);
+
+                if(data=='success'){
+                    alert("文件上传成功！");
+                };
+            },
+            'onAddQueueItem' : function(file){
+                //formData['dir']='1_1';
+                //$('#file_upload').uploadifive('setFormdata',$('.tab-content .tab-pane.active li.active').attr('cid'));
+                //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                var fileName = file.name;
+                var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                switch (ext.toLowerCase()) {
+                    case 'mp4':
+                    case 'mkv':
+                    case 'avi':
+                    case 'flv':
+                    case  'ts':
+                    case 'rmvb':
+                    case 'wmv':
+                    case 'mpg':
+                    case 'mov':
+                        //alert('filetype ok');
+                        $('.upload-bd').show();
+                        break;
+                    default:
+                        alert("文件格式不符合要求！");
+                        $('#file_upload').uploadifive('cancel', file);
+                        break;
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

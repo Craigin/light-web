@@ -1,0 +1,272 @@
+<% include ../head.ejs %>
+<!-- ******CONTENT****** -->
+<div class="content container">
+    <div class="page-wrapper">
+        <header class="page-heading clearfix">
+            <h1 class="heading-title pull-left">创客学院</h1>
+            <div class="breadcrumbs pull-right">
+                <ul class="breadcrumbs-list">
+                    <li class="breadcrumbs-label">您在这里:</li>
+                    <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                    <li class="current">创客学院</li>
+                </ul>
+            </div><!--//breadcrumbs-->
+        </header>
+        <div class="page-content">
+            <div class="row page-row">
+                <aside class="page-sidebar  col-md-2 col-sm-3 affix-top">
+                    <section class="widget">
+                        <ul class="nav">
+                            <li><a href="/">创客学院简介</a></li>
+                            <li><a href="/maker/production">开源硬件</a></li>
+                            <li class="active"><a href="/maker/video/2">教学视频</a></li>
+                        </ul>
+                    </section><!--//widget-->
+                </aside>
+                <div class="maker-wrapper col-md-10 col-sm-8">
+                    <div class="row">
+                        <p class="lead"><%=maker.title%></p>
+                        <div class="divider divider-center divider-color"><!-- divider -->
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <section>
+                        <div class="row video-play">
+                            <div class="video-box">
+                                <div class="video-main">
+                                    <div id="con1" style="width: 690px;height:392px;">
+
+                                    </div>
+                                </div>
+                                <div class="video-list">
+                                    <div class="video-list-hd">
+                                        <h3>其他产品</h3>
+                                    </div>
+                                    <div id="scrollbar1">
+                                        <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                                        <div class="viewport">
+                                            <div class="video-list-bd overview">
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/2">
+                                                            <img class="media-object" src="/index/images/no1.png" alt="">
+                                                            <div class="video-btn">
+                                                                <img src="assets/img/video-btn.png" alt="">
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/2">传感器套件</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">38939</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/3">
+                                                            <img class="media-object" src="/index/images/no2.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/3">Freakscar</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">3893</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/4">
+                                                            <img class="media-object" src="/index/images/no3.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/4">Arduino入门套件</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">839</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/5">
+                                                            <img class="media-object" src="/index/images/no4.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/5">Arduino高级套件</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">839</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/6">
+                                                            <img class="media-object" src="/index/images/no5.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/6">Bitkey 套件</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">8939</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/7">
+                                                            <img class="media-object" src="/index/images/no6.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/7">FreaksArm 套件</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">1839</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/8">
+                                                            <img class="media-object" src="/index/images/no7.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/8">展示套件</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">739</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/9">
+                                                            <img class="media-object" src="/index/images/no8.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/9">Freaksclock定时器套件</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">569</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/10">
+                                                            <img class="media-object" src="/index/images/no9.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/10">行星表秒</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">539</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/11">
+                                                            <img class="media-object" src="/index/images/no10.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/11">电子木工</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">3839</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="media video-list-box">
+                                                    <div class="media-left">
+                                                        <a href="/maker/video/12">
+                                                            <img class="media-object" src="/index/images/no11.png" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="/maker/video/12">自制快热电烙铁</a>
+                                                        </h4>
+                                                        <!--<div class="box-bottom">-->
+                                                            <!--<i class="fa fa-youtube-play"></i>-->
+                                                            <!--<span class="play">339</span>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div>
+                            <div class="page-row box box-border">
+                                <ul class="list-unstyled no-margin-bottom">
+                                    <li><strong>数量:</strong> <%=maker.amount%></li>
+                                    <li><strong>型号:</strong> <%=maker.version%></li>
+                                    <li><strong>适合年龄:</strong> <%=maker.age%></li>
+                                    <li><strong>适合人数:</strong> <%=maker.num%></li>
+                                    <li><strong>功能特点:</strong> <%=maker.trait%></li>
+
+                                    <%if(typeof maker.downloadlink != undefined){%>
+                                    <li><strong>文字教程及资料包下载：</strong><a href="<%=maker.downloadlink%>"><%=maker.downloadtit%></a></li>
+                                    <%}%>
+                                </ul>
+                            </div><!--//page-row-->
+                            <div class="page-row article-content content">
+                                <%-maker.content%>
+                            </div>
+                        </div>
+                    </section>
+                </div><!--//news-wrapper-->
+
+            </div><!--//page-row-->
+        </div><!--//page-content-->
+    </div><!--//page-->
+</div><!--//content-->
+
+<script>
+    if($(window).width()<=768){
+        console.log("vid");
+        $(".video-list").css("width",$(window).width()-42);
+
+    }
+</script>
+
+<% include footer.ejs %>

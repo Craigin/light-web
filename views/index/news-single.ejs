@@ -1,0 +1,95 @@
+<% include ../head.ejs %>
+        
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <!--<header class="page-heading clearfix">-->
+
+                    <!--<div class="breadcrumbs pull-right">-->
+                        <!--<ul class="breadcrumbs-list">-->
+                            <!--<li class="breadcrumbs-label">您在这里:</li>-->
+                            <!--<li><a href="index.html">首页</a><i class="fa fa-angle-right"></i></li>-->
+                            <!--<li><a href="news.html">校园新闻</a><i class="fa fa-angle-right"></i></li>-->
+                            <!--<li class="current">校园跳蚤市场</li>-->
+                        <!--</ul>-->
+                    <!--</div>&lt;!&ndash;//breadcrumbs&ndash;&gt;-->
+                <!--</header> -->
+                <div class="page-content">
+                    <div class="row page-row" >
+                        <div class="news-wrapper col-md-8 col-sm-7 block nopop article" blockid="article" article-type="news" articleid="<%=article._id%>">
+                            <header class="page-heading clearfix">
+                                <h1 class="heading-title pull-left" field="title"><%-article.title%></h1>
+                            </header>
+                            <article class="news-item">
+                                <p class="meta text-muted">由: <a href="#"><%-article.auther%></a> | 发布于: <span><%-article.time%></span></p>
+                                <div class="media-imgvideo">
+
+                                    <%if(article.videoUrl){%>
+                                    <div class="general img" field="imgUrl" style="display: none;"><img data-size="750 * 300" src="<%=article.imgUrl%>"></div>
+                                    <div class="section-content" id="promote-video" field="videoUrl" style="display:block" >
+                                        <div id="con1" style="width: 745px;height:420px; margin:0 auto;"  class="sewise-video"  data-url="<%=article.videoUrl||'#'%>"></div>
+                                    </div>
+                                    <%}else{%>
+                                    <div class="general img" field="imgUrl" style="display: block"><img data-size="750 * 300" src="<%=article.imgUrl||'/index/images/default.jpg'%>"></div>
+                                    <div class="section-content" id="promote-video" field="videoUrl" style="display:none" >
+                                        <div id="con1" style="width: 745px;height:420px; margin:0 auto;"  class="sewise-video"  data-url="<%=article.videoUrl%>"></div>
+                                    </div>
+                                    <%}%>
+
+
+                                </div>
+
+                                <div class="page-row article-content content">
+                                    <%-article.content||'默认文章内容'%>
+                                </div>
+                             <!--    <div class="page-row comment">
+                                    <textarea></textarea>
+                                    <button class="btn btn-theme pull-right">评论</button>
+                                </div> -->
+                            </article><!--//news-item-->
+                        </div><!--//news-wrapper-->
+                        <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1 home-page">
+                            <section class="events">
+                                <h1 class="section-heading text-highlight"><span class="line">活动预告</span></h1>
+                                <div class="section-content">
+                                    <%include blocks/activity.ejs%>
+                                    <a class="read-more" href="/activity/lecture">所有活动<i class="fa fa-chevron-right"></i></a>
+                                </div><!--//section-content-->
+                            </section><!--//events-->
+
+                        </aside>
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+<script>
+    $('.block').on('article-change',function(evt,id,data){
+        var date = new Date();
+        var year = date.getFullYear();
+        var month=String(date.getMonth()+1).length<2?'0'+(date.getMonth()+1):date.getMonth()+1;       //获取当前月份(0-11,0代表1月)
+        // alert(month);
+        var day=String(date.getDate()).length<2?'0'+(date.getDate()):date.getDate();
+        var hours = String(date.getHours()).length<2?'0'+(date.getHours()):date.getHours();
+        var minutes = String(date.getMinutes()).length<2?'0'+(date.getMinutes()):date.getMinutes();
+        var seconds = String(date.getSeconds()).length<2?'0'+(date.getSeconds()):date.getSeconds();
+        var time=year+'-'+month+'-'+day+' '+hours+':'+minutes+':'+seconds;
+        //alert($(".type-nav").find("li.active").attr("typeid"));
+        data['time']=time;
+        data['auther'] = '<%-user.username%>';
+        //data['videoUrl'] = $(this).find('#con1').attr('data-url');
+        $('p.text-muted a').html('<%-user.username%>');
+        $('p.text-muted span').html(time);
+    });
+    $('#promote-video').on('block.setting',function (ev) {
+        var me = this;
+        ImageSelector.open(function (result) {
+            $(me).find('.sewise-video').data('sewise-player').toPlay(result.videoUrl);
+            $(me).find('#con1').attr('data-url',result.videoUrl);
+            $(me).parents('.media-imgvideo').find('img').attr('src','');
+            $(me).parents('.media-imgvideo').find('[field]').hide();
+            $(me).parents('.media-imgvideo').find('#promote-video').show();
+        },{type:2})
+    });
+</script>
+
+<% include footer.ejs %>

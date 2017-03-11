@@ -1,0 +1,12 @@
+<%teachers.forEach(function(item){%>
+<%if(teachers.length==1 && item._id==0) var visibility="hidden";%>
+<div style="visibility: <%=visibility||'visible'%>" class="row page-row block nopop article" blockid="article" article-type="teachers" articleid="<%=item._id%>" >
+    <figure class="thumb col-md-2 col-sm-4 col-xs-4 img" field="url">
+        <img class="img-responsive" data-size="170 * 210" src="<%=item.url%>" alt="" />
+    </figure>
+    <div class="details col-md-10 col-sm-8 col-xs-8">
+        <h3 class="title" field="title"><%-item.title%></h3>
+        <div class="content"><%-item.content%></div>
+    </div>
+</div>
+<%})%>

@@ -1,0 +1,87 @@
+</div><!--//wrapper-->
+
+<!-- ******FOOTER****** -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col col-md-3 col-sm-4 about">
+                    <div class="footer-col-inner">
+                        <h3>关于</h3>
+                        <ul>
+                            <li><a href="about.html"><i class="fa fa-caret-right"></i>关于我们</a></li>
+                            <li><a href="contact.html"><i class="fa fa-caret-right"></i>联系我们</a></li>
+                            <li><a href="privacy.html"><i class="fa fa-caret-right"></i>隐私政策</a></li>
+                            <li><a href="terms-and-conditions.html"><i class="fa fa-caret-right"></i>条款和条件</a></li>
+                        </ul>
+                    </div><!--//footer-col-inner-->
+                </div><!--//foooter-col-->
+                <div class="footer-col col-md-6 col-sm-8 newsletter">
+                    <!-- <div class="footer-col-inner">
+                        <h3>Join our mailing list</h3>
+                        <p>Subscribe to get our weekly newsletter delivered directly to your inbox</p>
+                        <form class="subscribe-form">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Enter your email" />
+                            </div>
+                            <input class="btn btn-theme btn-subscribe" type="submit" value="Subscribe">
+                        </form>
+
+                    </div> --><!--//footer-col-inner-->
+                </div><!--//foooter-col-->
+                <div class="footer-col col-md-3 col-sm-12 contact">
+                    <div class="footer-col-inner">
+                        <h3>联系我们</h3>
+                        <div class="row">
+                            <p class="adr clearfix col-md-12 col-sm-4">
+                                <i class="fa fa-map-marker pull-left"></i>
+                                <span class="adr-group pull-left">
+                                    <span class="street-address">深圳市南山区科园路</span><br>
+                                    <span class="region">软件产业基地</span><br>
+                                    <span class="postal-code">2栋C座401</span><br>
+                                    <span class="country-name">深圳矽伟智科技有限公司</span>
+                                </span>
+                            </p>
+                            <p class="tel col-md-12 col-sm-4"><i class="fa fa-phone"></i>4006-520-112</p>
+                            <p class="email col-md-12 col-sm-4"><i class="fa fa-envelope"></i><a href="#">info@sewise.com</a></p>
+                        </div>
+                    </div><!--//footer-col-inner-->
+                </div><!--//foooter-col-->
+            </div>
+        </div>
+    </div><!--//footer-content-->
+    <div class="bottom-bar">
+        <div class="container">
+            <div class="row">
+                <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 清华大学 | 技术支持： <a href="http://www.sewise.com" target="_block">深圳市矽伟智SEWISE</a></small>
+                <!-- <ul class="social pull-right col-md-6 col-sm-12 col-xs-12">
+                    <li><a href="#" ><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-youtube"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-pinterest"></i></a></li>
+                    <li><a href="#" ><i class="fa fa-skype"></i></a></li>
+                    <li class="row-end"><a href="#" ><i class="fa fa-rss"></i></a></li>
+                </ul> --><!--//social-->
+            </div><!--//row-->
+        </div><!--//container-->
+    </div><!--//bottom-bar-->
+</footer><!--//footer-->
+
+<!-- Javascript -->
+<script type="text/javascript" src="/index/plugins/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/index/plugins/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/index/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/index/plugins/bootstrap-hover-dropdown.min.js"></script>
+<script type="text/javascript" src="/index/plugins/back-to-top.js"></script>
+<script type="text/javascript" src="/index/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+<script type="text/javascript" src="/index/plugins/pretty-photo/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="/index/plugins/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="/index/plugins/jflickrfeed/jflickrfeed.min.js"></script>
+<script type="text/javascript" src="/index/js/main.js"></script>
+<script type="text/javascript" src="/index/js/block.js"></script>
+<script type="text/javascript" src="/index/js/widget.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<% include ../head.ejs %>
+<!-- ******CONTENT****** -->
+<div class="content container">
+    <div class="page-wrapper">
+        <header class="page-heading clearfix">
+            <h1 class="heading-title pull-left">现任领导</h1>
+            <div class="breadcrumbs pull-right">
+                <ul class="breadcrumbs-list">
+                    <li class="breadcrumbs-label">您在这里:</li>
+                    <li><a href="/ ">首页</a><i class="fa fa-angle-right"></i></li>
+                    <li style="color: #aaaaaa">学校概况 <i class="fa fa-angle-right"></i></li>
+                    <li class="current">现任领导</li>
+                </ul>
+            </div><!--//breadcrumbs-->
+        </header>
+        <div class="page-content">
+            <div class="row page-row">
+                <aside class="page-sidebar  col-md-2 col-sm-3 affix-top">
+                    <section class="widget">
+                        <ul class="nav">
+                            <li><a href="/about/president">校长致辞</a></li>
+                            <li><a href="/about/history">学校沿革</a></li>
+                            <li><a href="/about/past-leaders">历任领导</a></li>
+                            <li class="active"><a href="/about/leaders">现任领导</a></li>
+                        </ul>
+                    </section><!--//widget-->
+                </aside>
+                <div class="news-wrapper col-md-10 col-sm-8">
+                    <article class="news-item block nopop article" blockid="article" articleid="current">
+                        <div class="page-row about-current content">
+                            <%-article.content%>
+                        </div>
+                    </article><!--//news-item-->
+                </div><!--//news-wrapper-->
+
+            </div><!--//page-row-->
+        </div><!--//page-content-->
+    </div><!--//page-->
+</div><!--//content-->
+
+<% include footer.ejs %>

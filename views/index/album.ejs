@@ -1,0 +1,65 @@
+<% include ../head.ejs %>
+<script>
+    $(function () {
+        if($(".blocklist").find('.block').length == 1 && $(".blocklist").find(".block").attr("articleid")==0){
+            var url = window.location.href;
+            var arr=url.split('/');
+            switch(arr[arr.length-1]){
+                case 'study':
+                    $(".heading-title").attr("category","study");
+                    $(".heading-title").html("学习");
+                    break;
+                case 'live':
+                    $(".heading-title").attr("category","live");
+                    $(".heading-title").html("生活");
+                    break;
+                case 'growth':
+                    $(".heading-title").attr("category","growth");
+                    $(".heading-title").html("成长");
+                    break;
+            }
+        }
+    })
+
+</script>
+    <!-- ******CONTENT****** -->
+    <div class="content container">
+        <div class="page-wrapper">
+            <header class="page-heading clearfix">
+                <h1 class="heading-title pull-left" category="<%=album[0].category%>"><%=album[0].categoryName%></h1>
+            </header>
+            <div class="page-content">
+                <div class="row page-row">
+
+                    <div class="page-row col-md-12 col-sm-12 blocklist">
+                        <%album.forEach(function(item){%>
+                        <%if(album.length==1 && item._id==0) var visibility="hidden";%>
+                        <div style="visibility: <%=visibility||'visible'%>;height: 287px;" class="col-md-4 col-sm-4 col-xs-12  block nopop article" blockid="article" article-type="album" articleid="<%=item._id%>">
+                            <div class="album-cover">
+                                <a  href="/album/<%=item.category%>/<%=item._id%>"><div class="img" field="coverUrl" style="max-height: 181px;"><img class="img-responsive" data-size="560 * 310" style="max-height: 181px;" src="<%=item.coverUrl%>" alt="" /></div></a>
+                                <div class="desc">
+                                    <h4><small><a href="/album/<%=item.category%>/<%=item._id%>" field="covertit"><%-item.covertit%></a></small></h4>
+                                </div>
+                            </div>
+
+                        </div>
+                        <%})%>
+
+                    </div><!--//page-row-->
+
+                </div>
+            </div><!--//page-content-->
+        </div><!--//page-->
+    </div><!--//content-->
+<script>
+    $('.block').on('article-change',function(evt,id,data){
+        //alert($(".type-nav").find("li.active").attr("typeid"));
+        data['category']=$(".heading-title").attr("category");
+        data['categoryName']=$(".heading-title").html();
+    });
+    $(".block").on('article-sync',function(ev,resp){
+        $('.block').find('a').attr('href','/album/'+resp.new[0].category+'/'+resp.new[0]._id);
+    });
+</script>
+
+<% include footer.ejs %>

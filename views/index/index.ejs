@@ -1,0 +1,169 @@
+<% include ../head.ejs %>
+  <!-- ******CONTENT****** -->
+  <div class="content container home-page">
+    <div id="promo-slider" class="slider flexslider block" blockid="slide">
+      <%include blocks/slide.ejs%>
+    </div><!--//flexslider-->
+    <section class="news">
+      <h1 class="section-heading text-highlight"><span class="line">每周聚焦</span></h1>
+      <div class="carousel-controls">
+        <a class="prev" href="#news-carousel" data-slide="prev"><i class="fa fa-caret-left"></i></a>
+        <a class="next" href="#news-carousel" data-slide="next"><i class="fa fa-caret-right"></i></a>
+      </div><!--//carousel-controls-->
+      <div class="section-content clearfix">
+
+            <%include blocks/news.ejs%>
+
+      </div><!--//section-content-->
+    </section><!--//news-->
+    <div class="row cols-wrapper">
+      <div class="col-md-3">
+        <section class="events">
+          <h1 class="section-heading text-highlight"><span class="line">活动预告</span></h1>
+          <div class="section-content">
+           <%include blocks/activity.ejs%>
+            <a class="read-more" href="/activity/lecture">所有活动<i class="fa fa-chevron-right"></i></a>
+          </div><!--//section-content-->
+        </section><!--//events-->
+      </div><!--//col-md-3-->
+      <div class="col-sm-9" style="padding:0px">
+        <div class="col-md-8">
+          <section class="video">
+            <h1 class="section-heading text-highlight"><span class="line">推荐视频</span></h1>
+            <div class="section-content block" id="promote-video">
+              <div id="con1" style="width: 521px;height: 345px;" class="sewise-video" data-url="<%=index_config.premoteVideo||'novideo'%>">
+
+              </div>
+            </div><!--//section-content-->
+          </section>
+        </div>
+        <div class="col-md-4">
+          <section class="links">
+            <h1 class="section-heading text-highlight"><span class="line">通知公告</span></h1>
+            <div class="section-content">
+
+              <%include blocks/notices.ejs%>
+
+            </div><!--//section-content-->
+          </section><!--//links-->
+        </div><!--//col-md-3-->
+        <div class="col-md-12">
+          <section class="quick-line">
+            <h1 class="section-heading text-highlight"><span class="line">快速链接</span></h1>
+            <div class="section-content block " blockid="links">
+              <%include blocks/links.ejs%>
+            </div><!--//section-content-->
+          </section><!--//video-->
+        </div>
+      </div>
+
+    </div><!--//cols-wrapper-->
+  </div><!--//content-->
+</div><!--//wrapper-->
+
+
+
+<!-- 电话邮箱模态框 -->
+<!-- <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+     <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="gridModalLabel">编辑电话和邮箱</h4>
+            </div>
+            <div class="modal-body">
+                <div class="phone">
+                    <label class="col-sm-3"><i class="fa fa-phone"></i></label>
+                    <div class="col-sm-7">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="email">
+                    <label class="col-sm-3"><i class="fa fa-envelope"></i></label>
+                    <div class="col-sm-7">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-theme">新增</button>
+                <button type="button" class="btn btn-theme">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- 模态框 -->
+
+
+
+
+
+
+
+
+
+<!-- 资源库 -->
+
+
+<script>
+
+  $('#promote-video').on('block.setting',function (ev) {
+    var me = this;
+     ImageSelector.open(function (result) {
+       //alert('123');
+       //alert(result.videoUrl);
+       var objReg=/^rtmp/;
+       $("#con1").empty();
+       if(objReg.test(result.videoUrl)){
+         var config={
+           elid:"con1",
+           autostart:true,
+           server:"live",
+           url:result.videoUrl,
+           //url:"http://192.168.1.21:5080/hls/58uk9k77.m3u8",
+           //url:"live://192.168.1.98:8888/djff999",
+           duration:3600,
+           accelerate:"disable",
+           buffer:3,
+           seek:"disable",
+           skin:"liveWhite"
+         };
+         player = new Sewise.SewisePlayer(config);
+         player.startup();
+         setTimeout(function(){
+           player.forceRefreshSkinSize();
+         },500);
+       }else {
+         var config={
+           elid:"con1",
+           autostart:true,
+           url:result.videoUrl,
+           //url:"vod://192.168.1.98:8888/djff999",
+           skin:"vodLight"
+         };
+         player = new Sewise.SewisePlayer(config);
+         player.startup();
+        // $(me).find('.sewise-video').data('sewise-player').toPlay(result.videoUrl);
+       }
+         $.ajax({
+           method: 'put',
+           url: '/settings/index_config',
+           data: JSON.stringify({premoteVideo:result.videoUrl}),
+           contentType: 'application/json',
+           success: function (resp) {
+
+           }
+         });
+
+
+     },{type:2})
+  });
+</script>
+<% include footer.ejs %>
+
+
+
+

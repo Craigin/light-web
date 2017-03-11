@@ -1,0 +1,55 @@
+<%include ../head.ejs %>
+
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <header class="page-heading clearfix">
+                    <h1 class="heading-title pull-left">校园新闻</h1>
+                    <div class="breadcrumbs pull-right">
+                        <ul class="breadcrumbs-list">
+                            <li class="breadcrumbs-label">您在这里:</li>
+                            <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                            <li class="current">校园新闻</li>
+                        </ul>
+                    </div>
+                </header> 
+                <div class="page-content">
+                   <!--  <div class="page-row">
+                        <ul>
+                            <li class="active"><span>讲座论坛</span></li>
+                            <li><span>社团活动</span></li>   
+                            <li><span>文艺演出</span></li>          
+                            <li><span>体育竞技</span></li> 
+                        </ul>
+                    </div> -->
+                    <div class="row page-row">
+                        <div class="news-wrapper col-md-8 col-sm-8 blocklist" >
+                            <%include blocks/news-news.ejs%>
+                            <!-- <ul class="pagination">
+                                <li class="disabled"><a href="#">&laquo;</a></li>
+                                <li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&raquo;</a></li>
+                            </ul> -->
+                        </div><!--//news-wrapper-->
+                        <aside class="page-sidebar col-sm-offset-1  col-md-3 col-sm-3 home-page">
+                            <section class="events">
+                                <h1 class="section-heading text-highlight"><span class="line">活动预告</span></h1>
+                                <div class="section-content">
+                                    <%include blocks/activity.ejs%>
+                                    <a class="read-more" href="/activity/lecture">所有活动<i class="fa fa-chevron-right"></i></a>
+                                </div><!--//section-content-->
+
+                            </section><!--//events-->
+
+                        </aside>
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+
+
+<% include footer.ejs %>

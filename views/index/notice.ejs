@@ -1,0 +1,81 @@
+<% include ../head.ejs %>
+
+<!-- ******CONTENT****** -->
+<div class="content container">
+    <div class="page-wrapper">
+        <header class="page-heading clearfix">
+            <h1 class="heading-title pull-left">通知公告</h1>
+            <div class="breadcrumbs pull-right">
+                <ul class="breadcrumbs-list">
+                    <li class="breadcrumbs-label">您在这里:</li>
+                    <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                    <li class="current">通知公告</li>
+                </ul>
+            </div><!--//breadcrumbs-->
+        </header>
+        <div class="page-content">
+            <div class="row page-row">
+                <div class="news-wrapper col-md-12 col-sm-12">
+                    <article class="news-item">
+
+                        <div class="page-row article-content  block nopop article" blockid="article" article-type="notice" articleid="<%=article._id%>">
+                            <h3 style="text-align: center;" field="title"><%=article.title%></h3>
+                            <div class="content">
+                                <%-article.content%>
+                            </div>
+
+                        </div>
+                        <!--    <div class="page-row comment">
+                               <textarea></textarea>
+                               <button class="btn btn-theme pull-right">评论</button>
+                           </div> -->
+                    </article><!--//news-item-->
+                </div><!--//news-wrapper-->
+                <!--<aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">-->
+                <!--<section class="widget has-divider">-->
+                <!--<h3 class="title">通知公告</h3>-->
+                <!--<article class="events-item row page-row">-->
+                <!--<div class="date-label-wrapper col-md-3 col-sm-4 col-xs-4">-->
+                <!--<p class="date-label">-->
+                <!--<span class="month">2月</span>-->
+                <!--<span class="date-number">18</span>-->
+                <!--</p>-->
+                <!--</div>&lt;!&ndash;//date-label-wrapper&ndash;&gt;-->
+                <!--<div class="details col-md-9 col-sm-8 col-xs-8">-->
+                <!--<h5 class="title">第三届学院摄影展</h5>-->
+                <!--<p class="time text-muted">10:00am - 18:00pm<br />艺术馆</p>-->
+                <!--</div>&lt;!&ndash;//details&ndash;&gt;-->
+                <!--</article>-->
+                <!--<article class="events-item row page-row">-->
+                <!--<div class="date-label-wrapper col-md-3 col-sm-4 col-xs-4">-->
+                <!--<p class="date-label">-->
+                <!--<span class="month">2月</span>-->
+                <!--<span class="date-number">18</span>-->
+                <!--</p>-->
+                <!--</div>&lt;!&ndash;//date-label-wrapper&ndash;&gt;-->
+                <!--<div class="details col-md-9 col-sm-8 col-xs-8">-->
+                <!--<h5 class="title">第四届学院摄影展</h5>-->
+                <!--<p class="time text-muted">10:00am - 18:00pm<br />艺术馆</p>-->
+                <!--</div>&lt;!&ndash;//details&ndash;&gt;-->
+                <!--</article>-->
+                <!--<article class="events-item row page-row">-->
+                <!--<div class="date-label-wrapper col-md-3 col-sm-4 col-xs-4">-->
+                <!--<p class="date-label">-->
+                <!--<span class="month">2月</span>-->
+                <!--<span class="date-number">18</span>-->
+                <!--</p>-->
+                <!--</div>&lt;!&ndash;//date-label-wrapper&ndash;&gt;-->
+                <!--<div class="details col-md-9 col-sm-8 col-xs-8">-->
+                <!--<h5 class="title">第五届学院摄影展</h5>-->
+                <!--<p class="time text-muted">10:00am - 18:00pm<br />艺术馆</p>-->
+                <!--</div>&lt;!&ndash;//details&ndash;&gt;-->
+                <!--</article>-->
+                <!--</section>-->
+                <!--</aside>-->
+            </div><!--//page-row-->
+        </div><!--//page-content-->
+    </div><!--//page-->
+</div><!--//content-->
+
+
+<% include footer.ejs %>

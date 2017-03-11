@@ -1,0 +1,47 @@
+<%videos.forEach(function(e,i){%>
+
+<div class="media-content-box col-sm-3 col-xs-6 ">
+    <div class="media-box" mtype="video" index="<%=i%>" media_id="<%=e._id%>" dur="<%=e.dur%>" url="<%= e.dir%>" style="background: black">
+        <h4 class="media-tit" style="display: none"><%=e.name%></h4>
+        <%if(e.status==1){%>
+        <img src="<%=e.pic%>">
+
+        <ul class="media-ope media-video" >
+            <li>
+                <span class="glyphicon glyphicon-play-circle" data-toggle="modal" data-target=".preview-box" url="<%=e.dir%>"></span>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-pencil"></span>
+                <div class="edit bounced-hid" style="line-height: 20px">
+                    <i class="glyphicon glyphicon-triangle-top"></i>
+                    <span class="tit">文件重命名</span>
+                    <input type="text">
+                    <span class="btn"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span class="btn"><i class="glyphicon glyphicon-remove bounced-close"></i></span>
+                </div>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-trash" ></span>
+                <div class="edit bounced-hid delbox" style="line-height: 20px">
+                    <i class="glyphicon glyphicon-triangle-top"></i>
+                    <span class="tit">确定删除文件？</span>
+                    <span class="btn"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span class="btn"><i class="glyphicon glyphicon-remove bounced-close"></i></span>
+                </div>
+            </li>
+            <li>
+                <span class="fa fa-crop" data-toggle="modal" data-target=".cutbox"></span>
+
+            </li>
+            <li>
+                <a class='download-btn' href="/admin/download/?path=<%=e.dir%>" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a>
+            </li>
+        </ul>
+
+        <%}else{%>
+        <div ><img src="/images/jiazai5.gif"></div>
+        <%}%>
+    </div>
+</div>
+
+<%})%>

@@ -1,0 +1,48 @@
+<% include ../head.ejs %>
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <header class="page-heading clearfix">
+                    <h1 class="heading-title pull-left">人才招聘</h1>
+                    <div class="breadcrumbs pull-right">
+                        <ul class="breadcrumbs-list">
+                            <li class="breadcrumbs-label">您在这里:</li>
+                            <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                            <li><a href="/jobs">人才招聘</a><i class="fa fa-angle-right"></i></li>
+                            <li class="current">行政管理</li>
+                        </ul>
+                    </div><!--//breadcrumbs-->
+                </header> 
+                <div class="page-content">
+                    <div class="row page-row">
+                        <div class="jobs-wrapper col-md-8 col-sm-7 block nopop article" blockid="article" article-type="jobs" articleid="<%=jobs._id%>">
+                            <h3 class="title"><%=jobs.title%></h3>
+                            <div class="box box-border page-row">
+                                <ul class="list-unstyled">
+                                    <li><strong>单位:</strong> <%=jobs.workunit%></li>
+                                    <li><strong>岗位工作:</strong> <%=jobs.intro%></li>
+                                    <li><strong>招聘职务:</strong>  <%=jobs.title%></li>
+                                    <li><strong>所需专业:</strong> <%=jobs.major%></li>
+                                    <li><strong>招聘人数:</strong> <%=jobs.num%></li>
+                                    <li><strong>有效期:</strong> <%=jobs.time%></li>
+                                    <li><strong>联系人及联系方式:</strong> <%=jobs.email%></li>
+                                </ul>                                
+                            </div>
+                            <div class="content">
+                               <%-jobs.content%>
+                            </div>
+                        </div><!--//jobs-wrapper-->
+                        <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">      
+                           <section class="widget">
+                                <h3 class="title">联系我们</h3>
+                                <p class="adr clearfix col-md-12 col-sm-4"> <i class="fa fa-map-marker pull-left"></i>北京市海淀区清华大学</p>
+                                <p class="tel col-md-12 col-sm-4"><i class="fa fa-phone"></i>010-62793001</p>
+                                <p class="email col-md-12 col-sm-4"><i class="fa fa-envelope"></i><a href="#">xinxiban@tsinghua.edu.cn</a></p>  
+                            </section><!--//widget-->                                
+                        </aside>
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+
+<% include footer.ejs %>

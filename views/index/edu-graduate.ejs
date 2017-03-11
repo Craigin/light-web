@@ -1,0 +1,40 @@
+<% include ../head.ejs %>
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <header class="page-heading clearfix">
+                    <h1 class="heading-title pull-left">研究生教育</h1>
+                    <div class="breadcrumbs pull-right">
+                        <ul class="breadcrumbs-list">
+                            <li class="breadcrumbs-label">您在这里:</li>
+                            <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                            <li class="current" style="color: #aaaaaa">教育教学 <i class="fa fa-angle-right"></i></li>
+                            <li class="current">研究生教育</li>
+                        </ul>
+                    </div><!--//breadcrumbs-->
+                </header> 
+                <div class="page-content">
+                    <div class="row page-row">
+                        <aside class="page-sidebar col-md-2 col-sm-3 affix-top">                    
+                            <section class="widget">
+                                <ul class="nav">
+                                    <li><a href="/education">本科教育</a></li>
+                                    <li class="active"><a href="/education/graduate">研究生教育</a></li>
+                                    <li><a href="/course">精品课程</a></li>
+                                </ul>
+                            </section><!--//widget-->
+                        </aside><!--//page-sidebar-->
+                        <div class="edu-wrapper col-md-10 col-sm-8">
+                            <article class="news-item block nopop article" blockid="article" articleid="graduate">
+                                <div class="edu-img img" field="url"><img data-size="750 * 300" src="<%-article.url%>"></div>
+                                <div class="page-row article-content content">
+                                    <%-article.content%>
+                                </div>
+                            </article><!--//news-item-->
+                        </div>
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+
+<% include footer.ejs %>

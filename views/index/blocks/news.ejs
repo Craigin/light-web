@@ -1,0 +1,35 @@
+<div id="news-carousel" class="news-carousel carousel slide">
+    <div class="carousel-inner">
+        <%if (typeof news!='undefined'){%>
+        <div class="item active">
+
+            <%for(var i=0;i<Math.min(3,news.length);i++){%>
+
+            <div class="col-md-4 news-item block nopop article" blockid="article" article-type="news" articleid="<%=news[i]._id%>">
+                <div class="blockchild">
+                    <h2 class="title"><a href="/news/<%=news[i]._id%>" field="title"><%-news[i].title%></a></h2>
+                    <div class="img" field="url"><img class="thumb" data-size="100 * 100" src="<%=news[i].url%>"  alt="" /></div>
+                    <p field="description"><%-news[i].description.length>30?news[i].description.substring(0,30):news[i].description%></p>
+                    <a class="read-more" href="/news/<%=news[i]._id%>">阅读更多<i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div><!--//news-item-->
+
+            <%}%>
+        </div><!--//item-->
+
+        <div class="item ">
+            <%for(var i=3;i<news.length;i++){%>
+
+            <div class="col-md-4 news-item block nopop article" blockid="article" article-type="news" articleid="<%=news[i]._id%>">
+                <h2 class="title"><a href="/news/<%=news[i]._id%>" field="title"><%-news[i].title%></a></h2>
+                <div class="img" field="url"><img class="thumb" src="<%=news[i].url%>"  alt="" /></div>
+                <p field="description"><%-news[i].description.length>30?news[i].description.substring(0,30):news[i].description%></p>
+                <a class="read-more" href="/news/<%=news[i]._id%>">阅读更多<i class="fa fa-chevron-right"></i></a>
+            </div><!--//news-item-->
+
+            <%}%>
+
+        </div><!--//item-->
+        <%}%>
+    </div><!--//carousel-inner-->
+</div><!--//news-carousel-->

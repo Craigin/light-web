@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>视智云--视频校园管理后台</title>
+    <meta name="description" content="" />
+    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+
+    <!-- WEB FONTS -->
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext" rel="stylesheet" type="text/css" />-->
+
+    <!-- CORE CSS -->
+
+
+    <!-- THEME CSS -->
+    <link href="/admin/css/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/css/layout.css" rel="stylesheet" type="text/css" />
+    <!--link href="/admin/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /-->
+    <link rel="stylesheet" type="text/css" href="/admin/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/admin/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/default.css">
+    <link href="/admin/plugins/cropper/cropper.css" rel="stylesheet">
+    <link href="/admin/css/crop.css" rel="stylesheet">
+
+    <script type="text/javascript" src="/admin/plugins/jquery/jquery-2.1.4.min.js"></script>
+    <script >
+        $('.btn-logout').click(function(){
+            alert('123');
+            $.get('/admin/logout',function(data){
+                if(data=='success')
+                window.location.href='/admin/login';
+            })
+        })
+    </script>
+</head>
+<!--
+    .boxed = boxed version
+-->
+<body>
+
+
+<!-- WRAPPER -->
+<div id="wrapper" class="clearfix">
+
+    <!--
+        ASIDE
+        Keep it outside of #wrapper (responsive purpose)
+    -->
+    <aside id="aside">
+        <!--
+            Always open:
+            <li class="active alays-open">
+
+            LABELS:
+                <span class="label label-danger pull-right">1</span>
+                <span class="label label-default pull-right">1</span>
+                <span class="label label-warning pull-right">1</span>
+                <span class="label label-success pull-right">1</span>
+                <span class="label label-info pull-right">1</span>
+        -->
+        <nav id="sideNav"><!-- MAIN MENU -->
+            <ul class="nav nav-list">
+                <li class="active"><!-- dashboard -->
+                    <a class="dashboard" href="/admin"><!-- warning - url used by default by ajax (if eneabled) -->
+                        <i class="main-icon fa fa-dashboard"></i> <span>控制面板</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/cms">
+                        <i class="main-icon fa fa-pencil-square-o"></i> <span>内容管理</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="/admin/media">
+                        <i class="main-icon fa fa-film"></i> <span>媒资管理</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/status">
+                        <i class="main-icon fa fa-bar-chart-o"></i> <span>数据统计</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/system">
+                        <i class="main-icon fa fa-gears"></i> <span>系统设置</span>
+                    </a>
+                </li>
+                <!--
+                <li>
+                    <a href="/admin/calendar">
+                        <i class="main-icon fa fa-calendar"></i>
+                        <span class="label label-warning pull-right">2</span> <span>工作日历</span>
+                    </a>
+                </li>
+                -->
+            </ul>
+
+
+        </nav>
+
+        <span id="asidebg"><!-- aside fixed background --></span>
+    </aside>
+    <!-- /ASIDE -->
+
+
+    <!-- HEADER -->
+    <header id="header">
+
+        <!-- Mobile Button -->
+        <button id="mobileMenuBtn"></button>
+
+        <!-- Logo -->
+				<span class="logo pull-left" style="font-weight: bold;font-size: 20px;color: #fff;">
+					<!-- <img src="/admin/images/logo_light.png" alt="admin panel" height="35" /> -->
+					视智云
+				</span>
+        <!--
+        <form method="get" action="page-search.html" class="search pull-left hidden-xs">
+            <input type="text" class="form-control" name="k" placeholder="搜索..." />
+        </form>
+        -->
+        <nav>
+
+            <!-- OPTIONS LIST -->
+            <ul class="nav pull-right">
+                <li class="pull-left" ><a href="/admin/help" style="font-size: 12px;margin-top: 20px;color:#fff;">后台使用帮助</a></li>
+                <!-- USER OPTIONS -->
+                <li class="dropdown pull-left">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img class="user-avatar" alt="" src="<%=user.icon%>" height="34" />
+								<span class="user-name">
+									<span class="hidden-xs">
+										<%=user.username%> <i class="fa fa-angle-down"></i>
+									</span>
+								</span>
+                    </a>
+                    <ul class="dropdown-menu hold-on-click">
+
+                        <li><!-- settings -->
+                            <a href="/admin/system"><i class="fa fa-cogs"></i> 系统设置</a>
+                        </li>
+
+                        <li class="divider"></li>
+
+
+                        <li ><!-- logout -->
+                            <a href="javascript:void(0)" ><span class="btn-logout"><i class="fa fa-power-off"></i> 安全退出</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /USER OPTIONS -->
+
+            </ul>
+            <!-- /OPTIONS LIST -->
+
+        </nav>
+
+    </header>
+    <!-- /HEADER -->

@@ -1,0 +1,792 @@
+<% include header.ejs %>
+			<link rel="stylesheet" type="text/css"  href="/admin/css/system-set.css">
+			<link rel="stylesheet" type="text/css"  href="/index/plugins/upload1/uploadify.css">
+			<!-- 
+				MIDDLE 
+			-->
+			<section id="middle">
+
+
+				<!-- page title -->
+				<header id="page-header">
+					<h1>系统设置</h1>
+				</header>
+				<!-- /page title -->
+
+
+				<div id="content" class="padding-20">
+
+					<div class="page-profile">
+
+						<div class="row">
+							<div class="col-md-12 col-lg-9">
+
+								<div class="col-md-4 col-lg-4">
+
+									<section class="panel">
+										<div class="panel-body noradius padding-10">
+
+											<figure class="margin-bottom-10">
+												<img class="img-responsive" src="<%=user.icon%>" alt="" />
+											</figure>
+											<!--
+											<h6 class="progress-head">账号完善程度 <a href="#">去完善我的账号信息 </a><span class="pull-right">60%</span></h6>
+											<div class="progress progress-xs">
+												<div class="progress-bar" role="progressbar" style="width: 60%;"></div>
+											</div>
+												-->
+
+
+											<!-- About -->
+											<h3 class="text-black" style="cursor: pointer" id="userbtn">
+												<%=user.username%>
+												<small class="text-gray size-14"> / 点击修改用户信息</small>
+											</h3>
+											<!-- /About -->
+
+
+											<hr class="half-margins" />
+
+
+										</div>
+									</section>
+
+								</div>
+
+								<!-- COL 2 -->
+								<div class="col-md-8 col-lg-8">
+
+									<div class="tabs white nomargin-top">
+										<!--
+										<label class="switch switch-info web-states pull-right">
+											<span class="station-switch"><font id="WOW_TRANSLATE_99" class="WOW_TRANSLATE_STYLE" data--w-o-w_-i-n-d-e-x="99">网站状态</font></span>
+											<input type="checkbox" checked="">
+											<span class="switch-label" data-on="已发布" data-off="未发布"></span>
+										</label>
+										-->
+										<ul class="nav nav-tabs tabs-primary">
+
+											<li class="active">
+												<a href="#seo-setting" data-toggle="tab"> SEO设置</a>
+											</li>
+										</ul>
+
+										<div class="tab-content">
+
+											<!-- Overview -->
+
+											<!-- Edit -->
+											<div id="seo-setting" class="tab-pane" style="display: block">
+
+												<div class="row">
+													<div class="col-sm-6">
+														<label>站点名称</label>
+														<input type="text" class="form-control web-name"  value="<%=seo.name%>">
+													</div>
+													<div class="col-sm-6">
+														<label>站点标题</label>
+														<input type="text" class="form-control web-title" value="<%=seo.title%>">
+													</div>
+													<div class="col-sm-12">
+														<label>站点地址</label>
+														<input type="text" class="form-control web-addr" placeholder="http://" value="<%=seo.addr%>">
+													</div>
+													<div class="col-sm-12">
+														<label>站点描述</label>
+														<textarea class="form-control web-description" rows="4"><%=seo.description%></textarea>
+														<button class="btn btn-info btn-save pull-right">保存</button>
+													</div>
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								</div><!-- /COL 2 -->
+							<%if(user.role==0){%>
+								<div class="col-sm-12 user-manage panel panel-default">
+							 		<div class="panel-heading">
+										<span class="title elipsis">
+											<strong>用户管理</strong> <!-- panel title -->
+										</span>
+							 			<button id="addmanagerBtn" class="btn btn-info">创建新用户</button>
+
+									</div>
+
+									<!-- panel content -->
+									<div class="panel-body">
+
+										<div class="table-responsive">
+											<table class="table table-hover table-user table-vertical-middle nomargin">
+												<thead>
+													<tr>
+														<th class="width-30"></th>
+														<th>用户名</th>
+														<th>用户角色</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+
+												<%users.forEach(function(e,i){%>
+													<tr uid="<%=e['_id']%>">
+														<td class="text-center"><img src="/admin/images/male.png" alt="" width="20"></td>
+														<td><%=e.name%></td>
+														<td><%if(e.role==1){%>审核员<%}else{%>编辑员<%}%></td>
+														<td>
+															<label class="switch switch-info">
+																<input type="checkbox" <%if(e.status==1){%>checked<%}%> >
+																<span class="switch-label" data-on="启用" data-off="禁用"></span>
+															</label>
+															<a href="javascript:void(0)" class="pro edit<%if(e.status==0){%> nopro" style="color:#B5C1C7;cursor:not-allowed<%}%>"> 重置密码 </a>
+															<a href="javascript:void(0)" class="pro delete<%if(e.status==0){%> nopro" style="color:#B5C1C7;cursor:not-allowed<%}%>"> 删除 </a>
+														</td>
+														<td class="handle-box">
+															<div class="del-user" hidden>确定删除该用户?
+																<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+															</div>
+															<div class="reset-pw" hidden><input value="<%=e.pw%>" placeholder="请输入重置密码">
+																<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+															</div>
+														</td>
+													</tr>
+												<%})%>
+
+												</tbody>
+											</table>
+										</div>
+
+
+									</div>
+									<!-- /panel content -->
+								</div>
+								<%}%>
+							</div>
+							<!-- COL 3 -->
+							<div class="col-md-12 col-lg-3">
+
+								<!-- projects
+								<section class="panel panel-default">
+									<header class="panel-heading">
+										<h2 class="panel-title elipsis">
+											<i class="fa fa-rss"></i> 系统更新
+										</h2>
+									</header>
+
+									<div class="panel-body noradius padding-10">
+
+										<ul class="bullet-list list-unstyled">
+											<li class="red">
+												<h3>增加在线交流功能</h3>
+												<span class="text-gray size-12">今天发布的版本增加了在线交流功能 </span>
+											</li>
+											<li class="green">
+												<h3>增加IP限制功能</h3>
+												<span class="text-gray size-12">2月1日系统具备IP限制功能 </span>
+											</li>
+										</ul>
+
+									</div>
+									
+								</section>
+								projects -->
+
+
+
+							</div><!-- /COL 3 -->
+
+						</div>
+
+					</div>
+
+				</div>
+			</section>
+			<!-- /MIDDLE -->
+
+		</div>
+
+
+
+	
+		<div id="overlay"></div>
+		<div id="add-manager">
+			<div class="panel">
+				<div class="panel-heading tabs">
+					<ul class="nav nav-tabs tabs-primary pull-left ">
+							<li class="active">
+								<a href="#addone" data-toggle="tab">创建单个用户</a>
+							</li>
+							<li>
+								<a href="#addmore" data-toggle="tab">创建多个用户</a>
+							</li>
+						</ul>
+					<ul class="options pull-right list-inline bounced-close">
+						<li><a href="#" ><i class="fa fa-times"></i></a></li>
+					</ul>
+				</div>
+				<div class="panel-body">
+						
+					<div class="tab-content">
+						<form class="form-horizontal adduser active" id="addone" >
+							<div class="form-group">
+								<label class="col-sm-3">用户角色</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="role_one">
+										<option value="1">审核员</option>
+										<option value="2">编辑员</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label>
+								<div class="col-sm-8">
+									<input type="text" name="username" id="username" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+								<div class="col-sm-8">
+									<input type="password" name="pw" id="pw" class="form-control" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3">确认密码</label>
+								<div class="col-sm-8">
+									<input type="password" name="cpw" id="cpw" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-10">
+									<button type="button" class="btn btn-info btn-sure margin-right-20">确定</button>
+									<button type="button" class="btn btn-default bounced-close">取消</button>
+								</div>
+							</div>
+						</form>
+						<form class="form-horizontal adduser" id="addmore" >
+							<div class="form-group">
+								<label class="col-sm-3">用户角色</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="role_more">
+										<option value="1">审核员</option>
+										<option value="2">编辑员</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3">用户名前缀</label>
+								<div class="col-sm-8">
+									<input type="text" name="user_prefix" id="user_prefix" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3">新增用户数</label>
+								<div class="col-sm-8">
+									<input type="text" name="user_num" id="user_num" class="form-control">
+									<span>说明：用户名=前缀+数字组成，如user1，user2...；</span>
+									<span>密码默认与用户名一致</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-10">
+									<button type="button" class="btn btn-info btn-sure margin-right-20">确定</button>
+									<button type="button" class="btn btn-default bounced-close">取消</button>
+								</div>
+							</div>
+						</form>
+					</div>
+						
+				</div>
+			</div>
+		</div>
+
+
+<div id="user-setting">
+	<div class="panel panel-default">
+		<div class="panel-heading " style="height: 51px;">
+			<ul class="nav nav-tabs pull-left">
+				<li class="active"><!-- TAB 1 -->
+					<a href="#user" data-toggle="tab">基本资料</a>
+				</li>
+				<li class=""><!-- TAB 2 -->
+					<a href="#pwd" data-toggle="tab">修改密码</a>
+				</li>
+			</ul>
+			<ul class="options pull-right list-inline bounced-close" style="margin-top: -4px;">
+				<li><a href="#" ><i class="fa fa-times"></i></a></li>
+			</ul>
+		</div>
+		<div class="panel-body transparent">
+
+			<div class="tab-content">
+				<form class="form-horizontal adduser tab-pane active" id="user">
+					<div class="col-sm-4">
+						<img id="icon" src=<%=user.icon?user.icon:"/admin/images/noavatar.jpg"%> style="padding-bottom:10px">
+						<div id="queue" hidden></div>
+						<div class="btn btn-default">
+							<input id="user-icon" name="file_upload" type="file" multiple="false" >
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="form-group">
+							<label class="col-sm-3">用户名</label>
+							<div class="col-sm-8">
+								<input type="text" id="pname" name="username" class="form-control" value="<%=user.username%>" <%if(user.role==0){%>disabled<%}%>>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3">邮箱</label>
+							<div class="col-sm-8">
+								<input type="email" id="pemail" name="email"  class="form-control" value="<%=user.mail%>">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9" align="right">
+							<button type="submit" class="btn btn-info margin-right-20">确定</button>
+							<button type="submit" class="btn btn-default bounced-close">取消</button>
+						</div>
+					</div>
+				</form>
+				<form class="form-horizontal adduser tab-pane" id="pwd">
+					<div class="form-group">
+						<label class="col-sm-3">旧&nbsp;&nbsp;密&nbsp;&nbsp;码</label>
+						<div class="col-sm-8">
+							<input type="password" class="form-control" id="pwo" name="pwo">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3">新&nbsp;&nbsp;密&nbsp;&nbsp;码</label>
+						<div class="col-sm-8">
+							<input type="password" class="form-control" name="pw" id="pwn">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3">确认密码</label>
+						<div class="col-sm-8">
+							<input type="password" class="form-control" name="cpw">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9" align="right">
+							<button type="submit" class="btn btn-info margin-right-20">确定</button>
+							<button type="submit" class="btn btn-default bounced-close">取消</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+	
+		<!-- JAVASCRIPT FILES -->
+		<script type="text/javascript">var plugin_path = '/admin/plugins/';</script>
+		<script type="text/javascript" src="/admin/plugins/jquery/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/admin/js/app.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery.validate.min.js"></script>
+		<% include ../upload.ejs %>
+		
+		<!-- PAGE LEVEL SCRIPT -->
+		<script type="text/javascript">
+			//上传插件初始化
+
+			$(function() {
+				var time=new Date();
+				if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0") {
+					$('#user-icon').uploadify({
+						'formData': {
+							'timestamp': time,
+							'token': $.md5('unique_salt' + time),
+							//	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+						},
+						'queueID': "queue",
+						'swf': '/index/plugins/upload1/uploadify.swf',
+						'uploader': '/admin/icon/',
+						'debug': true,
+						'progressData': 'speed',
+						'onUploadSuccess': function (file, data, response) {
+							//_toastr("！","top-right","success",false);
+							var obj = JSON.parse(data);
+							$("#icon").attr('src', obj.url)
+						}
+					});
+				}else{
+					$('#user-icon').uploadifive({
+
+						'formData'     : {
+							'timestamp' :time,
+							'token'     : $.md5('unique_salt'+time),
+							//	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+						},
+						'auto':true,
+						'queueID' : 'queue',
+						//'fileTypeDesc' : 'Video Files',
+						//'fileTypeExts' : '*.mp4; *.MKV; *.avi;*.flv;',
+						'fileType' : 'image/*',
+						//'uploadScript': '/index/plugins/upload1/uploadifive.php',
+						//'swf'      : '/index/plugins/upload1/uploadify.swf',
+						//'uploader' : '/upload/videos',
+						'uploadScript': '/admin/icon/',
+						'onUploadComplete' : function(file, data) {
+
+							var obj = JSON.parse(data);
+							$("#icon").attr('src', obj.url)
+						}
+					})
+				}
+			});
+
+			$("#addmanagerBtn").click(function(){
+				$('#overlay').show();
+				$('#add-manager').show();
+			});
+			$("#userbtn").click(function(){
+				$('#overlay').show();
+				$('#user-setting').show();
+			})
+			$('.bounced-close').click(function(){
+				$('#user-setting').hide();
+				$('#add-manager').hide();
+				$('#overlay').hide();
+			})
+			$('.user-manage .switch.switch-info').mouseup(function(){
+				var uid=$(this).parents('tr').attr('uid');
+				console.log($('this').parents('tr'));
+				if ($(this).find("input").is(":checked")) {
+					$(this).siblings(".pro").css("color","#B5C1C7");
+					$(this).siblings(".pro").css("cursor","not-allowed");
+					$(this).siblings(".pro").addClass('nopro');
+
+					$.get('/admin/user/forbid/'+uid,function (data) {
+						if(data.success==true){
+							_toastr("已禁用该用户！","top-right","success",false);
+						}
+					})
+
+
+
+
+				} else{
+					$(this).siblings(".pro").css("color","#46b8da");
+					$(this).siblings(".pro").css("cursor","pointer");
+					$(this).siblings(".pro").removeClass('nopro');
+					$.get('/admin/user/allow/'+uid,function (data) {
+						if(data.success==true){
+							_toastr("已启用该用户！","top-right","success",false);
+						}
+					})
+
+
+
+					// $(this).siblings(".pro").attr("href","javascript:void(0);")
+				}
+			})
+
+			$.validator.setDefaults({
+				debug: true
+			})
+			$("#user").validate({
+				rules: {
+					username:{
+						required: true,
+						minlength: 2
+					},
+					email: {
+						required: true,
+						email:true
+					}
+
+				},
+				messages: {
+					username: {
+						required: "用户名不能为空！",
+						minlength: "用户名长度至少为2！"
+					},
+					email: {
+						required: "邮箱不能为空！",
+						email: "请输入正确的邮箱地址！"
+					}
+				}
+			})
+
+			$("#pwd").validate({
+				rules: {
+					pwo:{
+						required: true,
+						minlength: 6
+					},
+					pw: {
+						required: true,
+						minlength: 6
+					},
+					cpw: {
+						required: true,
+						minlength: 6,
+						equalTo: "#pwn"
+					},
+				},
+				messages: {
+					pwo: {
+						required: "密码不能为空！",
+						minlength: "密码长度至少为6！"
+					},
+					pw: {
+						required: "密码不能为空！",
+						minlength: "密码长度至少为6！"
+					},
+					cpw: {
+						required: "确认密码不能为空！",
+						minlength: "密码长度至少为6！",
+						equalTo: "输入密码不一致！"
+					}
+				}
+			})
+
+			$("#addone").validate({
+				rules: {
+					username:{
+						required: true,
+						minlength: 2
+					},
+					pw: {
+						required: true,
+						minlength: 6
+					},
+					cpw: {
+						required: true,
+						minlength: 6,
+						equalTo: "#pw"
+					},
+				},
+				messages: {
+					username: {
+						required: "用户名不能为空！",
+						minlength: "用户名长度至少为2！"
+					},
+					pw: {
+						required: "密码不能为空！",
+						minlength: "密码长度至少为6！"
+					},
+					cpw: {
+						required: "确认密码不能为空！",
+						minlength: "密码长度至少为6！",
+						equalTo: "输入密码不一致！"
+					}
+				}
+			})
+			$("#addmore").validate({
+				rules: {
+					user_prefix:{
+						required: true,
+						minlength: 2
+					},
+					user_num: {
+						required: true,
+						digits:true
+					}
+				},
+				messages: {
+					user_prefix: {
+						required: "用户名不能为空！",
+						minlength: "用户名前缀长度至少为2！"
+					},
+					user_num:{
+						required: "用户个数不能为空！",
+						digits: "必须输入整数！"
+					}
+				}
+			})
+
+			$('#user .btn-info').click(function(){
+
+				if(!$("#user input").hasClass('error')){
+					//alert('123');
+					$.post(
+							'/admin/system/user/update',
+							{
+								'oname':"<%=user.username%>",
+								'name':$("#pname").val(),
+								'mail':$("#pemail").val(),
+							},
+							function(data){
+								if(data.success==true){
+
+									_toastr("修改用户信息成功！","top-right","success",false);
+									setTimeout(function(){
+										window.location.href='/admin/system';
+									},1000)
+								}else{
+									_toastr(data.err,"top-right","error",false);
+								}
+
+							})
+				}
+
+			})
+
+			$('#pwd .btn-info').click(function(){
+
+				if(!$("#pwd input").hasClass('error')){
+					//alert('123');
+					$.post(
+							'/admin/system/user/update_pw',
+							{
+								'pwo':$("#pwo").val(),
+								'pw':$("#pwn").val(),
+							},
+							function(data){
+								if(data.success==true){
+
+									_toastr("修改用户密码成功！","top-right","success",false);
+									setTimeout(function(){
+										window.location.href='/admin/system';
+									},1000)
+								}else{
+									_toastr(data.err,"top-right","error",false);
+								}
+
+							})
+				}
+
+			})
+
+
+
+
+		$('#addmore .btn-sure').click(function(){
+
+			if(!$("#user_prefix").hasClass('error')&&!$("#user_num").hasClass('error')){
+
+			$.post(
+					'/admin/system/user/addmore',
+					{
+						'user_prefix':$("#user_prefix").val(),
+						'user_num':$("#user_num").val(),
+						'role':$("#role_more").val()
+					},
+					function(data){
+						if(data.success==true){
+
+							_toastr("添加多用户成功！","top-right","success",false);
+							setTimeout(function(){
+								window.location.href='/admin/system';
+							},1000)
+						}else{
+							_toastr(data.err,"top-right","error",false);
+						}
+
+					})
+			}
+
+		})
+			$('#addone .btn-sure').click(function(){
+				if(!$("#cpw").hasClass('error')&&!$("#username").hasClass('error')&&!$("#pw").hasClass('error')){
+					$.post(
+							'/admin/system/user/addone',
+							{
+								'role':$("#role_one").val(),
+								'username':$("#username").val(),
+								'pw':$("#pw").val()
+							},
+							function(data){
+								if(data.success==true){
+									_toastr("添加单用户成功！","top-right","success",false);
+									setTimeout(function(){
+										window.location.href='/admin/system';
+									},1000)
+								}else{
+									_toastr(data.err,"top-right","error",false);
+								}
+
+							})
+				}
+
+			})
+
+			//删除用户
+			$('.table-user').delegate('td .delete','click',function(){
+				if($(this).hasClass('nopro')){_toastr("该用户为禁用状态，不能对其操作！","top-right","error",false);return};
+				$('.table-user .reset-pw').hide();
+				$('.table-user .del-user').hide();
+				$(this).parent().siblings('.handle-box').children('.del-user').show();
+
+			})
+
+			$('.table-user').delegate('.del-user button .glyphicon-ok','click',function(){
+
+				    var parentNode=$(this).parents('tr');
+				var uid=parentNode.attr('uid');
+				$.get('/admin/user/del/'+uid,function(data){
+					console.log(data);
+					if(data=='success'){
+						_toastr("用户删除成功！","top-right","success",false);
+						parentNode.remove();
+					}
+				})
+			})
+			$('.table-user').delegate('.del-user button .bounced-close','click',function(){
+				$(this).parents('.del-user').hide();
+			})
+
+
+			$('.table-user').delegate('td .edit','click',function(){
+				if($(this).hasClass('nopro')){_toastr("该用户为启用状态，不能对其操作！","top-right","error",false);return};
+				$('.table-user .reset-pw').hide();
+				$('.table-user .del-user').hide();
+				$(this).parent().siblings('.handle-box').children('.reset-pw').show();
+
+			})
+			$('.table-user').delegate('.reset-pw button .glyphicon-ok','click',function(){
+
+				var parentNode=$(this).parents('tr');
+				var uid=parentNode.attr('uid');
+				var npw=parentNode.find('.reset-pw input').val();
+				$.get('/admin/user/rpw/'+uid+'/'+npw,function(data){
+					console.log(data);
+					if(data=='success'){
+						_toastr("修改密码成功！","top-right","success",false);
+						parentNode.find('.reset-pw').hide();
+
+					}
+				})
+			})
+			$('.table-user').delegate('.reset-pw button .bounced-close','click',function(){
+				$(this).parents('.reset-pw').hide();
+			})
+
+
+			//保存seo设置
+
+			$('#seo-setting .btn-save').click(function(){
+				var data={
+					name:$('.web-name').val(),
+					title:$('.web-title').val(),
+					addr:$('.web-addr').val(),
+					description:$('.web-description').val()
+				};
+				$.post('/admin/system/seo/',data,function(data){
+					if(data=='success'){
+						_toastr("保存成功！","top-right","success",false);
+
+					}
+
+				})
+			})
+
+			$('.btn-logout').click(function(){
+				$.get('/admin/logout',function(data){
+					if(data=='success')
+						window.location.href='/admin/login';
+				})
+			})
+
+			//修改用户个人信息
+
+		</script>
+
+	</body>
+</html>

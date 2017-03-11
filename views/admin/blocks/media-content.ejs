@@ -1,0 +1,55 @@
+
+<% data.videos.forEach(function(item){%>
+<div class="media-content-box col-sm-4 col-xs-6 " style="border: 1px solid rgb(221, 221, 221);">
+    <label class="checkbox" style="display: none;">
+        <input type="checkbox" value="1">
+        <i></i>
+    </label>
+    <div class="media-box">
+        <h4 class="media-tit" style="display: none;"><%=item.name%></h4>
+        <img src="<%=item.pic%>">
+        <ul class="media-ope" style="display: none;">
+            <li>
+                <span class="glyphicon glyphicon-zoom-in"></span>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-pencil"></span>
+                <div class="edit bounced-hid">
+                    <i class="glyphicon glyphicon-triangle-top"></i>
+                    <span>文件重命名</span>
+                    <input type="text">
+                    <button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+                    <button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+                </div>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-trash"></span>
+                <div class="delete-bounced bounced-hid">
+                    <div class="delete-box panel">
+                        <div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+                            <ul class="options pull-right list-inline">
+                                <li><a href="#"><i class="fa fa-times bounced-close"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+                            <button class="btn btn-danger delete-btn">删除</button>
+                            <button class="btn btn-default bounced-close">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <span class="fa fa-crop" data-toggle="modal" data-target=".cutbox"></span>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-download-alt"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<%})%>

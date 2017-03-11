@@ -1,0 +1,20 @@
+<%course.forEach(function(item,i){%>
+<%if(course.length==1 && item._id==0) var visibility="hidden";%>
+<article  style="visibility: <%=visibility||'visible'%>"   class="course-item row-divider  block nopop article" blockid="article" article-type="course" articleid="<%=item._id%>">
+    <div class="details row">
+        <div class="col-title col-md-4 col-sm-6"><a href="/course/<%=item._id%>" field="title"><%-item.title%></a></div>
+        <div class="col-meta col-md-8 col-sm-6">
+            <div class="row">
+                <div class="col-lecturer col-md-4"><span field="lecturer"><%-item.lecturer%></span></div>
+                <div class="col-duration col-md-4"><span field="duration"><%-item.duration%></span></div>
+                <div class="col-level col-md-4"><span field="level"><%-item.level%></span></div>
+            </div>
+        </div><!--//col-meta-->
+    </div><!--//details-->
+</article><!--//course-item-->
+<%})%>
+<script>
+    $(".block").on('article-sync',function(ev,resp){
+        $('.block').find('a').attr('href','/course/'+resp.new[0]._id);
+    });
+</script>

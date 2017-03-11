@@ -1,0 +1,82 @@
+</div><!--//wrapper-->
+<script>
+
+   var hu={'ha':'ha'};
+    if(!hu){
+        console.log(typeof hu);
+    }
+    if(hu.length>0){
+        console.log(hu);
+    }
+</script>
+
+<div id="logout"></div>
+<script>
+    <%if(typeof user!='undefined'){%>
+    var user = JSON.parse('<%-JSON.stringify(user)%>');
+    console.log(user);
+    if(user.edit||user.audit){
+        $('#logout').append('<div class="edit-box"><a href="/admin/edit/logoutEdit">点击退出</a></div>')
+    }
+    if(user.audit){
+        $('.top-bar').show();
+    }
+    <%}%>
+
+</script>
+<!-- ******FOOTER****** -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="container">
+            <div class="row" style=" margin-top: 25px;">
+                <div class="footer-col col-md-4 col-sm-4  block nopop article"  blockid="article" article-type="settings" articleid="site_config">
+                    <div class="footer-col-inner">
+                        <h3>联系我们</h3>
+                        <div class="row">
+                            <p class="adr clearfix col-md-12 col-sm-4">
+                                <i class="fa fa-map-marker pull-left"></i>
+                                <span class="adr-group pull-left">
+                                    <span class="street-address" field="address" style="line-height: 18px"><%-site_config.address||'单位地址'%>&nbsp;</span><br>
+                                    <span class="country-name" field="name" style="line-height: 18px"><%-site_config.name||'单位名称'%>&nbsp;</span>
+                                </span>
+                            </p>
+                            <p class="tel col-md-12 col-sm-4"><i class="fa fa-phone"></i><span field="phone" style="line-height: 18px"><%-site_config.phone||'联系电话'%>&nbsp;</span></p>
+                            <p class="email col-md-12 col-sm-4"><i class="fa fa-envelope"></i><span field="email" style="line-height: 18px"><%-site_config.email||'联系邮箱'%>&nbsp;</span></p>
+                        </div>
+                    </div><!--//footer-col-inner-->
+                </div><!--//foooter-col-->
+                <div class="footer-col col-md-4 col-sm-8 logobot  block nopop article"  blockid="article" article-type="settings" articleid="site_config" >
+                    <a href="/" field="logobot" style="display: block;height: 170px;line-height: 170px;">
+                        <img data-size="170 * 170" src="<%=site_config.logobot%>">
+                    </a>
+
+                    <!-- <div class="footer-col-inner">
+                        <h3>Join our mailing list</h3>
+                        <p>Subscribe to get our weekly newsletter delivered directly to your inbox</p>
+                        <form class="subscribe-form">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Enter your email" />
+                            </div>
+                            <input class="btn btn-theme btn-subscribe" type="submit" value="Subscribe">
+                        </form>
+
+                    </div> --><!--//footer-col-inner-->
+                </div><!--//foooter-col-->
+                <div class="footer-col col-md-4 col-sm-12  block nopop article"  blockid="article" article-type="settings" articleid="site_config">
+                    <div class="footer-col-inner">
+                        <h3>其他信息</h3>
+                        <div class="content">
+                            <%-site_config.content%>
+                        </div>
+                    </div><!--//footer-col-inner-->
+                </div><!--//foooter-col-->
+            </div>
+        </div>
+    </div><!--//footer-content-->
+</footer><!--//footer-->
+
+
+
+
+
+<% include ../foot.ejs %>

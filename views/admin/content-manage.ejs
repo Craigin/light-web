@@ -1,0 +1,23 @@
+<%include header.ejs%>
+<section id="middle">
+    <div id="content" class="dashboard padding-20" style="text-align: center;">
+        <p style="margin-top:15%;font-size: 20px;">如需修改页面内容请进入全站编辑模式</p>
+        <a class="btn btn-danger btn-lg" href="/admin/edit/<%=user.role%>">点击进入全站编辑模式</a>
+    </div>
+</section>
+</div>
+
+<!-- JAVASCRIPT FILES -->
+<script type="text/javascript">var plugin_path = '/admin/plugins/';</script>
+<script type="text/javascript" src="/admin/plugins/jquery/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/admin/js/app.js"></script>
+<script>
+$('.btn-logout').click(function(){
+$.get('/admin/logout',function(data){
+if(data=='success')
+window.location.href='/admin/login';
+})
+})
+</script>
+</body>
+</html>

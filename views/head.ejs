@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title><%-site_config.name%></title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="shortcut icon" href="favicon.ico">-->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>    -->
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/index/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/index/css/toastr.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/index/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/index/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="/index/plugins/pretty-photo/css/prettyPhoto.css">
+
+    <!-- Theme CSS -->
+     <!--<link id="theme-style" rel="stylesheet" href="/index/css/styles.css">-->
+    <link id="theme-style" rel="stylesheet" href="/index/css/styles-purple.css">
+    <link rel="stylesheet" href="/index/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/index/css/scroll.css">
+    <link rel="stylesheet" href="/index/plugins/editor.summernote/summernote.css">
+    <link rel="stylesheet" href="/index/css/niceupload.css">
+    <link rel="stylesheet" href="/index/css/bootstrap-datetimepicker.css">
+    <script type="text/javascript" src="/index/plugins/jquery-1.11.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/index/index/js/html5shiv.js"></script>
+    <script src="/index/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="/ejs/ejs.min.js"></script>
+    <script src="/index/plugins/editor.summernote/summernote.min.js"></script>
+    <script src="/index/js/niceupload.js"></script>
+    <script src="/index/js/cropbox-min.js"></script>
+    <script>
+    var pageData =<%-JSON.stringify(locals,function(key,value){ if(['','settings','_locals','cache'].indexOf(key)>0){return undefined}else{return value;}})%>;
+    $(window).scroll(function() {
+        if ($(document).scrollTop() > 0) {
+            $('.top-bar').css('position', 'fixed');
+            $('.top-bar').css('box-shadow', '0px 0px 5px #394056');
+        } else {
+            $('.top-bar').css('position', 'relative');
+            $('.top-bar').css('box-shadow', 'none');
+        }
+    })
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <!-- ******HEADER****** -->
+    <header class="header">
+
+        <div class="top-bar" style="position: relative;top:0;width:100%;height: 52px;z-index: 1001;display:none;">
+            <div class="container" style="position: relative;display:block;">
+                <!--<ul class="social-icons col-md-6 col-sm-6 col-xs-12 hidden-xs">-->
+                    <!--<li><a href="#" ><i class="fa fa-twitter"></i></a></li>-->
+                    <!--<li><a href="#" ><i class="fa fa-facebook"></i></a></li>-->
+                    <!--<li><a href="#" ><i class="fa fa-youtube"></i></a></li>-->
+                    <!--<li><a href="#" ><i class="fa fa-linkedin"></i></a></li>-->
+                    <!--<li><a href="#" ><i class="fa fa-google-plus"></i></a></li>-->
+                    <!--<li class="row-end"><a href="#" ><i class="fa fa-rss"></i></a></li>-->
+                <!--</ul>-->
+                <!--<form class="pull-right search-form" role="search">-->
+                <!--<div class="form-group">-->
+                <!--<input type="text" class="form-control" placeholder="输入关键字搜索...">-->
+                <!--</div>-->
+                <!--<button type="submit" class="btn btn-theme">Go</button>-->
+                <!--</form>-->
+
+                <%if (user.role == 0 || user.role == 1){  var router_map={"index":"首页","news":"校园新闻","about":"学校概况","faculty":"院系设置","teachers":"师资队伍","education":"教育教学","course":"精品课程","jobs":"人才招聘"};%>
+
+                    <%if (typeof audit_url!='undefined'){%>
+                    <script>
+                        $(function () {
+                            $('.btn-audit').on('click',function (){
+    //            var key = window.location.href.split('/')[3];
+                                $.ajax({
+                                    method: 'post',
+                                    url: '<%=audit_url%>',
+                                    success: function (resp) {
+                                        location.reload();
+                                    }
+                                });
+                            })
+                        })
+                    </script>
+                    <div style="position:relative;top:0;width:100%;text-align: center;z-index:1000;">
+                        <i class="fa fa-exclamation-triangle" style="position:absolute;top:12px;margin-left: -37px;font-size: 32px;color:#fff"></i>
+                        <p style="display:inline;margin-right:20px;height: 52px;line-height: 52px;font-size:18px;color: #fff">本页面还未审核，请审核后发布。</p>
+                        <button class="btn btn-theme btn-audit" style="margin-top: -9px;border-radius: 4px;">审核通过并发布</button>
+                    </div>
+                    <%}%>
+
+                    <div class="no-audit">
+                        <a class="no-audit-hd dropdown-toggle" data-toggle="dropdown" data-click="dropdown" data-delay="0" data-close-others="false" href="#">未审核页面<span class="label" style="margin-left:10px;background: #fff;color:#6f7a9f;"></span></a>
+                        <%if (typeof audit_list !='undefined' && audit_list.length>0){%>
+                        <ul class="dropdown-menu" style="margin:0px;padding:0px;border:0px;">
+                            <%audit_list.forEach(function(item){%>
+                                <%if (item == 'albumImages'|| item=='album'){%>
+                                    <li><a href="/album/study">图说校园</a></li>
+                                <%}else if (item == 'activity'){%>
+                                    <li><a href="/activity/lecture">校园活动</a></li>
+                                <%}else if (item == 'about'){%>
+                                    <li><a href="/about/president">学校概况</a></li>
+                                <%}else if (item == 'slide'){%>
+                                    <li><a href="/">首页-幻灯片和链接</a></li>
+                                <%}else if (item == 'notice'){%>
+                                    <li><a href="/">首页-公告</a></li>
+                                 <%}else if (item == 'index'){%>
+                                 <li><a href="/">首页</a></li>
+                                <%}else if (item == 'article'||item == 'admin'||item == 'resources'){%>
+                                <%}else{%>
+                                    <li><a href="/<%=item%>"><%=router_map[item]%></a></li>
+                                <%}%>
+                            <%})%>
+                        </ul>
+                        <%}%>
+                    </div>
+
+
+                <%}%>
+            </div>
+        </div><!--//to-bar-->
+
+        <div class="header-main container" >
+            <h1 class="logo col-md-3 col-sm-4 block nopop article"  blockid="article" article-type="settings" articleid="site_config"  >
+                <a href="/" ><span class="img" field="logo"><img id="logo" data-size="281 * 84" src="<%=site_config.logo%>" alt="Logo"></span></a>
+            </h1><!--//logo-->
+            <div class="info col-md-8 col-sm-8">
+
+                <div class="contact pull-right block nopop article btn-small"  blockid="article" article-type="settings" articleid="site_config">
+                    <p class="phone"><i class="fa fa-phone"></i><span field="phone"><%-site_config.phone||'联系电话'%>&nbsp;</span></p>
+                    <br />
+                    <p class="email"><i class="fa fa-envelope"></i><span field="email"><%-site_config.email||'邮箱地址'%>&nbsp;</span></p>
+
+                </div><!--//contact-->
+
+            </div><!--//info-->
+        </div><!--//header-main-->
+    </header><!--//header-->
+
+    <!-- ******NAV****** -->
+    <nav class="main-nav" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button><!--//nav-toggle-->
+            </div><!--//navbar-header-->
+            <div class="navbar-collapse collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class=" nav-item"><a href="/">首页</a></li>
+                    <li class="nav-item"><a href="/news">校园新闻</a></li>
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">学校概况 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/about/president">校长致辞</a></li>
+                            <li><a href="/about/history">学校沿革</a></li>
+                            <li><a href="/about/past-leaders">历任领导</a></li>
+                            <li><a href="/about/leaders">现任领导</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="/faculty">院系设置</a></li>
+                    <li class="nav-item"><a href="/teachers">师资队伍</a></li>
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">教育教学 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/education ">本科教育</a></li>
+                            <li><a href="/education/graduate ">研究生教育</a></li>
+                            <li><a href="/course ">精品课程</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">校园活动 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/activity/lecture">讲座论坛</a></li>
+                            <li><a href="/activity/society">社团活动</a></li>
+                            <li><a href="/activity/art">文艺演出</a></li>
+                            <li><a href="/activity/sport">体育竞技</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">图说校园 <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/album/study">学习</a></li>
+                            <li><a href="/album/live">生活</a></li>
+                            <li><a href="/album/growth">成长</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="/jobs ">人才招聘</a></li>
+                    <li class="nav-item"><a href="/maker ">创客学院</a></li>
+                </ul><!--//nav-->
+            </div><!--//navabr-collapse-->
+        </div><!--//container-->
+    </nav><!--//main-nav-->

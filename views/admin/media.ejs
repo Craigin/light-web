@@ -1,0 +1,1391 @@
+<% include header.ejs %>
+<link rel="stylesheet" type="text/css"  href="/admin/css/media.css">
+<script>
+<%if(typeof images!='undefined'){%>
+var currentImages = JSON.parse('<%-JSON.stringify(images)%>');
+console.log(currentImages);
+<%}%>
+var currentVideos=[],currentDOCS=[];
+
+</script>
+<section id="middle">
+    <div id="content" class="dashboard padding-20">
+
+        <div class="panel-heading">
+
+						<span class="elipsis"><!-- panel title -->
+							<strong>管理您的媒资</strong>
+						</span>
+
+            <!-- right options
+            <ul class="options pull-right list-inline">
+                <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
+                <li><a href="#" class="opt panel_fullscreen hidden-xs" data-toggle="tooltip" title="Fullscreen" data-placement="bottom"><i class="fa fa-expand"></i></a></li>
+                <li><a href="#" class="opt panel_close" data-confirm-title="Confirm" data-confirm-message="Are you sure you want to remove this panel?" data-toggle="tooltip" title="Close" data-placement="bottom"><i class="fa fa-times"></i></a></li>
+            </ul>
+            /right options -->
+
+
+        </div>
+
+        <!-- panel content -->
+        <div class="panel-body">
+
+            <!-- width background -->
+            <div class="tabs nomargin-top" style="overflow: hidden;">
+
+                <!-- tabs -->
+                <ul class="nav nav-tabs tab-one">
+                    <li class="active" tid="1">
+                        <a href="#tab1" data-toggle="tab">
+                            <i class="fa fa-picture-o"></i> 图片
+                        </a>
+                    </li>
+                    <li tid="2">
+                        <a href="#tab2" data-toggle="tab">
+                            <i class="fa fa-video-camera"></i> 视频
+                        </a>
+                    </li>
+
+                    <li tid="3">
+                        <a href="#tab3" data-toggle="tab">
+                            <i class="fa fa-retweet"></i> 文件
+                        </a>
+                    </li>
+                    <li tid="livetab" style="display: none;">
+                        <a href="#tab4" data-toggle="tab">
+                            <i class="fa fa-retweet"></i> 直播
+                        </a>
+                    </li>
+                </ul >
+                <div style="overflow: hidden;" id="box1">
+                <div class="tab-content nopadding-right nopadding-left col-md-2 col-sm-2" style="padding:0px">
+
+                    <%cats.forEach(function(e,i){%>
+                        <div class="media-slide tab-pane <%if(i==0){%>active<%}%>" id="tab<%=e.tId%>">
+                            <ul class="nav nav-tabs nav-stacked media-tabs">
+                                <%e.child.forEach(function(ev,k){%>
+                                <li class="<%if(k==0){%>active<%}%>" cid="<%=ev.id%>">
+                                    <a href="javascript:void(0)"  data-toggle="tab">
+                                        <%=ev.name%>
+                                        <i class="fa fa-trash-o delete-cat pull-right" data-toggle="modal" data-target=".delete-box"></i>
+                                    </a>
+                                </li>
+                                <%})%>
+
+                            </ul>
+                            <span class="add-menu"><i class="glyphicon glyphicon-plus-sign"></i>添加新目录</span>
+                        </div>
+                    <%})%>
+
+
+                </div>
+                <div class="tab-content media-content col-sm-10 col-md-10" style="padding: 17px 17px 67px;">
+                    <!--%include blocks/media-image.ejs%-->
+                    <!--%include blocks/media-video.ejs%-->
+
+                    <div class="clearfix"></div>
+                </div>
+
+
+                </div>
+                <div class="tab-content livebox col-sm-12 col-md-12" style="padding: 50px;border: 1px solid #d9e1e8 " >
+                    <div class="input-group col-sm-7 col-md-7">
+                        <span class="input-group-addon" style="width:140px">直播服务器地址</span>
+                        <input type="text" class="form-control livehost" placeholder="请填写直播服务器地址" aria-describedby="basic-addon1" value="<%if(typeof livehost!='undefined'){%><%=livehost.host%><%}%>">
+                    </div>
+                    <div class="input-group col-sm-7 col-md-7">
+                        <span class="input-group-addon" style="width:140px">直播服务器端口</span>
+                        <input type="text" class="form-control liveport" placeholder="请填写直播服务器端口号" aria-describedby="basic-addon1"  value="<%if(typeof livehost!='undefined'){%><%=livehost.port%><%}%>">
+                    </div>
+                    <div class="input-group col-sm-7 col-md-7" hidden>
+                        <span class="input-group-addon" style="width:140px">accessid</span>
+                        <input type="text" class="form-control liveAccessid" placeholder="请填写accessid" aria-describedby="basic-addon1" value="<%if(typeof livehost!='undefined'){%><%=livehost.accessid%><%}%>">
+                    </div>
+                    <div class="livebox-bottom col-sm-7 col-md-7" style="padding: 20px">
+                        <button type="button" class="btn btn-success" style="width: 100%" id="live-sub">提交</button>
+                    </div>
+                </div>
+                <div class="media-bottom" style="">
+                    <div class="upload-hd">
+											<span>
+												<i class="glyphicon glyphicon-ok"></i>
+												上传列表
+                                                <!--（12/12个文件）-->
+												<i class="fa fa-external-link"></i>
+											</span>
+                    </div>
+                    <div class="upload-bd">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+													<span class="title elipsis">
+														<strong>上传列表</strong>
+													</span>
+                                <ul class="options pull-right list-inline">
+                                    <li><a href="#" ><i class="fa fa-times"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                <div class="upload-list-hd">
+                                    <div  id="queue" style="width: 100%;height:348px;"></div>
+
+                                </div>
+                            </div>
+                            <div class="panel-bottom">
+                                <button>完成</button>
+                            </div>
+                        </div>
+                    </div>
+                    <form>
+
+                        <div class="btn btn-default upload-btn upload-pic-btn" >
+                            <input id="file_upload"  name="file_upload" accept="application/vnd.ms-powerpoint" type="file" multiple="true" style="height: 30px; line-height: 30px; overflow: hidden; position: relative; text-align: center; width: 100px;">
+                        </div>
+                        <div class="btn btn-danger upload-btn import-btn" hidden>
+                            <a data-toggle="modal" data-target=".import-box" style="color: #fff;">导入视频</a>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- /width background -->
+
+        </div>
+        <!-- /panel content -->
+    </div>
+</section>
+<!-- /MIDDLE -->
+
+</div>
+
+<!--视频剪辑-->
+
+<div class="modal fade  bs-example-modal-lg cutbox" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="-moz-user-select:none" unselectable="none" onselectstart="return false;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header" style="text-align: center">
+
+                <div class="modal-title pull-left">剪辑视频</div>
+                <input placeholder="请输入剪辑视频的名称" type="text" class="form-control CVN" style="width:300px;margin-left: 280px">
+            </div>
+            <div class="modal-body">
+
+                <div class="modal-body-header ">
+                    <div class="col-sm-2 btn-box" style="border-right: 1px solid #e5e5e5;"><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" >取消</button></div>
+                    <div class="col-sm-8 video-box" style="padding:0">
+                        <div class="vedio-item" >
+                            <div class="show-time show-start" >00:00:00</div>
+                            <div class="show-time show-end" >00:00:20</div>
+                            <div class="vedio-item-selected" type="merge"
+                                 url="/uploads/videos/test.mp4"
+                                 title="test.mp4" starttime="0" endtime="20" v-index="0"
+                                 style=""></div>
+                            <div class="shaft start-shaft" style="cursor: default;"></div>
+                            <div class="shaft end-shaft" style=" cursor: default;"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-box" ><button type="button" class="btn btn-primary btn-save" >保存</button></div>
+                </div>
+                <div class="modal-body-player-box" id="player"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--预览图片-->
+
+<div class="modal fade  bs-example-modal-lg img-show-box" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header" style="border-radius: 6px 6px 0 0;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-title ">图片预览</div>
+
+            </div>
+            <div class="modal-body">
+
+                <img src="" style="width:100%">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--预览视频-->
+
+<div class="modal fade  bs-example-modal-lg preview-box" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header" style="border-radius: 6px 6px 0 0;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-title ">视频预览</div>
+            </div>
+            <div class="modal-body">
+
+                <div class="modal-body-player-box" id="player2"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade  bs-example-modal-lg delete-box" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+    <div class="modal-dialog modal-lg" style="width: 400px;">
+        <div class="modal-content" >
+            <div class="modal-body">
+                <h4 style="color:red">确定删除该目录以及目录下的文件？</h4>
+                <input class="delete-cid" hidden>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-theme btn-danger ">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--剪切-->
+<div class="modal fade bs-example-modal-lg cropbox" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="">剪切图片</h4>
+            </div>
+            <div class="modal-body">
+                <div class="htmleaf-container">
+
+                    <!-- Content -->
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <!-- <h3 class="page-header">Demo:</h3> -->
+                                <div class="img-container">
+                                    <img src="/admin/images/picture.jpg" alt="Picture">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <!-- <h3 class="page-header">Preview:</h3> -->
+                                <div class="docs-preview clearfix">
+                                    <div class="img-preview preview-lg"></div>
+                                    <div class="img-preview preview-md"></div>
+                                    <div class="img-preview preview-sm"></div>
+                                    <div class="img-preview preview-xs"></div>
+                                </div>
+                                <!-- <h3 class="page-header">Data:</h3> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9 docs-buttons">
+                                <!-- <h3 class="page-header">Toolbar:</h3> -->
+                                <div class="btn-group">
+                                    <button class="btn btn-primary" data-method="setDragMode" data-option="move" type="button" title="Move">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
+              <span class="icon icon-move"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="setDragMode" data-option="crop" type="button" title="Crop">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setDragMode&quot;, &quot;crop&quot;)">
+              <span class="icon icon-crop"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="zoom" data-option="0.1" type="button" title="Zoom In">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;zoom&quot;, 0.1)">
+              <span class="icon icon-zoom-in"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="zoom" data-option="-0.1" type="button" title="Zoom Out">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;zoom&quot;, -0.1)">
+              <span class="icon icon-zoom-out"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button" title="Rotate Left">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;rotate&quot;, -45)">
+              <span class="icon icon-rotate-left"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="rotate" data-option="45" type="button" title="Rotate Right">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;rotate&quot;, 45)">
+              <span class="icon icon-rotate-right"></span>
+            </span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button class="btn btn-primary" data-method="disable" type="button" title="Disable">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;disable&quot;)">
+              <span class="icon icon-lock"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="enable" type="button" title="Enable">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;enable&quot;)">
+              <span class="icon icon-unlock"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="clear" type="button" title="Clear">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;clear&quot;)">
+              <span class="icon icon-remove"></span>
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="reset" type="button" title="Reset">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;reset&quot;)">
+              <span class="icon icon-refresh"></span>
+            </span>
+                                    </button>
+                                    <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                                        <input class="sr-only" id="inputImage" name="file" type="file" accept="image/*">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
+              <span class="icon icon-upload"></span>
+            </span>
+                                    </label>
+                                    <button class="btn btn-primary" data-method="destroy" type="button" title="Destroy">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;destroy&quot;)">
+              <span class="icon icon-off"></span>
+            </span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group btn-group-crop">
+                                    <button class="btn btn-primary" data-method="getCroppedCanvas" type="button">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;)">
+              Get Cropped Canvas
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }" type="button">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { &quot;width&quot;: 160, &quot;height&quot;: 90 })">
+              160 &times; 90
+            </span>
+                                    </button>
+                                    <button class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }" type="button">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { &quot;width&quot;: 320, &quot;height&quot;: 180 })">
+              320 &times; 180
+            </span>
+                                    </button>
+                                </div>
+
+                                <!-- Show the cropped image in modal -->
+                                <!--<div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">-->
+                                <!--<div class="modal-dialog">-->
+                                <!--<div class="modal-content">-->
+                                <!--<div class="modal-header">-->
+                                <!--<button class="close" data-dismiss="modal" type="button" aria-hidden="true">&times;</button>-->
+                                <!--<h4 class="modal-title" id="getCroppedCanvasTitle">Cropped</h4>-->
+                                <!--</div>-->
+                                <!--<div class="modal-body"></div>-->
+                                <!--&lt;!&ndash; <div class="modal-footer">-->
+                                <!--<button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>-->
+                                <!--</div> &ndash;&gt;-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+
+
+
+                            </div><!-- /.docs-buttons -->
+
+                            <div class="col-md-3 docs-toggles">
+                                <!-- <h3 class="page-header">Toggles:</h3> -->
+                                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                    <label class="btn btn-primary active" data-method="setAspectRatio" data-option="1.7777777777777777" title="Set Aspect Ratio">
+                                        <input class="sr-only" id="aspestRatio1" name="aspestRatio" value="1.7777777777777777" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 16 / 9)">
+              16:9
+            </span>
+                                    </label>
+                                    <label class="btn btn-primary" data-method="setAspectRatio" data-option="1.3333333333333333" title="Set Aspect Ratio">
+                                        <input class="sr-only" id="aspestRatio2" name="aspestRatio" value="1.3333333333333333" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 4 / 3)">
+              4:3
+            </span>
+                                    </label>
+                                    <label class="btn btn-primary" data-method="setAspectRatio" data-option="1" title="Set Aspect Ratio">
+                                        <input class="sr-only" id="aspestRatio3" name="aspestRatio" value="1" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 1 / 1)">
+              1:1
+            </span>
+                                    </label>
+                                    <label class="btn btn-primary" data-method="setAspectRatio" data-option="0.6666666666666666" title="Set Aspect Ratio">
+                                        <input class="sr-only" id="aspestRatio4" name="aspestRatio" value="0.6666666666666666" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 2 / 3)">
+              2:3
+            </span>
+                                    </label>
+
+                                </div>
+
+                            </div><!-- /.docs-toggles -->
+                        </div>
+                    </div>
+                    <!-- Alert -->
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--文件目录-->
+<div class="modal fade bs-example-modal-lg fileMenu" tabindex="1" role="dialog" aria-labelledby="myLargeModalLabel" style="top: 20%;">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="">复制到</h4>
+            </div>
+            <div class="modal-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        所有图片
+                    </a>
+                    <a href="#" class="list-group-item">幻灯片</a>
+                    <a href="#" class="list-group-item">新闻列表</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade  bs-example-modal-lg import-box" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content col-sm-12" >
+            <div class="modal-header" style="border-radius: 6px 6px 0 0;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-title ">导入资源</div>
+            </div>
+            <div class="input-box" >
+                <div class="modal-body col-sm-12">
+                    <div class="col-sm-12">
+                        <h4>选择导入方式</h4>
+                        <select name="import_type" id="import_type" style=" padding:0px;">
+                            <option value="local">选择导入方式</option>
+                            <option value="record">微录播</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5 ">
+                        <h4>用户名</h4>
+                        <input class="form-control" id="uname">
+                    </div>
+                    <div class="col-sm-5 ">
+                        <h4>密码</h4>
+                        <input class="form-control" id="upw" type="password">
+                    </div>
+                    <div class="col-sm-10 ">
+                        <h4>微录播地址</h4>
+                        <input class="form-control" id="uhost">
+                    </div>
+                </div>
+                <div class="modal-footer col-sm-12">
+                    <div class="col-sm-5">
+                    <button type="button" class="btn btn-theme btn-success" style="width:100%">确定</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 导入选择列表 -->
+            <div class="contents-list j-recordList" style="display: none">
+                <div class="left_content">微录播：<span class="j-importUrl"></span></div>
+
+                    <div class="input-group right_content">
+                        <input type="text" class="form-control input-sm op-search-text" id="searchName" style="height:34px;width: 91%;">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-sm op-search" type="button" style="border-radius:0 5px 5px 0;height:34px"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+                    </div>
+
+                <div style="max-height: 420px; overflow: scroll;">
+                    <table class="w100 tcc">
+                        <thead class="common-thead">
+                        <tr>
+                            <th class="tcc common-thead-line">选择</th>
+                            <th class="tcc common-thead-line">缩略图</th>
+                            <th class="tcc common-thead-line">文件名称</th>
+                        </tr>
+                        </thead>
+                        <tbody id="importlist">
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="all-btn" style="padding-bottom: 50px;text-align: center">
+                    <button type="button" class="btn btn-theme btn-default j-confirmImportBtn" style="width:150px">确定</button>
+                </div>
+            </div>
+            <!-- /导入选择列表 -->
+        </div>
+    </div>
+</div>
+
+
+
+<link href="/admin/css/media-manage.css" rel="stylesheet" type="text/css">
+<!-- JAVASCRIPT FILES -->
+<script type="text/javascript">var plugin_path = '/admin/plugins/';var tid=1,cid=1;</script>
+<script type="text/javascript" src="/admin/plugins/jquery/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/admin/js/app.js"></script>
+
+<!--script type="text/javascript" src="/admin/plugins/bootstrap/js/bootstrap.min.js"></script-->
+<script src="/admin/plugins/cropper/cropper.js"></script>
+<script src="/ejs/ejs.min.js"></script>
+<script src="/player/sewise.player.min.js"></script>
+<script type="text/javascript" src="/index/js/widget.js"></script>
+
+<!--<script src="/admin/js/crop.js"></script>-->
+<% include ../upload.ejs %>
+
+<script type="text/javascript">
+
+    $(function() {
+
+        var templateFile = {};
+        //播放器初始化
+        var player= new Sewise.SewisePlayer({
+            elid:"player",
+            autostart:false,
+            url:"#",
+            skin:"vodLight",
+            playsinline:true,
+            calculateOffTop:false,
+            bigplaybtndisplay:"disable"
+        });
+        player.startup();
+
+
+        var player2= new Sewise.SewisePlayer({
+            elid:"player2",
+            autostart:false,
+            url:"#",
+            skin:"vodLight",
+            playsinline:true,
+            calculateOffTop:false,
+            bigplaybtndisplay:"disable"
+        });
+        player2.startup();
+
+        //视频预览
+        $('.media-content').on('click','.media-video li .glyphicon-play-circle',function(){
+            var url = $(this).attr('url');
+            var name=$(this).parents('.media-box').find('.media-tit').text();
+            setTimeout(function(){
+                player2.forceRefreshSkinSize();
+            },500);
+            player2.toPlay(url,"正在播放:"+name,null,true);
+
+        })
+        $('.preview-box').on('hidden.bs.modal', function (e) {
+            player2.stop();
+        })
+        $('.cutbox').on('hidden.bs.modal', function (e) {
+            player.stop();
+        })
+      // 	$('.preview-box').modal('show');
+
+        if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0")
+        {
+            //切换上传按钮
+            $('.tab-one li').on('click',function(){
+                tid=$(this).attr('tid');
+                cid=1;
+                var session=$(this).attr('tid');
+                $('.tab-pane.active ul li').removeClass('active');
+                $('.tab-pane.active ul li').eq(0).addClass('active');
+                setTimeout(function(){$('.tab-pane.active ul li').eq(0).click();},250);
+
+
+
+                if(session==1){
+                    //$('.import-btn').hide();
+                    $('#file_upload').uploadify('destroy');
+                    $('#file_upload').uploadify({
+                        'formData'     : {
+                            'timestamp' :time,
+                            'token'     : $.md5('unique_salt'+time),
+                            //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+                        },
+                        'buttonText':'选择文件',
+                        'auto':true,
+                        'queueID'  : "queue",
+                        'swf'      : '/index/plugins/upload1/uploadify.swf',
+                        'uploader' : '/admin/upload/images',
+                        'progressData':'speed',
+                        'onUploadSuccess' : function(file, data) {
+                            if(data=='success'){
+                                _toastr("文件上传成功！","top-right","success",false);
+                                $('.tab-pane.active ul li.active').click();
+                            };
+                        },
+                        'onSelect':function(file) {
+                            //formData['dir']='1_1';
+                            $('#file_upload').uploadify('settings',"formData", { 'dir': $('.tab-content .tab-pane.active li.active').attr('cid') } );
+                            //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                            var fileName = file.name;
+                            var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                            switch (ext.toLowerCase()) {
+                                case 'jpg':
+                                case 'png':
+                                    //alert('filetype ok');
+                                    $('.upload-bd').show();
+                                    break;
+                                default:
+                                    _toastr("文件格式不符合要求！", "top-right", "warning", false);
+                                    $('#file_upload').uploadify('cancel');
+                                    break;
+                            }
+                        }
+                    });
+                }else if(session==2){
+                  //  $('.import-btn').show();
+                    $('#file_upload').uploadify('destroy');
+                    $('#file_upload').uploadify({
+                        'formData'     : {
+                            'timestamp' :time,
+                            'token'     : $.md5('unique_salt'+time),
+                            //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+                        },
+                        'buttonText':'选择文件',
+                        'auto':true,
+                        'queueID'  : "queue",
+                        'swf'      : '/index/plugins/upload1/uploadify.swf',
+                        'uploader' : '/admin/upload/videos',
+                        'progressData':'speed',
+                        'onUploadSuccess' : function(file, data) {
+                            if(data=='success'){
+                                _toastr("文件上传成功！","top-right","success",false);
+                                $('.tab-pane.active ul li.active').click();
+                            };
+                        },
+                        'onSelect':function(file) {
+                            //formData['dir']='1_1';
+                            $('#file_upload').uploadify('settings',"formData", { 'dir': $('.tab-content .tab-pane.active li.active').attr('cid') } );
+                            //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                            var fileName = file.name;
+                            var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                            switch (ext.toLowerCase()) {
+                                case 'mp4':
+                                case 'mkv':
+                                case 'avi':
+                                case 'flv':
+                                case  'ts':
+                                case 'rmvb':
+                                case 'wmv':
+                                case 'mpg':
+                                case 'mov':
+                                    //alert('filetype ok');
+                                    $('.upload-bd').show();
+                                    break;
+                                default:
+                                    _toastr("文件格式不符合要求！", "top-right", "warning", false);
+                                    $('#file_upload').uploadify('cancel');
+                                    break;
+                            }
+                        }
+                    });
+                }else{
+                 //   $('.import-btn').hide();
+                    $('#file_upload').uploadify('destroy');
+                    $('#file_upload').uploadify({
+                        'formData'     : {
+                            'timestamp' :time,
+                            'token'     : $.md5('unique_salt'+time),
+                            //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+                        },
+                        'buttonText':'选择文件',
+                        'auto':true,
+                        'queueID'  : "queue",
+                        'swf'      : '/index/plugins/upload1/uploadify.swf',
+                        'uploader' : '/admin/upload/docs',
+                        'progressData':'speed',
+                        'onUploadSuccess' : function(file, data) {
+                            if(data=='success'){
+                                _toastr("文件上传成功！","top-right","success",false);
+                                $('.tab-pane.active ul li.active').click();
+                            };
+                        },
+                        'onSelect':function(file) {
+                            //formData['dir']='1_1';
+                            $('#file_upload').uploadify('settings',"formData", { 'dir': $('.tab-content .tab-pane.active li.active').attr('cid') } );
+                            //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                            var fileName = file.name;
+                            var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                            switch (ext.toLowerCase()) {
+                                case 'ppt':
+                                case 'doc':
+                                case 'docx':
+                                case 'pdf':
+                                case 'tgz':
+                                case 'rar':
+                                case 'txt':
+                                case 'xls':
+                                    //alert('filetype ok');
+                                    $('.upload-bd').show();
+                                    break;
+                                default:
+                                    _toastr("文件格式不符合要求！", "top-right", "warning", false);
+                                    $('#file_upload').uploadify('cancel');
+                                    break;
+                            }
+                        }
+                    });
+                }
+            })
+
+            //上传插件初始化
+
+            var time=new Date();
+            $('#file_upload').uploadify({
+                'formData'     : {
+                    'timestamp' :time,
+                    'token'     : $.md5('unique_salt'+time),
+                    //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+                },
+                'buttonText':'选择文件',
+                'auto':true,
+                'queueID'  : "queue",
+                'swf'      : '/index/plugins/upload1/uploadify.swf',
+                'uploader' : '/admin/upload/images',
+                'progressData':'speed',
+                'onUploadSuccess' : function(file, data) {
+                    if(data=='success'){
+                        _toastr("文件上传成功！","top-right","success",false);
+                        $('.tab-pane.active ul li.active').click();
+                    };
+                },
+                'onSelect':function(file) {
+                    //formData['dir']='1_1';
+                    $('#file_upload').uploadify('settings',"formData", { 'dir': $('.tab-content .tab-pane.active li.active').attr('cid') } );
+                    //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                    var fileName = file.name;
+                    var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                    switch (ext.toLowerCase()) {
+                        case 'jpg':
+                        case 'png':
+                            //alert('filetype ok');
+                            $('.upload-bd').show();
+                            break;
+                        default:
+                            _toastr("文件格式不符合要求！", "top-right", "warning", false);
+                            $('#file_upload').uploadify('cancel');
+                            break;
+                    }
+                }
+            });
+
+        }else{
+
+
+        //切换上传按钮
+        $('.tab-one li').on('click',function(){
+            tid=$(this).attr('tid');
+            if(tid=='livetab'){
+                $('#box1').hide();
+                $('.media-bottom').hide();
+                $('.livebox').show();
+                return;
+            }
+            $('#box1').show();
+            $('.media-bottom').show();
+            $('.livebox').hide();
+            cid=1;
+            var session=$(this).attr('tid');
+            $('.tab-pane.active ul li').removeClass('active');
+            $('.tab-pane.active ul li').eq(0).addClass('active');
+            setTimeout(function(){$('.tab-pane.active ul li').eq(0).click();},250);
+
+
+
+            if(session==1){
+              //  $('.import-btn').hide();
+                $('#file_upload').uploadifive('destroy');
+                $('#file_upload').uploadifive({
+
+                    'formData'     : {
+                        'timestamp' :time,
+                        'token'     : $.md5('unique_salt'+time),
+                        //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+                    },
+                    'auto':true,
+                    'queueID' : 'queue',
+                    //'fileTypeDesc' : 'Video Files',
+                    //'fileTypeExts' : '*.mp4; *.MKV; *.avi;*.flv;',
+                     'fileType' : 'image/*',
+                    //'uploadScript': '/index/plugins/upload1/uploadifive.php',
+                    //'swf'      : '/index/plugins/upload1/uploadify.swf',
+                    //'uploader' : '/upload/videos',
+                    'uploadScript': '/admin/upload/images',
+                    'onUploadComplete' : function(file, data) {
+
+                        if(data=='success'){
+
+                            _toastr("文件上传成功！","top-right","success",false);
+
+                            $('.tab-pane.active ul li.active').click();
+                        };
+                    },
+                    'onAddQueueItem' : function(file){
+                        //formData['dir']='1_1';
+                        $('#file_upload').uploadifive('setFormdata',$('.tab-content .tab-pane.active li.active').attr('cid'));
+                        //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                        var fileName = file.name;
+                        var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                        switch (ext.toLowerCase()) {
+                            case 'jpg':
+
+                            case 'png':
+                                //alert('filetype ok');
+                                $('.upload-bd').show();
+                                break;
+                            default:
+                                _toastr("文件格式不符合要求！","top-right","warning",false);
+
+                                $('#file_upload').uploadifive('cancel', file);
+                                break;
+                        }
+                    }
+                })
+            }else if(session==2){
+               // $('.import-btn').show();
+                $('#file_upload').uploadifive('destroy');
+                $('#file_upload').uploadifive({
+
+                    'formData'     : {
+                        'timestamp' :time,
+                        'token'     : $.md5('unique_salt'+time),
+                        //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+                    },
+                    'auto':true,
+                    'queueID' : 'queue',
+                    'successTimeout':99999,
+                    //'fileTypeDesc' : 'Video Files',
+//                    'fileTypeExts' : ' *.MKV; *.avi;*.flv;',
+//                     'fileType' : 'video/*,application/vnd.adobe.flash.movie',
+
+                    'uploadScript': '/admin/upload/videos',
+                    'onUploadComplete' : function(file, data) {
+                       // alert('The file ' + file.name + ' was successfully uploaded with a response of:' + data);
+
+                        if(data=='success'){
+                            _toastr("文件上传成功！","top-right","success",false);
+                            $('.tab-pane.active ul li.active').click();
+                        };
+                    },
+                    'onAddQueueItem' : function(file){
+                        //formData['dir']='1_1';
+                        $('#file_upload').uploadifive('setFormdata',$('.tab-content .tab-pane.active li.active').attr('cid'));
+                        //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                        var fileName = file.name;
+                        var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                        switch (ext.toLowerCase()) {
+                            case 'mp4':
+                            case 'mkv':
+                            case 'avi':
+                            case 'flv':
+                            case  'ts':
+                            case 'rmvb':
+                            case 'wmv':
+                            case 'mpg':
+                            case 'mov':
+                                //alert('filetype ok');
+                                $('.upload-bd').show();
+                                break;
+                            default:
+                                _toastr("文件格式不符合要求！","top-right","warning",false);
+                                $('#file_upload').uploadifive('cancel', file);
+                                break;
+                        }
+                    }
+                })
+            }else{
+            //    $('.import-btn').hide();
+                $('#file_upload').uploadifive('destroy');
+                $('#file_upload').uploadifive({
+
+                    'formData'     : {
+                        'timestamp' :time,
+                        'token'     : $.md5('unique_salt'+time),
+                        //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+                    },
+                    'auto':true,
+                    'queueID' : 'queue',
+                    //'fileTypeDesc' : 'Video Files',
+                    //'fileTypeExts' : '*.mp4; *.MKV; *.avi;*.flv;',
+                   //  'fileType' : 'application/msword,application/vnd.ms-powerpoint,application/msexcel,application/pdf,application/x-zip-compressed,application/zip,application/vnd.ms-excel.sheet.binary.macroEnabled.12,text/plain,application/vnd.ms-excel',
+                    //'uploadScript': '/index/plugins/upload1/uploadifive.php',
+                    //'swf'      : '/index/plugins/upload1/uploadify.swf',
+                    //'uploader' : '/upload/videos',
+                    'uploadScript': '/admin/upload/docs',
+                    'onUploadComplete' : function(file, data) {
+                       // alert('The file ' + file.name + ' was successfully uploaded with a response of:' + data);
+
+                        if(data=='success'){
+                            _toastr("文件上传成功！","top-right","success",false);
+                            $('.tab-pane.active ul li.active').click();
+                        };
+                    },
+                    'onAddQueueItem' : function(file){
+                        //formData['dir']='1_1';
+                        $('#file_upload').uploadifive('setFormdata',$('.tab-content .tab-pane.active li.active').attr('cid'));
+                        //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                        var fileName = file.name;
+                        var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                        switch (ext.toLowerCase()) {
+                            case 'ppt':
+                            case 'doc':
+                            case 'docx':
+                            case 'pdf':
+                            case 'zip':
+                            case 'rar':
+                            case 'txt':
+                            case 'xls':
+                                //alert('filetype ok');
+                                $('.upload-bd').show();
+                                break;
+                            default:
+                                _toastr("文件格式不符合要求！","top-right","warning",false);
+                                $('#file_upload').uploadifive('cancel', file);
+                                break;
+                        }
+                    }
+                })
+            }
+        })
+
+        //上传插件初始化
+        var time=new Date();
+        //图片上传
+        $('#file_upload').uploadifive({
+
+            'formData'     : {
+                'timestamp' :time,
+                'token'     : $.md5('unique_salt'+time),
+                //	'dir':$('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid')
+            },
+            'auto':true,
+            'queueID' : 'queue',
+            //'fileTypeDesc' : 'Video Files',
+            //'fileTypeExts' : '*.mp4; *.MKV; *.avi;*.flv;',
+
+            'fileType' : 'image/*',
+            //'uploadScript': '/index/plugins/upload1/uploadifive.php',
+            //'swf'      : '/index/plugins/upload1/uploadify.swf',
+            //'uploader' : '/upload/videos',
+            'uploadScript': '/admin/upload/images',
+            'onUploadComplete' : function(file, data) {
+               // alert('The file ' + file.name + ' was successfully uploaded with a response of:' + data);
+
+                if(data=='success'){
+                    _toastr("文件上传成功！","top-right","success",false);
+                    $('.tab-pane.active ul li.active').click();
+                };
+            },
+            'onAddQueueItem' : function(file){
+                //formData['dir']='1_1';
+                $('#file_upload').uploadifive('setFormdata',$('.tab-content .tab-pane.active li.active').attr('cid'));
+                //alert($('.tab-one.active').attr('tid')+'_'+$('.tab-one.active li.active').attr('cid'));
+                var fileName = file.name;
+                var ext = fileName.substring(fileName.lastIndexOf('.') + 1); // Extract EXT
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                    case 'png':
+                        //alert('filetype ok');
+                        $('.upload-bd').show();
+                        break;
+                    default:
+                        _toastr("文件格式不符合要求！","top-right","warning",false);
+                        $('#file_upload').uploadifive('cancel', file);
+                        break;
+                }
+            }
+        })
+
+
+
+        }
+        //切换分类内容
+        $('.tab-content').delegate('.tab-pane.active ul li','click',function(){
+           // tid=$('.tab-one li.active').attr('tid');
+           // alert(tid);
+            cid=$(this).attr('cid');
+            $.ajax({
+                type:"get",
+                url: "/admin/sources/"+tid+"/"+cid,
+                success:function(data){
+                    //          	var o= jQuery.parseJSON(data);
+                    //          	console.log(o);
+                    console.log(data);
+                    var path='blocks/media-image.ejs';
+
+                    $('.media-content').empty();
+                    if(data&&data!='empty'){
+                 //       alert(data);
+
+                        if(tid==1){
+                            currentImages=data;
+                            Widget.renderFile( 'blocks/media-image.ejs',{images:data},$('.media-content'));
+
+                        }else if(tid==2){
+                            currentVideos=data;
+                            Widget.renderFile( 'blocks/media-video.ejs',{videos:data},$('.media-content'));
+                        }else if(tid==3){
+                            currentDOCS=data;
+                            Widget.renderFile( 'blocks/media-docs.ejs',{docs:data},$('.media-content'));
+                        }
+                    }
+                }
+            });
+
+        })
+
+
+       //删除文件
+        var tTime
+        //进入剪辑
+        $('.media-content').delegate(' .media-video li .fa-crop','click',function(){
+            $('.modal-header input').val('');
+            var duration=$(this).parents('.media-box').attr('dur');
+            var url=$(this).parents('.media-box').attr('url');
+            var title=$(this).parents('.media-box').children('.media-tit').html();
+            var html='<div class="vedio-item"><div class="show-time show-start">00:00:00</div><div class="show-time show-end">'+secondsToHMS(duration)+'</div><div class="vedio-item-selected"  url="'+url+'" title="'+title+'" starttime="0" endtime="'+duration+'" v-index="0" style=""></div> <div class="shaft start-shaft" style="cursor: default;"></div> <div class="shaft end-shaft" style=" cursor: default;"></div> </div>'
+            $('.cutbox .video-box').empty().append(html);
+            tTime=duration;
+            playHandle(url,0,duration,true,title);
+            player.forceRefreshSkinSize();
+
+        });
+        //剪辑拖拽
+
+        //拖拉shaft
+        $('.video-box').on('mousedown',".shaft",function(e)
+            //$(".shaft").mousedown(function(e)//e鼠标事件
+        {
+            $(this).css("cursor","pointer");//改变鼠标指针的形状
+            $(this).addClass('shaft-move');
+            var offset = $(this).offset();//DIV在页面的位置
+            //console.log(offset);
+            var x = e.pageX - offset.left;//获得鼠标指针离DIV元素左边界的距离
+            var y = e.pageY - offset.top;//获得鼠标指针离DIV元素上边界的距离
+            $(document).bind("mousemove",function(ev)//绑定鼠标的移动事件，因为光标在DIV元素外面也要有效果，所以要用doucment的事件，而不用DIV元素的事件
+            {
+
+                //$(".shaft").stop();//加上这个之后
+//				  if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){
+//				  	var _x = ev.pageX - x-($(window).width()-$('.contain').width())/2;
+//				  	console.log(_x );
+//				  }else{
+//				  	var _x = ev.pageX - x-$('.contain').css('margin-left').slice(0,-2);//获得X轴方向移动的值
+//				  }
+                var _x = ev.pageX - x-$('.cutbox .modal-dialog').css('margin-left').slice(0,-2)-$('.cutbox .btn-box').css('width').slice(0,-2);
+                //兼容火狐
+                if(navigator.userAgent.indexOf("Firefox")>0){
+                    var _x = ev.pageX - x-($(window).width()-$('.cutbox .modal-dialog').width())/2-$('.cutbox .btn-box').width()-13;
+                }
+                //var _y = ev.pageY - y;//获得Y轴方向移动的值
+
+                //$(".show").animate({left:_x+"px",top:_y+"px"},10);
+
+                if($(".shaft-move").hasClass('start-shaft')){
+                    if(_x>parseInt($(".shaft-move").next().css('left').slice(0,-2))-15){
+                        _x=parseInt($(".shaft-move").next().css('left').slice(0,-2))-15;
+                    }else if(_x<=0){
+                        _x=0;
+                    }
+
+                    $(".shaft-move").css('left',_x+"px");
+                    var right=$('.vedio-item-selected').css('right');
+                    var width=$(".shaft-move").next().css('left').slice(0,-2)-_x;
+
+
+                    var time=parseInt((_x/600+parseInt($('.vedio-item-selected').attr('v-index')))*tTime);
+                    var timeHMS=secondsToHMS(time);
+                    $('.vedio-item-selected').attr('startTime',time);
+                    $('.vedio-item-selected').css({'width':(width+5)+"px",'left':_x+"px",'startTime':time});
+                    $('.show-time.show-start').css('left',(_x-50)+"px");
+                    $('.show-time.show-start').html(timeHMS);
+
+                }else{
+
+                    if(_x<=parseInt($(".shaft-move").prev().css('left').slice(0,-2))+15){
+                        _x=parseInt($(".shaft-move").prev().css('left').slice(0,-2))+15;
+                    }else if(_x>=$('.shaft-move').parent().css('width').slice(0,-2)-16){
+                        _x=$('.shaft-move').parent().css('width').slice(0,-2)-16
+                    }
+                    $(".shaft-move").css('left',_x+"px");
+                    var left=$(".shaft-move").prev().css('left').slice(0,-2);
+                    var width=_x-left;
+
+                    //var time=((_x/1100+parseInt($('.current .vedio-item-selected').attr('v-index')))*120).toFixed(3);
+                    var time=parseInt(((_x+10)/600+parseInt($('.vedio-item-selected').attr('v-index')))*tTime);
+                    var timeHMS=secondsToHMS(time);
+                    $('.vedio-item-selected').css('width',(width+15)+"px");
+                    $('.vedio-item-selected').attr('endTime',time);
+                    $('.show-time.show-end').css('left',_x+"px");
+                    $('.show-time.show-end').html(timeHMS);
+                }
+                $('.vedio-item-selected').attr('type',"cut");
+            });
+
+        });
+
+        $('.video-box').on('mouseup',".shaft",function(e){
+            //加载播放视频
+            var vedioNow= $(' .vedio-item-selected');
+            var starttime = vedioNow.attr('starttime');
+            var endtime = vedioNow.attr('endtime');
+            var name = vedioNow.attr('title');
+            var url=vedioNow.attr('url');
+            playHandle(url,starttime,endtime,false,name);
+        })
+
+        $(document).mouseup(function()
+        {
+            $(".shaft").css("cursor","default").removeClass('shaft-move');
+
+            $(this).unbind("mousemove");
+
+        })
+
+        var endT=0;
+        //播放器播放选中时间段
+        function playHandle(url,starttime,endtime,auto,name){
+            setTimeout(function(){
+                player.forceRefreshSkinSize();
+            },500);
+            enT=parseInt(endtime);
+            player.toPlay(url,"正在播放:"+name,starttime,auto);
+            var stop;
+
+            player.setPlayTimeOffset(parseInt(starttime),parseInt(endtime));
+            player.on("timeupdate",updatePlayerTime);
+            player.on("beforePlay",function(){
+
+                if(stop){
+                    player.seek(starttime);
+                    stop=false;
+                }
+            });
+            player.on("ended",function(){
+                stop=true;
+
+            });
+        }
+
+        function updatePlayerTime(){
+            var pTime=player.playTime();
+            if(pTime*1000+500>=enT*1000){
+                player.stop();
+
+            }
+        };
+
+
+        //提交剪辑任务
+        $('.cutbox .btn-save').on('click',function(){
+            var CVN=$('.CVN').val();
+            var item=$('.vedio-item-selected');
+            if(CVN.length==0){
+                _toastr("请填写合成视频名称！","top-right","error",false);
+                return;
+            }
+            CVN+='.mp4';
+            _toastr("合成视频较大时耗时较久，请耐心等候","top-right","warning",false);
+            $('.cutbox').modal('hide');
+            player.pause();
+            $.ajax({
+                type:"post",
+                url: "/admin/cut",
+                data:{
+                    source:item.attr('url'),
+                    sTime:item.attr('starttime'),
+                    dTime:parseInt(item.attr('endtime'))-parseInt(item.attr('starttime')),
+                    name:CVN,
+                    cid:cid
+                },
+                success:function(data){
+                    //          	var o= jQuery.parseJSON(data);
+                    //          	console.log(o);
+                    if(data=='success'){
+
+                        _toastr("剪辑成功！","top-right","success",false);
+                        $('.tab-pane.active ul li').eq(0).click();
+
+
+                    }
+                }
+            });
+
+        })
+
+        $('.btn-logout').click(function(){
+            $.get('/admin/logout',function(data){
+                if(data=='success')
+                    window.location.href='/admin/login';
+            })
+        })
+     //   删除目录
+        $('.delete-box .btn-danger').on('click',function(){
+
+        $.get('/admin/dir/delete/'+tid+'/'+cid,function(data){
+            if(data.success==true){
+                $('.media-tabs li.active').remove();
+                $('.delete-box').modal('hide');
+//                $('.media-tabs ').find('li').eq(0).click();
+                _toastr("删除目录成功！","top-right","success",false);
+                setTimeout("history.go(0)",2000);
+            }
+        })
+
+        })
+        $('#live-sub').click(function(){
+            $.post('/admin/livehost',{host:$('.livehost').val(),port:$('.liveport').val(),accessid:$('.liveAccessid').val()},function(data){
+//                var obj=JSON.parse(data);
+//                console.log(obj);
+                if(data.success){
+                    alert('提交成功');
+                }
+            })
+        })
+
+        $('.media-tabs ').find('li').eq(0).click();
+
+    });
+   // $('.cutbox').modal('show');
+    //时间换算
+    function time2FigFill(num){
+        var time;
+        num = Math.floor(num);
+        time =(num < 10 ? "0" + num :String(num));
+        return time;
+    }
+    function secondsToHMS(seconds){
+        if(seconds < 0) return;
+        var hour = this.time2FigFill(Math.floor(seconds / 3600));
+        var min = this.time2FigFill((seconds / 60) % 60);
+        var sec = this.time2FigFill(seconds % 60);
+        return hour + ":" + min + ":" + sec;
+    }
+    /***************************************导入视频***************************************************/
+    $(function(){
+        var importData=null;
+        $('.input-box').find('.btn-success').click(function(){
+            var name=$("#uname").val();
+            var pw=$("#upw").val();
+            var host=$("#uhost").val();
+            $.post('/fileimport/list',{host:host,user:name,pass:pw},function(data){
+               if(data.success){
+                refresh(data.files);
+                importData = data;
+                   console.log(data.files);
+                $('.input-box').hide();
+                   $('.j-recordList').show();
+               }else{
+                   _toastr("请检查填写信息是否有误","top-right","error",false);
+               }
+            })
+        })
+
+        // dom显示微录播数据列表
+        var refresh = function(files){
+            var buffer = [];
+            $(files).each(function(i,n){
+                buffer.push(
+                        ['<tr class="common-tbody-tr">',
+                            '<td class="">',
+                            '<input name="records" value="',n.fullname,'" type="checkbox">',
+                            '</td>',
+                            '<td><img class="icon80x45" src="',n.pic,'" alt="',n.pic,'" /></td>',
+                            '<td title="',n.name,'"><span>',n.name,'</span></td>',
+                            '</tr>'].join(''));
+            });
+            $('#importlist').html(buffer.join(''));
+        }
+
+        // 选择文件后确定导入按钮事件
+        $('.j-confirmImportBtn').click(function() {
+            var checkbox = $('.j-recordList').find('input[type="checkbox"]');
+            var records = [];
+            for(var i=0; i<checkbox.length; i++) {
+                var status = checkbox.eq(i).prop('checked');
+                if(status) {
+                    records.push(checkbox.eq(i).val());
+                }
+            }
+            if(records.length == 0) {
+                alert('您还未选择任何文件');
+            } else {
+                // 提交选择的微录播列表数据
+                $('.import-box').modal('hide');
+                $('.input-box').show();
+                $('.j-recordList').hide();
+                _toastr("视频导入中，请耐心等候","top-right","warning",false);
+                $.ajax({
+                    type: 'POST',
+                    url: '/fileimport/import',
+                    data: {'data': JSON.stringify({'files': records,'host':importData.host,'session': importData.session,cid:cid})},
+                    dataType:'json',
+                    success: function(data) {
+                        if(data.success){
+
+                            $('.tab-one li.active').click();
+
+                        }
+                        // 显示隐藏
+                        //$('.j-recordList').hide().prev('form').show().next('ul').show();
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+            }
+        });
+
+
+        // 查询名称过滤导入列表
+        $('.op-search').click(function(e) {
+            var val = $.trim($('#searchName').val()),
+                    list = [];
+            if(val) {
+
+                    $(importData.files).each(function(i,n){
+                        var str = n.name;
+                        if(str.indexOf(val) == -1) {
+                            return true;
+                        } else {
+                            list.push(importData.files[i]);
+                        }
+                    });
+                    refresh(list);
+
+            }else{
+                refresh(importData.files);
+            }
+        });
+    })
+
+    /***************************************导入视频***************************************************/
+
+</script>
+<script type="text/javascript" src="/admin/js/media-manage.js"></script>
+<!-- STYLESWITCHER - REMOVE -->
+<!-- <script async type="text/javascript" src="/admin/plugins/styleswitcher/styleswitcher.js"></script> -->
+</body>
+</html>

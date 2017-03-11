@@ -1,0 +1,97 @@
+<% include ../head.ejs %>
+    
+        <!-- ******CONTENT****** --> 
+        <div class="content container">
+            <div class="page-wrapper">
+                <header class="page-heading clearfix">
+                    <h1 class="heading-title pull-left">
+                        <%if(activity_type=='lecture'){%>讲座论坛<%}%>
+                        <%if(activity_type=='society'){%>社团活动<%}%>
+                        <%if(activity_type=='art'){%>文艺演出<%}%>
+                        <%if(activity_type=='sport'){%>体育竞技<%}%>
+                    </h1>
+                    <div class="breadcrumbs pull-right">
+                        <ul class="breadcrumbs-list">
+                            <li class="breadcrumbs-label">您在这里:</li>
+                            <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                            <li class="current" style="color: #aaaaaa">校园活动 <i class="fa fa-angle-right"></i></li>
+                            <li class="current">
+                                <%if(activity_type=='lecture'){%>讲座论坛<%}%>
+                                <%if(activity_type=='society'){%>社团活动<%}%>
+                                <%if(activity_type=='art'){%>文艺演出<%}%>
+                                <%if(activity_type=='sport'){%>体育竞技<%}%>
+                            </li>
+                        </ul>
+                    </div><!--//breadcrumbs-->
+                </header> 
+                <div class="page-content">
+                    <div class="row page-row">
+                        <aside class="page-sidebar col-md-2 col-sm-4 affix-top">                    
+                            <section class="widget">
+                                <ul class="nav type-nav">
+                                    <li <%if(activity_type=='lecture'){%>class="active"<%}%> typeid="lecture"><a href="/activity/lecture">讲座论坛</a></li>
+                                    <li <%if(activity_type=='society'){%>class="active"<%}%> typeid="society"><a href="/activity/society">社团活动</a></li>
+                                    <li <%if(activity_type=='art'){%>class="active"<%}%> typeid="art"><a href="/activity/art">文艺演出</a></li>
+                                    <li <%if(activity_type=='sport'){%>class="active"<%}%> typeid="sport"><a href="/activity/sport">体育竞技</a></li>
+                                </ul>                    
+                            </section><!--//widget-->
+                        </aside><!--//page-sidebar-->
+                        <div class="news-wrapper col-md-10 col-sm-8 blocklist">
+
+                            <%activities.forEach(function(article){var event_time=moment(article.event_time||new Date()).format('YYYY-MM-DD HH:mm');%>
+                            <%if(article.event_time>moment(new Date()).format('YYYY-MM-DD HH:mm')){%>
+                            <%if(activities.length==1 && article._id==0) var visibility="hidden";%>
+                            <article style="visibility: <%=visibility||'visible'%>" class="events-item page-row has-divider clearfix block nopop article" blockid="article" article-type="activity" articleid="<%=article._id%>">
+                                <div class="date-label-wrapper col-md-1 col-sm-2" field="event_time" date-field="<%=event_time%>">
+                                    <p class="date-label">
+                                        <span class="month"><%=moment(event_time).format('MM')%>月</span>
+                                        <span class="date-number"><%=moment(event_time).format('DD')%></span>
+                                    </p>
+                                </div><!--//date-label-wrapper-->
+                                <div class="details col-md-11 col-sm-10 ">
+                                    <h3 class="title" field="title"><%-article.title%></h3>
+                                    <p class="meta"><span class="time"><i class="fa fa-clock-o"></i><%=moment(event_time).format('hh:mma')%></span><span class="location"><i class="fa fa-map-marker"></i><span field="place"><%-article.place%>&nbsp;</span></span></p>
+                                    <div class="desc content"><%-article.content%></div>
+                                </div><!--//details-->
+                            </article>
+                            <%}%>
+                          <%})%>
+                            <div style="text-align: center;color: #aaa;margin:20px 0 30px;">--------------------------------以下旧的活动---------------------------------------</div>
+                            <%activities.forEach(function(article){var event_time=moment(article.event_time||new Date()).format('YYYY-MM-DD HH:mm');%>
+                            <%if(article.event_time<=moment(new Date()).format('YYYY-MM-DD HH:mm')){%>
+
+                            <article class="events-item page-row has-divider clearfix block nopop article" blockid="article" article-type="activity" articleid="<%=article._id%>">
+                                <div class="date-label-wrapper col-md-1 col-sm-2" field="event_time" date-field="<%=event_time%>">
+                                    <p class="date-label">
+                                        <span class="month"><%=moment(event_time).format('MM')%>月</span>
+                                        <span class="date-number"><%=moment(event_time).format('DD')%></span>
+                                    </p>
+                                </div><!--//date-label-wrapper-->
+                                <div class="details col-md-11 col-sm-10 ">
+                                    <h3 class="title" field="title"><%-article.title%></h3>
+                                    <p class="meta"><span class="time"><i class="fa fa-clock-o"></i><%=moment(event_time).format('hh:mma')%></span><span class="location"><i class="fa fa-map-marker"></i><span field="place"><%-article.place%>&nbsp;</span></span></p>
+                                    <div class="desc content"><%-article.content%></div>
+                                </div><!--//details-->
+                            </article>
+                            <%}%>
+                            <%})%>
+                        </div><!--//news-wrapper-->
+                     
+                    </div><!--//page-row-->
+                </div><!--//page-content-->
+            </div><!--//page--> 
+        </div><!--//content-->
+
+<script>
+    $('article').on('article-change',function(evt,id,data){
+//        alert($(".type-nav").find("li.active").attr("typeid"));
+        data['type']=$(".type-nav").find("li.active").attr("typeid");
+    });
+//    var str = $('[field]').text();
+//    var tag ="默认";
+//    if(str.indexOf(tag)!=-1)
+//    {
+//        alert('Yes');
+//    }
+</script>
+<% include footer.ejs %>

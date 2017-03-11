@@ -1,0 +1,13 @@
+<ul class="menu-top navbar-right hidden-xs">
+    <li class="divider"><a href="/">Home</a></li>
+    <li class="divider"><a href="#">FAQ</a></li>
+    <li><a href="#">Contact</a></li>
+</ul><!--//menu-top-->
+<br />
+<div class="contact pull-right">
+    <%data.telEmail.forEach(function(item){%>
+    <p class="phone"><i class="fa fa-phone"></i>联系电话 <%=item.tel%></p>
+    <p class="email"><i class="fa fa-envelope"></i><a href="#"><%=item.email%></a></p>
+    <%})%>
+</div><!--//contact-->
+

@@ -1,0 +1,20 @@
+
+<%(activities||data.activity).forEach(function(item){var event_time=moment(item.event_time||new Date()).format('YYYY-MM-DD HH:mm');%>
+<%if(item.event_time>moment(new Date()).format('YYYY-MM-DD HH:mm')){%>
+<div class=" block nopop article" blockid="article" article-type="activity" articleid="<%=item._id%>">
+    <div class="event-item">
+        <p class="date-label" field="event_time" date-field="<%=event_time%>">
+            <span class="month"><%=moment(event_time).format('MM')%>月</span>
+            <span class="date-number"><%=moment(event_time).format('DD')%></span>
+        </p>
+        <div class="details">
+            <h2 class="title" field="title" style="margin-top:20px;"><%-item.title%></h2>
+            <p class="time"><i class="fa fa-clock-o"></i><%=moment(event_time).format('hh:mma')%></p>
+            <p class="location"><i class="fa fa-map-marker"></i><span field="place"><%-item.place||'活动地点'%>&nbsp;</span></p>
+        </div><!--//details-->
+    </div><!--event-item-->
+</div>
+<%}%>
+<%})%>
+
+

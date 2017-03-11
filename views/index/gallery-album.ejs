@@ -1,0 +1,38 @@
+<% include ../head.ejs %>
+<!-- ******CONTENT****** -->
+<div class="content container">
+    <div class="page-wrapper">
+        <header class="page-heading clearfix">
+            <h1 class="heading-title pull-left"><%-album.covertit%></h1>
+        </header>
+
+        <div class="page-content">
+            <div class="row page-row blocklist">
+                <%albumImages.forEach(function(item){%>
+                <%if(albumImages.length==1 && item._id==0) var visibility="hidden";%>
+                <div style="visibility: <%=visibility||'visible'%>;height: 188px;" class="col-md-3 col-sm-3 col-xs-6 photobox block nopop article text-center" blockid="article" article-type="albumImages" articleid="<%=item._id%>">
+                    <a class="prettyphoto img" rel="prettyPhoto[gallery]" title="<%-item.imgtit%>" href="<%=item.imgurl%>" field="imgurl" style="display: block;max-height: 137px;">
+                        <img class="img-responsive img-thumbnail" style="max-height: 137px;" data-size="560 * 310" src="<%=item.imgurl%>" alt="" />
+                    </a>
+                    <p field="imgtit"><%-item.imgtit%></p>
+                </div>
+                <%})%>
+            </div><!--//page-row-->
+
+        </div><!--//page-content-->
+
+
+    </div><!--//page-->
+</div><!--//content-->
+<script>
+    $('.block').on('article-change',function(evt,id,data){
+        data['key'] = '<%=album._id%>';
+    });
+    $(".block").on('article-sync',function(ev,resp){
+        console.log(resp);
+        $(this).find('a').attr('href',resp.new[0].imgurl);
+        $("a[rel^='prettyPhoto']").prettyPhoto();
+    });
+</script>
+
+<% include footer.ejs %>

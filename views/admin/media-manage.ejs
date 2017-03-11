@@ -1,0 +1,1596 @@
+<% include header.ejs %>
+ <script>
+	 <%if(typeof data!='undefined'){%>
+	 var mediaData = JSON.parse('<%-JSON.stringify(data)%>');
+	 console.log(mediaData.videos[0].pic);
+	 <%}%>
+ </script>
+
+			<!-- 
+				MIDDLE 
+			-->
+			<section id="middle">
+				<div id="content" class="dashboard padding-20">
+					
+					<div class="panel-heading">
+
+						<span class="elipsis"><!-- panel title -->
+							<strong>管理您的媒资</strong>
+						</span>
+
+						<!-- right options -->
+						<ul class="options pull-right list-inline">
+							<li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
+							<li><a href="#" class="opt panel_fullscreen hidden-xs" data-toggle="tooltip" title="Fullscreen" data-placement="bottom"><i class="fa fa-expand"></i></a></li>
+							<li><a href="#" class="opt panel_close" data-confirm-title="Confirm" data-confirm-message="Are you sure you want to remove this panel?" data-toggle="tooltip" title="Close" data-placement="bottom"><i class="fa fa-times"></i></a></li>
+						</ul>
+						<!-- /right options -->
+
+
+					</div>
+
+					<!-- panel content -->
+					<div class="panel-body">
+
+						<!-- width background -->
+						<div class="tabs nomargin-top">
+
+							<!-- tabs -->
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a href="#pic" data-toggle="tab">
+										<i class="fa fa-picture-o"></i> 图片
+									</a>
+								</li>
+								<li>
+									<a href="#video" data-toggle="tab">
+										<i class="fa fa-video-camera"></i> 视频
+									</a>
+								</li>
+								<li>
+									<a href="#processing" data-toggle="tab">
+										<i class="fa fa-retweet"></i> 转码中
+									</a>
+								</li>
+							</ul>
+
+							<!-- tabs content -->
+							<div class="tab-content">
+								<div id="pic" class="tab-pane active">
+									<div class="tab-marks">
+										<span>上传或拖拽图片（JPEG,PNG,或GIF格式）至此</span>
+										<div class="pull-right tab-marks-right">
+											<span>按最新排序<i class="fa fa-angle-down"></i></span>
+											<input type="text" placeholder="搜索">
+											<!-- <span class="glyphicon glyphicon-th"></span> -->
+											<span class="glyphicon glyphicon-th-list"></span>
+										</div>
+									</div>
+									<div class="row tabs nomargin">
+										<!-- tabs -->
+										<div class="col-md-2 col-sm-2 nopadding-right nopadding-left">
+											<ul class="nav nav-tabs nav-stacked media-tabs">
+												<li class="active">
+													<a href="#tab_1a" data-toggle="tab">
+														所有图片
+													</a>
+												</li>
+												<li>
+													<a href="#tab_1b" data-toggle="tab">
+														目录1
+													</a>
+												</li>
+												<li>
+													<a href="#tab_1c" data-toggle="tab">
+														目录2
+													</a>
+												</li>
+											</ul>
+											<span class="add-menu"><i class="glyphicon glyphicon-plus-sign"></i>添加新目录</span>
+										</div>
+
+										<!-- tabs content -->
+										<div class="col-md-10 col-sm-10 nopadding-right nopadding-left">
+											<div class="tab-content media-content">
+												<div id="tab_1a" class="tab-pane active">
+													<h4>所有图片<span>已选中<i id="img-ch-num">1</i>个文件</span><button class="btn btn-default"  data-toggle="modal" data-target=".fileMenu">复制到</button><button  class="btn btn-default"  data-toggle="modal" data-target=".fileMenu">剪切到</button><button  class="btn btn-default btn-delete">批量删除</button></h4>
+													<!--%include blocks/media-content.ejs%-->
+												</div>
+
+												<div id="tab_1b" class="tab-pane">
+													<h4>目录1</h4>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/9.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/9.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+
+												<div id="tab_1c" class="tab-pane">
+													<h4>目录2</h4>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+
+												<div id="tab_1d">
+
+												</div>
+												<div class="clearfix"></div>
+											</div><!-- media-content -->
+										</div>
+
+									</div>
+									<div class="media-bottom">
+										<div class="upload-hd">
+											<span>
+												<i class="glyphicon glyphicon-ok"></i>
+												已经上传了（12/12个文件）
+												<i class="fa fa-external-link"></i>
+											</span>
+										</div>
+										<div class="upload-bd">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<span class="title elipsis">
+														<strong>上传图片</strong>
+													</span>
+													<ul class="options pull-right list-inline">
+														<li><a href="#" ><i class="fa fa-times"></i></a></li>
+													</ul>
+												</div>
+												<div class="panel-body">
+													<div class="upload-list-hd">
+
+														<span>正在上传你的文件（0/1）</span>
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+																<span class="sr-only">60% Complete</span>
+															</div>
+														</div>
+														<span>
+															<i class="fa fa-info-circle"></i>
+															您可以关掉这个对话框，我们在后台帮您上传您的文件。
+														</span>
+													</div>
+													<div class="upload-list-box media">
+														<div class="media-left">
+															<img src="/admin/images/upload-img.png">
+														</div>
+														<div class="media-body">
+															<h5>视频校园.mp4</h5>
+															<div class="media-bottom">
+																944KB of 944KB 上传到“所有视频”目录
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-bottom">
+													<button>完成</button>
+												</div>
+											</div>
+										</div>
+										<form>
+											<div class="upload-btn">
+
+												<input id="file_upload1"  name="file_upload" type="file" multiple="true">
+											</div>
+										</form>
+									</div>
+								</div>
+
+								<div id="video" class="tab-pane">
+									<div class="tab-marks">
+										<span>上传或拖拽视频（avi,mp4,mov,或flv格式）至此</span>
+										<div class="pull-right tab-marks-right">
+											<span>按最新排序<i class="fa fa-angle-down"></i></span>
+											<input type="text" placeholder="搜索">
+											<!-- <span class="glyphicon glyphicon-th"></span> -->
+											<span class="glyphicon glyphicon-th-list"></span>
+										</div>
+									</div>
+									<div class="row tabs nomargin">
+										<!-- tabs -->
+										<div class="col-md-2 col-sm-2 nopadding-right nopadding-left">
+											<ul class="nav nav-tabs nav-stacked media-tabs">
+												<li class="active">
+													<a href="#tab_2a" data-toggle="tab">			
+														所有视频
+													</a>
+												</li>
+												<li>
+													<a href="#tab_2b" data-toggle="tab">
+														目录1
+													</a>
+												</li>
+												<li>
+													<a href="#tab_2c" data-toggle="tab">
+														目录2
+													</a>
+												</li>
+											</ul>
+											<span><i class="glyphicon glyphicon-plus-sign"></i>添加新目录</span>
+										</div>
+
+										<!-- tabs content -->
+										<div class="col-md-10 col-sm-10 nopadding-right nopadding-left">
+											<div class="tab-content media-content">
+												<div id="tab_2a" class="tab-pane active">
+													<h4>所有视频</h4>
+													<%include ./blocks/media-content.ejs%>
+												</div>
+												<div id="tab_2b" class="tab-pane">
+													<h4>目录1</h4>
+													
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div id="tab_2c" class="tab-pane">
+													<h4>目录2</h4>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="media-content-box col-sm-3 col-xs-6 ">
+														<div class="media-box">
+															<h4 class="media-tit">视频校园</h4>
+															<img src="/admin/images/demo/17.jpg">
+															<ul class="media-ope">
+																<li>
+																	<span class="glyphicon glyphicon-zoom-in"></span>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-pencil"></span>
+																	<div class="edit bounced-hid">
+																		<i class="glyphicon glyphicon-triangle-top"></i>
+																		<span>文件重命名</span>
+																		<input type="text">
+																		<button type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+																		<button><i class="glyphicon glyphicon-remove bounced-close"></i></button>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-trash"></span>
+																	<div class="delete-bounced bounced-hid">
+																		<div class="delete-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>删除文件</strong>
+																				</span>
+																				<ul class="options pull-right list-inline">
+																					<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+																				<button class="btn btn-danger delete-btn">删除</button>
+																				<button class="btn btn-default bounced-close">取消</button>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="fa fa-crop"></span>
+																	<div class="crop-bounced bounced-hid">
+																		<div class="crop-box panel">
+																			<div class="panel-heading">
+																				<span class="title elipsis">
+																					<strong>剪辑图片</strong>
+																				</span>
+																				<ul class="options pull-right list-inline bounced-close">
+																					<li><a href="#" ><i class="fa fa-times"></i></a></li>
+																				</ul>
+																			</div>
+																			<div class="panel-body">
+																				<img src="/admin/images/crop.png">
+																			</div>
+																		</div>
+																	</div>
+																</li>
+																<li>
+																	<span class="glyphicon glyphicon-download-alt"></span>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+										</div>
+
+									</div>
+									<div class="media-bottom">
+										<div class="upload-hd">
+											<span>
+												<i class="glyphicon glyphicon-ok"></i>
+												已经上传了（12/12个文件）
+												<i class="fa fa-external-link"></i>
+											</span>
+										</div>
+										<div class="upload-bd">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<span class="title elipsis">
+														<strong>上传视频</strong>
+													</span>
+													<ul class="options pull-right list-inline">
+														<li><a href="#" ><i class="fa fa-times"></i></a></li>
+													</ul>
+												</div>
+												<div class="panel-body">
+													<div class="upload-list-hd">
+														<div id="file_upload-queue" class="uploadify-queue"></div>
+														<span>正在上传你的文件（0/1）</span>
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+																<span class="sr-only">60% Complete</span>
+															</div>
+														</div>
+														<span>
+															<i class="fa fa-info-circle"></i>
+															您可以关掉这个对话框，我们在后台帮您上传您的文件。
+														</span>
+													</div>
+													<div class="upload-list-box media">
+														<div class="media-left">
+															<img src="/admin/images/upload-img.png">
+														</div>
+														<div class="media-body">
+															<h5>视频校园.mp4</h5>
+															<div class="media-bottom">
+																944KB of 944KB 上传到“所有视频”目录
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-bottom">
+													<button>完成</button>
+												</div>
+											</div>
+										</div>
+										<form>
+											<div class="upload-btn">
+
+												<input id="file_upload" name="file_upload" type="file" multiple="true">
+											</div>
+										</form>
+									</div>
+								</div>
+
+								<div id="processing"  class="tab-pane">
+									<div class="processing-bd">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<span class="title elipsis">
+													<strong>视频转码中</strong>
+												</span>
+												<ul class="options pull-right list-inline">
+													<li><a href="#" ><i class="fa fa-times"></i></a></li>
+												</ul>
+											</div>
+											<div class="panel-body">
+												<div class="upload-list-hd">
+													<span>正在转码你的文件（0/1）</span>
+													<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+															<span class="sr-only">60% Complete</span>
+														</div>
+													</div>
+													<!-- <span>
+														<i class="fa fa-info-circle"></i>
+														您可以关掉这个对话框，我们在后台帮您上传您的文件。
+													</span> -->
+												</div>
+												<div class="upload-list-box media">
+													<div class="media-left">
+														<img src="/admin/images/upload-img.png">
+													</div>
+													<div class="media-body">
+														<h5>视频校园.mp4</h5>
+														<div class="media-bottom">
+															944KB of 944KB
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- /width background -->
+
+					</div>
+					<!-- /panel content -->
+				</div>
+			</section>
+			<!-- /MIDDLE -->
+
+		</div>
+
+<!--视频剪辑-->
+
+<div class="modal fade  bs-example-modal-lg cutbox" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" >
+			<div class="modal-header" style="text-align: center">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<div class="modal-title pull-left">剪辑视频</div>
+				<input placeholder="请输入剪辑视频的名称" type="text" class="form-control">
+			</div>
+			<div class="modal-body">
+
+				<div class="modal-body-header ">
+					<div class="col-sm-2 btn-box" style="border-right: 1px solid #e5e5e5;"><button type="button" class="btn btn-default" >放弃</button></div>
+					<div class="col-sm-8">
+						<div class="vedio-item" >
+							<div class="show-time show-start" style="display: none;">00:00:00</div>
+							<div class="show-time show-end" style="left: 600px; display: none;">00:02:00</div>
+							<div class="vedio-item-selected" type="merge"
+								 url="storage/public/lubocam/admin/01/01_VID00746_20160321160614.MP4"
+								 title="01_VID00746_20160321160614" starttime="0" endtime="120" v-index="0"
+								 style="width:600px"></div>
+							<div class="shaft start-shaft" style="cursor: default;"></div>
+							<div class="shaft end-shaft" style="left: 600px; cursor: default;"></div>
+							</div>
+					</div>
+					<div class="col-sm-2 btn-box" style="border-left: 1px solid #e5e5e5;"><button type="button" class="btn btn-primary" >保存</button></div>
+				</div>
+				<div class="modal-body-player-box" id="player"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-save">确定</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!--剪切-->
+<div class="modal fade bs-example-modal-lg cropbox" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="">剪切图片</h4>
+			</div>
+			<div class="modal-body">
+				<div class="htmleaf-container">
+
+					<!-- Content -->
+					<div class="">
+						<div class="row">
+							<div class="col-md-9">
+								<!-- <h3 class="page-header">Demo:</h3> -->
+								<div class="img-container">
+									<img src="/admin/images/picture.jpg" alt="Picture">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<!-- <h3 class="page-header">Preview:</h3> -->
+								<div class="docs-preview clearfix">
+									<div class="img-preview preview-lg"></div>
+									<div class="img-preview preview-md"></div>
+									<div class="img-preview preview-sm"></div>
+									<div class="img-preview preview-xs"></div>
+								</div>
+								<!-- <h3 class="page-header">Data:</h3> -->
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-9 docs-buttons">
+								<!-- <h3 class="page-header">Toolbar:</h3> -->
+								<div class="btn-group">
+									<button class="btn btn-primary" data-method="setDragMode" data-option="move" type="button" title="Move">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
+              <span class="icon icon-move"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="setDragMode" data-option="crop" type="button" title="Crop">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setDragMode&quot;, &quot;crop&quot;)">
+              <span class="icon icon-crop"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="zoom" data-option="0.1" type="button" title="Zoom In">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;zoom&quot;, 0.1)">
+              <span class="icon icon-zoom-in"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="zoom" data-option="-0.1" type="button" title="Zoom Out">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;zoom&quot;, -0.1)">
+              <span class="icon icon-zoom-out"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="rotate" data-option="-45" type="button" title="Rotate Left">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;rotate&quot;, -45)">
+              <span class="icon icon-rotate-left"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="rotate" data-option="45" type="button" title="Rotate Right">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;rotate&quot;, 45)">
+              <span class="icon icon-rotate-right"></span>
+            </span>
+									</button>
+								</div>
+
+								<div class="btn-group">
+									<button class="btn btn-primary" data-method="disable" type="button" title="Disable">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;disable&quot;)">
+              <span class="icon icon-lock"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="enable" type="button" title="Enable">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;enable&quot;)">
+              <span class="icon icon-unlock"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="clear" type="button" title="Clear">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;clear&quot;)">
+              <span class="icon icon-remove"></span>
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="reset" type="button" title="Reset">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;reset&quot;)">
+              <span class="icon icon-refresh"></span>
+            </span>
+									</button>
+									<label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+										<input class="sr-only" id="inputImage" name="file" type="file" accept="image/*">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
+              <span class="icon icon-upload"></span>
+            </span>
+									</label>
+									<button class="btn btn-primary" data-method="destroy" type="button" title="Destroy">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;destroy&quot;)">
+              <span class="icon icon-off"></span>
+            </span>
+									</button>
+								</div>
+
+								<div class="btn-group btn-group-crop">
+									<button class="btn btn-primary" data-method="getCroppedCanvas" type="button">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;)">
+              Get Cropped Canvas
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }" type="button">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { &quot;width&quot;: 160, &quot;height&quot;: 90 })">
+              160 &times; 90
+            </span>
+									</button>
+									<button class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }" type="button">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { &quot;width&quot;: 320, &quot;height&quot;: 180 })">
+              320 &times; 180
+            </span>
+									</button>
+								</div>
+
+								<!-- Show the cropped image in modal -->
+								<!--<div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">-->
+									<!--<div class="modal-dialog">-->
+										<!--<div class="modal-content">-->
+											<!--<div class="modal-header">-->
+												<!--<button class="close" data-dismiss="modal" type="button" aria-hidden="true">&times;</button>-->
+												<!--<h4 class="modal-title" id="getCroppedCanvasTitle">Cropped</h4>-->
+											<!--</div>-->
+											<!--<div class="modal-body"></div>-->
+											<!--&lt;!&ndash; <div class="modal-footer">-->
+                                              <!--<button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>-->
+                                            <!--</div> &ndash;&gt;-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+
+
+
+							</div><!-- /.docs-buttons -->
+
+							<div class="col-md-3 docs-toggles">
+								<!-- <h3 class="page-header">Toggles:</h3> -->
+								<div class="btn-group btn-group-justified" data-toggle="buttons">
+									<label class="btn btn-primary active" data-method="setAspectRatio" data-option="1.7777777777777777" title="Set Aspect Ratio">
+										<input class="sr-only" id="aspestRatio1" name="aspestRatio" value="1.7777777777777777" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 16 / 9)">
+              16:9
+            </span>
+									</label>
+									<label class="btn btn-primary" data-method="setAspectRatio" data-option="1.3333333333333333" title="Set Aspect Ratio">
+										<input class="sr-only" id="aspestRatio2" name="aspestRatio" value="1.3333333333333333" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 4 / 3)">
+              4:3
+            </span>
+									</label>
+									<label class="btn btn-primary" data-method="setAspectRatio" data-option="1" title="Set Aspect Ratio">
+										<input class="sr-only" id="aspestRatio3" name="aspestRatio" value="1" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 1 / 1)">
+              1:1
+            </span>
+									</label>
+									<label class="btn btn-primary" data-method="setAspectRatio" data-option="0.6666666666666666" title="Set Aspect Ratio">
+										<input class="sr-only" id="aspestRatio4" name="aspestRatio" value="0.6666666666666666" type="radio">
+            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;setAspectRatio&quot;, 2 / 3)">
+              2:3
+            </span>
+									</label>
+
+								</div>
+
+							</div><!-- /.docs-toggles -->
+						</div>
+					</div>
+					<!-- Alert -->
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-save">确定</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--删除弹框-->
+<div class="delete-bounced bounced-hid">
+	<div class="delete-box panel">
+		<div class="panel-heading">
+			<span class="title elipsis">
+				<strong>删除文件</strong>
+			</span>
+			<ul class="options pull-right list-inline">
+				<li><a href="#" ><i class="fa fa-times bounced-close"></i></a></li>
+			</ul>
+		</div>
+		<div class="panel-body">
+			<p>您的文件将会被永久删除（但如果您已加入到您的网站，则不受影响）</p>
+			<button class="btn btn-danger delete-btn">删除</button>
+			<button class="btn btn-default bounced-close">取消</button>
+		</div>
+	</div>
+</div>
+<!--文件目录-->
+<div class="modal fade bs-example-modal-lg fileMenu" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="top: 20%;">
+	<div class="modal-dialog modal-xs">
+		<div class="modal-content" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="">复制到</h4>
+			</div>
+			<div class="modal-body">
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
+						所有图片
+					</a>
+					<a href="#" class="list-group-item">幻灯片</a>
+					<a href="#" class="list-group-item">新闻列表</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-save">确定</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+		<link href="/admin/css/media-manage.css" rel="stylesheet" type="text/css">
+		<!-- JAVASCRIPT FILES -->
+		<script type="text/javascript">var plugin_path = '/admin/plugins/';</script>
+		<script type="text/javascript" src="/admin/plugins/jquery/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/admin/js/app.js"></script>
+		<script type="text/javascript" src="/admin/js/media-manage.js"></script>
+		<script type="text/javascript" src="/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/admin/plugins/cropper/cropper.js"></script>
+		<script src="/ejs/ejs.min.js"></script>
+		<script src="/player/sewise.player.min.js"></script>
+
+<!--<script src="/admin/js/crop.js"></script>-->
+		<% include ../upload.ejs %>
+		<script type="text/javascript">
+
+			$(function() {
+
+				//播放器初始化
+				var player= new Sewise.SewisePlayer({
+					elid:"player",
+					autostart:false,
+					url:"#",
+					skin:"vodLight",
+					playsinline:true,
+					calculateOffTop:false,
+					bigplaybtndisplay:"disable"
+				});
+				player.startup();
+				$('.cutbox').modal('show');
+				var time=new Date();
+				$('#file_upload').uploadify({
+
+					'formData'     : {
+						'timestamp' : time,
+						'token'     : $.md5('unique_salt'+time)
+					},
+					'fileTypeDesc' : 'Video Files',
+					'fileTypeExts' : '*.mp4; *.MKV; *.avi;*.flv;',
+					'swf'      : '/index/plugins/upload1/uploadify.swf',
+					'uploader' : '/upload/videos',
+					'onUploadSuccess' : function(file, data, response) {
+						alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+						if(data=='success'){
+							alert('上传成功！');
+//							var data=JSON.parse(data);
+//							console.log(res);
+//							var templateCache = {};
+//							templateCache['./blocks/media-content.ejs']
+//							ejs.render(templateCache['./blocks/media-content.ejs'],data);
+
+							};
+						}
+					})
+				});
+
+
+
+		</script>
+						<!-- STYLESWITCHER - REMOVE -->
+		<!-- <script async type="text/javascript" src="/admin/plugins/styleswitcher/styleswitcher.js"></script> -->
+	</body>
+</html>

@@ -1,0 +1,172 @@
+<% include ../head.ejs %>
+
+<!-- ******CONTENT****** -->
+<div class="content container">
+    <div class="page-wrapper">
+        <header class="page-heading clearfix">
+            <h1 class="heading-title pull-left">精品课程</h1>
+            <div class="breadcrumbs pull-right">
+                <ul class="breadcrumbs-list">
+                    <li class="breadcrumbs-label">您在这里:</li>
+                    <li><a href="/">首页</a><i class="fa fa-angle-right"></i></li>
+                    <li style="color: #aaaaaa">教育教学 <i class="fa fa-angle-right"></i></li>
+                    <li class="current">精品课程</li>
+                </ul>
+            </div><!--//breadcrumbs-->
+        </header>
+        <div class="page-content">
+            <div class="row page-row">
+                <aside class="page-sidebar col-md-2 col-sm-3 affix-top">
+                    <section class="widget">
+                        <ul class="nav">
+                            <li><a href="/education">本科教育</a></li>
+                            <li><a href="/education/graduate">研究生教育</a></li>
+                            <li class="active"><a href="/course">精品课程</a></li>
+                        </ul>
+                    </section><!--//widget-->
+                </aside><!--//page-sidebar-->
+                <div class="courses-wrapper col-md-10 col-sm-9">
+                    <div class="featured-courses tabbed-info page-row">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">推荐</a></li>
+                            <!--<li><a href="#tab2" data-toggle="tab">最热</a></li>-->
+                            <!--<li><a href="#tab3" data-toggle="tab">最新</a></li>-->
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <div class="row">
+                                    <%for(var i=course.length-1;i>=course.length-6;i--){%>
+                                    <div class="item col-md-2 col-sm-4 col-xs-6 block nopop article" blockid="article" article-type="course" articleid="<%=course[i]._id%>" style="height: 117px;">
+                                        <div class="img" field="imgUrl"><img class="img-responsive" data-size="160 * 90" src="<%=course[i].imgUrl||'/index/images/default.jpg'%>"  alt="" /></div>
+                                        <p class="text-center"><a href="/course/<%=course[i]._id%>" field="title"><%=course[i].title%></a></p>
+                                    </div><!--//item-->
+                                    <%}%>
+                                </div><!--//row-->
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <div class="row block">
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-4.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">西班牙语</a></p>
+                                    </div><!--//item-->
+                                    <div class="clearfix visible-xs"></div>
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-2.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">数字营销</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-1.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">会计</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-3.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">数字营销</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-4.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">会计</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-1.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">数字营销</a></p>
+                                    </div><!--//item-->
+                                </div><!--//row-->
+                            </div>
+                            <div class="tab-pane" id="tab3">
+                                <div class="row block">
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-3.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">网页设计</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-2.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">西班牙语</a></p>
+                                    </div><!--//item-->
+                                    <div class="clearfix visible-xs"></div>
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-1.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">数字营销</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-4.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">会计</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-3.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">数字营销</a></p>
+                                    </div><!--//item-->
+                                    <div class="item col-md-2 col-sm-4 col-xs-6">
+                                        <img class="img-responsive" src="/index/images/courses/course-thumb-1.jpg"  alt="" />
+                                        <p class="text-center"><a href="#">数字营销</a></p>
+                                    </div><!--//item-->
+                                </div><!--//row-->
+                            </div>
+                        </div>
+                    </div><!--//featured-courses-->
+                    <!--  <p class="text-muted page-row">Image credit: <a href="http://www.flickr.com/photos/shaneglobal/" target="_blank">Shane Global Language Centres</a>, <a href="http://creativecommons.org/licenses/by/2.0/deed.en" target="_blank">Creative Commons 2.0 license</a></p> -->
+                    <div class="course-list-header box clearfix">
+                        <h3 class="pull-left">全部课程</h3>
+                        <div class="summary pull-left">共<strong> <%=course.length%></strong> 个课程
+                            <!--| <strong>68</strong> online courses-->
+                        </div>
+                        <form class="search-form" role="search">
+                            <div class="form-group pull-left">
+                                <input type="text" class="form-control" placeholder="请输入课程关键字">
+                            </div>
+                            <button type="button" class="btn btn-theme btn-search">Go</button>
+                        </form>
+                        <!--<div class="sort pull-right">                                -->
+                        <!--<label class="control-label pull-left">排序方式: </label>-->
+                        <!--<select class="sort-options form-control pull-left">-->
+                        <!--<option>课程时长</option>-->
+                        <!--<option>课程数</option>-->
+                        <!--<option>难度</option>-->
+                        <!--</select>                                  -->
+                        <!--</div>-->
+                    </div><!--//course-list-header-->
+                    <div class="course-item-header row-divider hidden-sm hidden-xs" >
+                        <div class="row">
+                            <div class="col-title col-md-4 col-sm-6"><strong>课程名称</strong></div>
+                            <div class="col-meta col-md-8 col-sm-6">
+                                <div class="row">
+                                    <div class="col-lecturer col-md-4"><strong>课程讲师</strong></div>
+                                    <div class="col-duration col-md-4"><strong>课程时长</strong></div>
+                                    <div class="col-level col-md-4"><strong>课程级别</strong></div>
+                                </div>
+                            </div><!--//col-meta-->
+                        </div><!---//row-->
+                    </div><!--//course-item-header-->
+
+                    <div class="blocklist course-list">
+                        <%include ./blocks/course-list.ejs%>
+                    </div>
+
+                </div><!--//courses-wrapper-->
+
+            </div><!--//page-row-->
+        </div><!--//page-content-->
+    </div><!--//page-->
+</div><!--//content-->
+<script>
+    $('.search-form .btn-search').click(function() {
+        var q = $('.search-form  input').val()?$('.search-form  input').val():'all';
+        console.log(q);
+        $.get('/course/search/' + q, function (data) {
+            if (data.success == true) {
+
+                Widget.renderFile('index/blocks/course-list.ejs', {course: data.course}, $('.course-list'));
+            }
+        })
+    })
+    $(".search-form input").keydown(function(event){
+        if(event.keyCode==13){
+            event.stopPropagation();
+            event.preventDefault();
+            $('.search-form .btn-search').click();
+        }
+    })
+
+
+
+</script>
+<% include footer.ejs %>

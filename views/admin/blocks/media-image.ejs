@@ -1,0 +1,44 @@
+<%images.forEach(function(e,i){%>
+<div class="media-content-box col-sm-3 col-xs-6 ">
+    <div class="media-box" mtype="image" index="<%=i%>" media_id="<%=e._id%>">
+        <h4 class="media-tit" style="display: none"><%=e.size%></h4>
+        <img src="<%=e.url%>">
+        <ul class="media-ope media-image">
+            <li>
+                <span class="glyphicon glyphicon-zoom-in" data-toggle="modal" data-target=".img-show-box"></span>
+            </li>
+            <!--
+            <li>
+                <span class="glyphicon glyphicon-pencil"></span>
+                <div class="edit bounced-hid">
+                    <i class="glyphicon glyphicon-triangle-top"></i>
+                    <span class="tit">文件重命名</span>
+                    <input type="text">
+                    <span class="btn"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span class="btn"><i class="glyphicon glyphicon-remove bounced-close"></i></span>
+                </div>
+
+            </li>
+            -->
+            <li>
+                <span class="glyphicon glyphicon-trash" ></span>
+                <div class="edit bounced-hid delbox">
+                    <i class="glyphicon glyphicon-triangle-top"></i>
+                    <span class="tit">确定删除文件？</span>
+                    <span class="btn"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span class="btn"><i class="glyphicon glyphicon-remove bounced-close"></i></span>
+                </div>
+            </li>
+            <!--
+            <li>
+                <span class="fa fa-crop"></span>
+
+            </li>
+            -->
+            <li>
+                <a class='download-btn' href="/admin/download/?path=<%=e.url%>" target="_blank"><span class="glyphicon glyphicon-download-alt"></span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<%})%>
